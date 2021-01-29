@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A site to help Massachusetts residents find a vaccine">
+    <meta name="author" content="MA Volunteers">
+    <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
+    <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
+    <meta property="og:image" content="ma_logo.png"/>
+
+    <title>Vaccinate MA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%= static_path + "/bootstrap/css/theme/" + theme + "/bootstrap.css" %>" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="<%= static_path + "/bootstrap/css/jumbotron.css" %>" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header" style="">
+      <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="/">COVID-19 Vaccine Availability</a></li>
+          <li><a href="/search">Search Near Me</a></li>
+          <li class="active"><a href="/eligibility">Eligibility</a></li>
+          <li><a href="/sites">Vaccination Sites</a></li>
+          <li><a href="/FAQ" >Who We Are</a></li>
+        </ul>
+      </div>
+      <div class="nav-mobile"  style="display:none">
+        <ul class="nav nav-pills pull-right" id="navbarNav" style="float:right">
+          <li ><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li class="active"><a href="/eligibility">Elig.</a></li>
+          <li><a href="/sites">Sites</a></li>
+          <li><a href="/FAQ" >FAQ</a></li>
+        </ul>
+      </div>
+      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      </div>
+        
+      </div>
+	  <% if (flask_debug === 'true') { %>
+      <div class="alert alert-danger">
+      	Flask is in debug mode. This is not safe for production.
+      </div>
+      <% } %>
+  
+      <div class="jumbotron">
+        <h2>Eligibility</h2>
+        <p class="lead">Massachusetts is currently in Phase 1 of eligibility. Starting Monday, February 1st, we enter Phase 2. Please check all eligibility requirements below and sign up for your appointment in advance using the link or phone number included in the site location’s details. Vaccination locations are available only to those within active and eligible priority groups as a part of the Massachusetts <a href="https://www.mass.gov/info-details/covid-19-vaccine-distribution-timeline-phase-overview" target="_blank"> vaccine distribution timeline</a>. Individuals must present proof of their eligibility to receive the vaccine. <b>All sites require appointments</b>.</p>
+      </div>
+      <img src="https://www.mass.gov/files/2021-01/COVIDvaccine_Phases-One-and-Two-Timing-by-Group_v01_Social_1920x1080-No-URL.png" class="center">
+
+      <div class="footer">
+        <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
+      </div>
+      
+      
+
+    </div> <!-- /container -->
+
+    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
+    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $("#signup").click(function() {
+        $.post( "/signup", $("#signupForm").serialize(),
+                function(data) {
+                  $("#signupSuccess").show();
+                }
+              )
+              .error(function(xhr) {
+                switch(xhr.status) {
+                  case 409:
+                    $("#signupDuplicate").show();
+                    break;
+                  default:
+                    $("#signupError").show();
+                }
+              })
+              .always(function() {
+                $("#signupModal").modal('hide');
+              });
+      })
+    })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "Elastic-Beanstalk-Sample-App",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "airtable": "^0.10.1",
+    "aws-sdk": "latest",
+    "body-parser": "latest",
+    "ejs": "latest",
+    "express": "latest",
+    "node-js": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}

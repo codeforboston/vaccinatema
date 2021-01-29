@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A site to help Massachusetts residents find a vaccine">
+    <meta name="author" content="MA Volunteers">
+    <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
+    <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
+    <meta property="og:image" content="ma_logo.png"/>
+
+
+    <title>Vaccinate MA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%= static_path + "/bootstrap/css/theme/" + theme + "/bootstrap.css" %>" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="<%= static_path + "/bootstrap/css/jumbotron.css" %>" rel="stylesheet">
+
+  </head>
+
+    <div class="container">
+      
+      <div class="header" style="">
+      <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="/">COVID-19 Vaccine Availability</a></li>
+          <li><a href="/search">Search Near Me</a></li>
+          <li><a href="/eligibility">Eligibility</a></li>
+          <li><a href="/sites">Vaccination Sites</a></li>
+          <li><a href="/FAQ" >Who We Are</a></li>
+        </ul>
+
+      </div>
+      <div class="nav-mobile"  style="display:none">
+        <ul class="nav nav-pills pull-right" id="navbarNav" style="float:right">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/eligibility">Elig.</a></li>
+          <li><a href="/sites">Sites</a></li>
+          <li><a href="/FAQ" >FAQ</a></li>
+        </ul>
+      </div>
+      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      </div>
+        
+      </div>
+	  <% if (flask_debug === 'true') { %>
+      <div class="alert alert-danger">
+      	Flask is in debug mode. This is not safe for production.
+      </div>
+      <% } %>
+      <div id="signupSuccess" class="alert alert-success" style="display:none">
+        <p id="signupSuccessText">Thanks for signing up! You'll be among the first to know when we launch.</p>
+      </div>
+      <div id="signupDuplicate" class="alert alert-success" style="display:none">
+        <p id="signupDuplicateText">Fear not, you're already on the list! You'll be among the first to know when we launch.</p>
+      </div>
+      <div id="signupError" class="alert alert-info" style="display:none">
+        <p id="signupErrorText">Well this is embarrassing. It looks like we're having trouble getting you on the list.</p>
+      </div>
+      <div class="jumbotron">
+        <h2>COVID-19 Vaccine Availability</h2>
+        <p class="lead">For <a href="/eligibility"> eligible individuals </a>, find an appointment from the map below or</p>
+        <div class="btn-group" style="width: 100%; display:flex; align-items: center; justify-content: center;">
+          <a class="btn btn-success"  data-toggle="modal" href="/search" style="justify-content: center;">Find Locations Near You</a>
+        </div>
+        
+      </div>
+      <div id="map"></div>
+      <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
+      <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
+      <p> <b> Yellow star: </b> Local Vaccination Site (open to select cities/towns) </p>
+      <p> Seeking volunteers, reach out to <a href="mailto:vaccinatema@gmail.com"> vaccinatema@gmail.com </a> to help out.
+      <div class="footer">
+        <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
+      </div>
+      
+      <!-- Modal -->
+       <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">Provide a few details and we'll be in touch...</h4>
+             </div>
+             <div class="modal-body">
+               <form id="signupForm" role="form">
+                 <input type="hidden" id="theme" name="theme" value="<%= theme %>"/>
+                 <div class="form-group">
+                   <label for="name">Name</label>
+                   <input type="text" class="form-control" id="name" name="name" placeholder="Your name">
+                 </div>
+                 <div class="form-group">
+                   <label for="email">Email address</label>
+                   <input type="email" class="form-control" id="email" name="email" placeholder="Your email address">
+                 </div>
+                 <div class="form-group">
+                   <label for="previewAccess">Interested in Preview Access?</label>
+                   <select class="form-control" name="previewAccess">
+                     <option>Yes</option>
+                     <option>No</option>
+                   </select>
+                 </div>
+		 </form>
+             </div>
+             <div class="modal-footer">
+               <button id="signup" type="button" class="btn btn-primary">Sign Up!</button>
+             </div>
+           </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+       </div><!-- /.modal -->
+
+    </div> <!-- /container -->
+
+    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
+    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxF3aT2MwmgzcAzFt5PtB-B3UNp4Js2h4&callback=initMap&libraries=&v=weekly"
+      defer></script>
+    <script type="text/javascript">
+    
+    function initMap() {
+        // The location of Uluru
+        const boston = { lat: 42.360081, lng: -71.058884 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 8,
+          center: boston,
+        });
+        // The marker, positioned at Uluru
+        
+
+        $.get('/initmap', function(data) {
+          data.forEach(function(element) {
+            var appointment_text = String(element.fields["Book an appointment"]) 
+                  var booking = appointment_text.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+            });
+            var icon_logo;
+            var scale;
+            if (element.fields['Serves'].trim() === "Eligible populations statewide") {
+              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
+              scale = 5
+            }
+            else {
+              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/4/44/Plain_Yellow_Star.png"
+              scale = 5
+            }
+            if (element.fields['Location Name'].trim() === "Foxborough: Gillette Stadium" || element.fields['Location Name'].trim() === "Boston: Fenway Park" || element.fields['Location Name'].trim() === "Danvers: Doubletree Hotel" || element.fields['Location Name'].trim() === "Springfield: Eastfield Mall") {
+              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg"
+              scale = 5
+            }
+
+            var icon_fixed = {
+              url: icon_logo, // url
+              scaledSize: new google.maps.Size(100/scale, 100/scale), // scaled size
+            };
+            const contentString =
+              '<div id="content">' +
+              '<div id="siteNotice">' +
+              "</div>" +
+              '<h4 id="firstHeading" class="firstHeading">' + element.fields['Location Name'] + '</h4>' +
+              '<div id="bodyContent">' +
+              "<p><b>Details </b>" + element.fields['Serves'] +
+              "<p><b>Address </b>" + element.fields['Full Address'] + 
+              "<p><b>Availability </b>" + element.fields['Availability'] +
+              "<p><b>Book now </b>" + booking +
+              "</div>" +
+              "</div>";
+            const infowindow = new google.maps.InfoWindow({
+              content: contentString,
+            });
+            const location = {
+              lat: parseFloat(element.fields.Latitude), 
+              lng: parseFloat(element.fields.Longitude), 
+              clickable: true,
+              title: element.fields['Location Name'],
+            }
+            const marker = new google.maps.Marker({
+              position: location,
+              map: map,
+              icon: icon_fixed
+            })
+            marker.addListener("click", () => {
+              infowindow.open(map, marker);
+            });
+          })
+        })
+      }
+    // Initialize and add the map
+
+    $(document).ready(function() {
+      $("#signup").click(function() {
+        $.post( "/signup", $("#signupForm").serialize(),
+                function(data) {
+                  $("#signupSuccess").show();
+                }
+              )
+              .error(function(xhr) {
+                switch(xhr.status) {
+                  case 409:
+                    $("#signupDuplicate").show();
+                    break;
+                  default:
+                    $("#signupError").show();
+                }
+              })
+              .always(function() {
+                $("#signupModal").modal('hide');
+              });
+      })
+    })
+    </script>
+    <style type="text/css">
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;
+        /* The height is 400 pixels */
+        width: 100%;
+        /* The width is the width of the web page */
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 2rem;
+}
+
+.center {
+	  display: block;
+	    margin-left: auto;
+	      margin-right: auto;
+	        width: 90%;
+}
+
+.footer {
+	
+}
+
+@media only screen and (max-width: 750px) {
+	  .nav-mobile {
+		      display: block !important;
+	      }
+	      .nav {
+		      display:hidden;
+	      }
+}

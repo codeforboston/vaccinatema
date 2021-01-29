@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A site to help Massachusetts residents find a vaccine">
+    <meta name="author" content="MA Volunteers">
+    <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
+    <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
+    <meta property="og:image" content="ma_logo.png"/>
+
+    <title>Vaccinate MA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%= static_path + "/bootstrap/css/theme/" + theme + "/bootstrap.css" %>" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="<%= static_path + "/bootstrap/css/jumbotron.css" %>" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header" style="">
+      <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="/">COVID-19 Vaccine Availability</a></li>
+          <li class="active"><a href="/search">Search Near Me</a></li>
+          <li><a href="/eligibility">Eligibility</a></li>
+          <li><a href="/sites">Vaccination Sites</a></li>
+          <li><a href="/FAQ" >Who We Are</a></li>
+        </ul>
+      </div>
+      <div class="nav-mobile"  style="display:none">
+        <ul class="nav nav-pills pull-right" id="navbarNav" style="float:right">
+          <li ><a href="/">Home</a></li>
+          <li class="active"><a href="/search">Search</a></li>
+          <li><a href="/eligibility">Elig.</a></li>
+          <li><a href="/sites">Sites</a></li>
+          <li><a href="/FAQ" >FAQ</a></li>
+        </ul>
+      </div>
+      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      </div>
+        
+      </div>
+	  <% if (flask_debug === 'true') { %>
+    <% } %>
+      <div class = "jumbotron">
+        <h2>Search Near Me</h2>
+        <p class="lead">We check the availability of every provider found on the <a href="https://www.mass.gov/info-details/covid-19-vaccine-locations-for-individuals-in-phase-1#find-a-location-to-get-vaccinated-if-eligible-"> state website</a></p>
+
+
+
+        <div class = "container">
+          <div class = "row">
+            <div class="relative max-w-xs">
+              <form id="signupForm" role="form" style="">
+                   <div class="form-group" >
+                     <label for="type">Find </label>
+                     <select class="form-control" name="siteType" id="siteType" >
+                       <option>Sites with reported doses</option>
+                       <option>All known vaccination sites</option>
+                     </select>
+                   </div>
+                   <p> near </p>
+                   <button id="geolocate" type="button" class="btn btn-primary">My Location</button>
+                   <div class="form-group">
+                     <span> or near</span>
+                     <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" patter="[0-9]{5}">
+                   </div>
+              </form>
+              <button id="signup" type="button" class="btn btn-primary">Search By Zip Code</button>
+
+            </div>
+          </div>
+      </div>
+      </div>
+
+      <ul id="sites" class = "list-group">
+        <li class="list-group-item" display="none" id = "firstplace" style="display:none">
+          <div class="">
+          </div>
+          <h4 class="" id = "site_title_1">XXX</h4>
+          <div style="background-color:#f5f5f0">
+          <div class="site_address mb-2 flex flex-row items-center">
+            <svg height="18" viewBox="0 0 21 21" width="18" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+              <g fill="none" fill-rule="evenodd" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                <path d="m6.5 16.5407715c4-4.4500928 6-7.78586659 6-10.00732153 0-3.33218241-2.6862915-6.03344997-6-6.03344997s-6 2.70126756-6 6.03344997c0 2.22145494 2 5.55722873 6 10.00732153z"></path>
+                <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              </g>
+            </svg>
+            <a id = "site_address_1" class="underline" href="https://www.google.com/maps/dir/" target="_blank">xxx</a>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="" id = "latest_report_1">Latest report: 1 day ago</div>
+            
+        <dt class="">Details</dt>
+        <dd class="" id = "details_1">Error</dd>
+
+        <dt class="">Availability</dt>
+        <dd class="" id = "latest_info_1">Error </dd>
+        <dt class="">Book Now</dt>
+        <dd class="" id = "book_1">Error </dd>
+        </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" display="none" style="display:none" id = "secondplace">
+          <div class="">
+          </div>
+          <h4 class="" id = "site_title_2">XXX</h4>
+          <div style="background-color:#f5f5f0">
+          <div class="site_address mb-2 flex flex-row items-center">
+            <svg height="18" viewBox="0 0 21 21" width="18" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+              <g fill="none" fill-rule="evenodd" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                <path d="m6.5 16.5407715c4-4.4500928 6-7.78586659 6-10.00732153 0-3.33218241-2.6862915-6.03344997-6-6.03344997s-6 2.70126756-6 6.03344997c0 2.22145494 2 5.55722873 6 10.00732153z"></path>
+                <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              </g>
+            </svg>
+            <a id = "site_address_2" class="underline" href="https://www.google.com/maps/dir/" target="_blank">xxx</a>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="" id = "latest_report_2">Latest report: 1 day ago</div>
+            
+        <dt class="">Details</dt>
+        <dd class="" id = "details_2">xxx</dd>
+
+        <dt class="">Availability</dt>
+        <dd class="" id = "latest_info_2">xxx </dd>
+        <dt class="">Book Now</dt>
+        <dd class="" id = "book_2">xxx </dd>
+        </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" display="none" style="display:none" id = "thirdplace">
+          <div class="">
+          </div>
+          <h4 class="" id = "site_title_3">XXX</h4>
+          <div style="background-color:#f5f5f0">
+          <div class="site_address mb-2 flex flex-row items-center">
+            <svg height="18" viewBox="0 0 21 21" width="18" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+              <g fill="none" fill-rule="evenodd" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                <path d="m6.5 16.5407715c4-4.4500928 6-7.78586659 6-10.00732153 0-3.33218241-2.6862915-6.03344997-6-6.03344997s-6 2.70126756-6 6.03344997c0 2.22145494 2 5.55722873 6 10.00732153z"></path>
+                <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              </g>
+            </svg>
+            <a id = "site_address_3" class="underline" href="https://www.google.com/maps/dir/" target="_blank">xxx</a>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="" id = "latest_report_3">Latest report: 1 day ago</div>
+            
+        <dt class="">Details</dt>
+        <dd class="" id = "details_3">xxx</dd>
+
+        <dt class="">Availability</dt>
+        <dd class="" id = "latest_info_3">xxx </dd>
+        <dt class="">Book Now</dt>
+        <dd class="" id = "book_3">xxx </dd>
+        </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" display="none" style="display:none" id = "fourthplace">
+          <div class="">
+          </div>
+          <h4 class="" id = "site_title_4">XXX</h4>
+          <div style="background-color:#f5f5f0">
+          <div class="site_address mb-2 flex flex-row items-center">
+            <svg height="18" viewBox="0 0 21 21" width="18" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+              <g fill="none" fill-rule="evenodd" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                <path d="m6.5 16.5407715c4-4.4500928 6-7.78586659 6-10.00732153 0-3.33218241-2.6862915-6.03344997-6-6.03344997s-6 2.70126756-6 6.03344997c0 2.22145494 2 5.55722873 6 10.00732153z"></path>
+                <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              </g>
+            </svg>
+            <a id = "site_address_4" class="underline" href="https://www.google.com/maps/dir/" target="_blank">XXX</a>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="" id = "latest_report_4">Latest report: 1 day ago</div>
+            
+        <dt class="">Details</dt>
+        <dd class="" id = "details_4">XXX</dd>
+
+        <dt class="">Availability</dt>
+        <dd class="" id = "latest_info_4">XXX </dd>
+        <dt class="">Book Now</dt>
+        <dd class="" id = "book_4">XXX. </dd>
+        </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item" display="none" style="display:none" id = "fifthplace">
+          <div class="">
+          </div>
+          <h4 class="" id = "site_title_5">XXX</h4>
+          <div style="background-color:#f5f5f0">
+          <div class="site_address mb-2 flex flex-row items-center">
+            <svg height="18" viewBox="0 0 21 21" width="18" xmlns="http://www.w3.org/2000/svg" class="mr-1">
+              <g fill="none" fill-rule="evenodd" stroke="#6B7280" stroke-linecap="round" stroke-linejoin="round" transform="translate(4 2)">
+                <path d="m6.5 16.5407715c4-4.4500928 6-7.78586659 6-10.00732153 0-3.33218241-2.6862915-6.03344997-6-6.03344997s-6 2.70126756-6 6.03344997c0 2.22145494 2 5.55722873 6 10.00732153z"></path>
+                <circle cx="6.5" cy="6.5" r="2.5"></circle>
+              </g>
+            </svg>
+            <a id = "site_address_5" class="underline" href="https://www.google.com/maps/dir/" target="_blank">XXX</a>
+          </div>
+          <div class="">
+            <div class="">
+              <div class="" id = "latest_report_5">Latest report: 1 day ago</div>
+            
+        <dt class="">Details</dt>
+        <dd class="" id = "details_5">XXX</dd>
+
+        <dt class="">Availability</dt>
+        <dd class="" id = "latest_info_5">XXX </dd>
+        <dt class="">Book Now</dt>
+        <dd class="" id = "book_5">XXX. </dd>
+        </div>
+            </div>
+          </div>
+        </li>
+      </ul> 
+
+      <div class="footer">
+        <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
+      </div>
+      
+      <!-- Modal -->
+       <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+         <div class="modal-dialog">
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title">Provide a few details and we'll be in touch...</h4>
+             </div>
+             <div class="modal-body">
+               <form id="signupForm" role="form">
+                 <input type="hidden" id="theme" name="theme" value="<%= theme %>"/>
+                 <div class="form-group">
+                   <label for="name">Name</label>
+                   <input type="text" class="form-control" id="name" name="name" placeholder="Your name">
+                 </div>
+                 <div class="form-group">
+                   <label for="email">Email address</label>
+                   <input type="email" class="form-control" id="email" name="email" placeholder="Your email address">
+                 </div>
+                 <div class="form-group">
+                   <label for="previewAccess">Interested in Preview Access?</label>
+                   <select class="form-control" name="previewAccess">
+                     <option>Yes</option>
+                     <option>No</option>
+                   </select>
+                 </div>
+		 </form>
+             </div>
+             <div class="modal-footer">
+               <button id="signup" type="button" class="btn btn-primary">Sign Up!</button>
+             </div>
+           </div><!-- /.modal-content -->
+         </div><!-- /.modal-dialog -->
+       </div><!-- /.modal -->
+
+    </div> <!-- /container -->
+
+    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
+    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script language="javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDxF3aT2MwmgzcAzFt5PtB-B3UNp4Js2h4"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      function timeConverter(string){
+        var dates = string.split('-');
+        var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+        var month = months[parseInt(dates[1]) - 1];
+        var date = dates[2].substring(0,2);
+        var time = 'Latest report: ' + month + ' ' + date;
+        return time;
+      }
+      $("#signup").click(function() {
+        console.log($("#zipCode").val());
+        function getLatLngByZipcode(zipcode, myCallback) 
+        {
+            var geocoder = new google.maps.Geocoder();
+            var address = zipcode;
+            geocoder.geocode({ 'address': 'zipcode '+address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    myCallback(latitude, longitude)
+                } else {
+                    return [];
+                }
+            });
+        }
+        function postLocation(latitude, longitude)
+        {
+          $.post( "/search_query_location", {"latitude" : latitude, "longitude": longitude, "availability": $('#siteType').val()},
+                        function(data) {
+                          first_location = data[0]
+
+                  var appointment_text = String(first_location.fields["Book an appointment"]) 
+                  var booking = appointment_text.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+                  console.log("this is executing");
+                  $('#firstplace').show();
+                  $('ul#' + "sites")[0].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+                  $("#site_title_1").text(first_location.fields["Location Name"]);
+                  $("#site_address_1").text(first_location.fields["Full Address"]);
+                  $("#site_address_1").attr("href", "https://maps.google.com/?q=" + first_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_1");
+                  $("#details_1").text(first_location.fields["Serves"]);
+                  $("#book_1").html(booking);
+                  $("#latest_info_1").text(first_location.fields["Availability"]);
+                  $("#latest_report_1").text(timeConverter(String(first_location.fields["Last Updated"])));
+
+                  second_location = data[1]
+                  var appointment_text_2 = String(second_location.fields["Book an appointment"]) 
+                  var booking_2 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#secondplace').show();
+                  $("#site_title_2").text(second_location.fields["Location Name"]);
+                  $("#site_address_2").text(second_location.fields["Full Address"]);
+                  $("#site_address_2").attr("href", "https://maps.google.com/?q=" + second_location.fields["Full Address"].replace(" ","+"));  
+                  $("#latest_report_2");
+                  $("#details_2").text(second_location.fields["Serves"]);
+                  $("#book_2").html(booking_2);
+                  $("#latest_info_2").text(second_location.fields["Availability"]);
+                  $("#latest_report_2").text(timeConverter(String(second_location.fields["Last Updated"])));
+                
+                third_location = data[2]
+                  var appointment_text_3 = String(third_location.fields["Book an appointment"]) 
+                  var booking_3 = appointment_text_3.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#thirdplace').show();
+                  $("#site_title_3").text(third_location.fields["Location Name"]);
+                  $("#site_address_3").text(third_location.fields["Full Address"]);
+                  $("#site_address_3").attr("href", "https://maps.google.com/?q=" + third_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_3");
+                  $("#details_3").text(third_location.fields["Serves"]);
+                  $("#book_3").html(booking_3);
+                  $("#latest_info_3").text(third_location.fields["Availability"]);
+                  $("#latest_report_3").text(timeConverter(String(third_location.fields["Last Updated"])));
+                        
+                  fourth_location = data[3]
+                  var appointment_text_4 = String(fourth_location.fields["Book an appointment"]) 
+                  var booking_4 = appointment_text_4.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#fourthplace').show();
+                  $("#site_title_4").text(fourth_location.fields["Location Name"]);
+                  $("#site_address_4").text(fourth_location.fields["Full Address"]);
+                  $("#site_address_4").attr("href", "https://maps.google.com/?q=" + fourth_location.fields["Full Address"].replace(" ","+"));
+                  $("#latest_report_4");
+                  $("#details_4").text(fourth_location.fields["Serves"]);
+                  $("#book_4").html(booking_4);
+                  $("#latest_info_4").text(fourth_location.fields["Availability"]);
+                  $("#latest_report_4").text(timeConverter(String(fourth_location.fields["Last Updated"])));
+
+                  fifth_location = data[4]
+                  var appointment_text_5 = String(fifth_location.fields["Book an appointment"]) 
+                  var booking_5 = appointment_text_5.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#fifthplace').show();
+                  $("#site_title_5").text(fifth_location.fields["Location Name"]);
+                  $("#site_address_5").text(fifth_location.fields["Full Address"]);
+                  $("#site_address_5").attr("href", "https://maps.google.com/?q=" + fifth_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_5");
+                  $("#details_5").text(fifth_location.fields["Serves"]);
+                  $("#book_5").html(booking_5);
+                  $("#latest_info_5").text(fifth_location.fields["Availability"]);
+                  $("#latest_report_5").text(timeConverter(String(fifth_location.fields["Last Updated"])));
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+          )            
+        }
+        getLatLngByZipcode($("#zipCode").val(),postLocation);
+        
+      });
+      $("#geolocate").click(function() {
+        function success(pos) {
+          var crd = pos.coords;
+          crd.availability = $('#siteType').val();
+          $.post( "/search_query_location", crd).done(function(data) {
+                  first_location = data[0]
+
+                  var appointment_text = String(first_location.fields["Book an appointment"]) 
+                  var booking = appointment_text.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#firstplace').show();
+                  $('ul#' + "sites")[0].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+                  $("#site_title_1").text(first_location.fields["Location Name"]);
+                  $("#site_address_1").text(first_location.fields["Full Address"]);
+                  $("#site_address_1").attr("href", "https://maps.google.com/?q=" + first_location.fields["Full Address"].replace(" ","+"));
+                  $("#latest_report_1");
+                  $("#details_1").text(first_location.fields["Serves"]);
+                  $("#book_1").html(booking);
+                  $("#latest_info_1").text(first_location.fields["Availability"]);
+                  console.log(String(first_location.fields["Last Updated"]));
+                  $("#latest_report_1").text(timeConverter(String(first_location.fields["Last Updated"])));
+
+                  second_location = data[1]
+                  var appointment_text_2 = String(second_location.fields["Book an appointment"]) 
+                  var booking_2 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#secondplace').show();
+                  $("#site_title_2").text(second_location.fields["Location Name"]);
+                  $("#site_address_2").text(second_location.fields["Full Address"]);
+                  $("#site_address_2").attr("href", "https://maps.google.com/?q=" + second_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_2");
+                  $("#details_2").text(second_location.fields["Serves"]);
+                  $("#book_2").html(booking_2);
+                  $("#latest_info_2").text(second_location.fields["Availability"]);
+                  $("#latest_report_2").text(timeConverter(String(second_location.fields["Last Updated"])));
+
+                  third_location = data[2]
+                  var appointment_text_2 = String(third_location.fields["Book an appointment"]) 
+                  var booking_3 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#thirdplace').show();
+                  $("#site_title_3").text(third_location.fields["Location Name"]);
+                  $("#site_address_3").text(third_location.fields["Full Address"]);
+                  $("#site_address_3").attr("href", "https://maps.google.com/?q=" + third_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_3");
+                  $("#details_3").text(third_location.fields["Serves"]);
+                  $("#book_3").html(booking_3);
+                  $("#latest_info_3").text(third_location.fields["Availability"]);
+                  $("#latest_report_3").text(timeConverter(String(third_location.fields["Last Updated"])));
+
+                  fourth_location = data[3]
+                  var appointment_text_4 = String(fourth_location.fields["Book an appointment"]) 
+                  var booking_4 = appointment_text_4.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#fourthplace').show();
+                  $("#site_title_4").text(fourth_location.fields["Location Name"]);
+                  $("#site_address_4").text(fourth_location.fields["Full Address"]);
+                  $("#site_address_4").attr("href", "https://maps.google.com/?q=" + fourth_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_4");
+                  $("#details_4").text(fourth_location.fields["Serves"]);
+                  $("#book_4").html(booking_4);
+                  $("#latest_info_4").text(fourth_location.fields["Availability"]);
+                  $("#latest_report_4").text(timeConverter(String(fourth_location.fields["Last Updated"])));
+
+                  fifth_location = data[4]
+                  var appointment_text_5 = String(fifth_location.fields["Book an appointment"]) 
+                  var booking_5 = appointment_text_5.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
+                    return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+                  });
+
+                  $('#fifthplace').show();
+                  $("#site_title_5").text(fifth_location.fields["Location Name"]);
+                  $("#site_address_5").text(fifth_location.fields["Full Address"]);
+                  $("#site_address_5").attr("href", "https://maps.google.com/?q=" + fifth_location.fields["Full Address"].replace(" ","+")); 
+                  $("#latest_report_5");
+                  $("#details_5").text(fifth_location.fields["Serves"]);
+                  $("#book_5").html(booking_5);
+                  $("#latest_info_5").text(fifth_location.fields["Availability"]);
+                  $("#latest_report_5").text(timeConverter(String(fifth_location.fields["Last Updated"])));
+
+
+                }
+              )
+              .error(function(xhr) {
+                console.log("err");
+              })     
+        }
+        if (window.navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(success,console.log);            
+        }
+      });
+    })
+    </script>
+  </body>
+</html>

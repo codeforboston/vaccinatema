@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A site to help Massachusetts residents find a vaccine">
+    <meta name="author" content="MA Volunteers">
+    <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
+    <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
+    <meta property="og:image" content="ma_logo.png"/>
+
+    <title>Vaccinate MA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="<%= static_path + "/bootstrap/css/theme/" + theme + "/bootstrap.css" %>" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="<%= static_path + "/bootstrap/css/jumbotron.css" %>" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header" style="">
+      <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="/">COVID-19 Vaccine Availability</a></li>
+          <li><a href="/search">Search Near Me</a></li>
+          <li><a href="/eligibility">Eligibility</a></li>
+          <li><a href="/sites">Vaccination Sites</a></li>
+          <li class="active"><a href="/FAQ" >Who We Are</a></li>
+        </ul>
+      </div>
+      <div class="nav-mobile"  style="display:none">
+        <ul class="nav nav-pills pull-right" id="navbarNav" style="float:right">
+          <li ><a href="/">Home</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/eligibility">Elig.</a></li>
+          <li><a href="/sites">Sites</a></li>
+          <li class="active"><a href="/FAQ" >FAQ</a></li>
+        </ul>
+      </div>
+      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      </div>
+        
+      </div>
+	  <% if (flask_debug === 'true') { %>
+      <div class="alert alert-danger">
+      	Flask is in debug mode. This is not safe for production.
+      </div>
+      <% } %>
+  
+      <div class="jumbotron">
+        <h2>FAQ</h2>
+      <p>We are a group of volunteers including who want to help Massachusetts residents get vaccinated.</p>
+
+      </div>
+      <h3>Why are you doing this? Isn’t there a state site?</h3>
+      Massachusetts is ~40th out of 50 states in percentage of doses administered, <a href="https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html" target="_blank"> according to the CDC. </a> The <a href="https://www.mass.gov/info-details/covid-19-vaccine-locations-for-individuals-in-phase-1#find-a-location-to-get-vaccinated-if-eligible-" target="_blank"> existing site </a> requires multiple click-throughs to find availability and doesn't allow easy nagivation via Google Maps. We want to make this process easier
+
+      <h3>What if I want to help?</h3>
+      Shoot us an email at <a href="mailto:vaccinatema@gmail.com" target="_blank"> vaccinatema@gmail.com </a>
+      <h3>What if I’m a reporter and I want to contact you?</h3>
+      Shoot us an email at <a href="mailto:vaccinatema@gmail.com" target="_blank"> vaccinatema@gmail.com </a>
+      <h3>Who are you?</h3>
+      We are a group of volunteers including Zane Stiles, Kunal Shah, and many other engaged citizens.
+      <br> <br>
+      Inspired by <a href="https://vaccinateca.com" target="_blank"> vaccinateca.com </a> and Tyler Cowen of <a href="https://marginalrevolution.com" target="_blank"> Marginal Revolution </a>.  
+      <br>
+      <div class="footer">
+        <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
+      </div>
+      
+      
+
+    </div> <!-- /container -->
+
+    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
+    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $("#signup").click(function() {
+        $.post( "/signup", $("#signupForm").serialize(),
+                function(data) {
+                  $("#signupSuccess").show();
+                }
+              )
+              .error(function(xhr) {
+                switch(xhr.status) {
+                  case 409:
+                    $("#signupDuplicate").show();
+                    break;
+                  default:
+                    $("#signupError").show();
+                }
+              })
+              .always(function() {
+                $("#signupModal").modal('hide');
+              });
+      })
+    })
+    </script>
+  </body>
+</html>
