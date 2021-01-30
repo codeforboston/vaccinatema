@@ -1,4 +1,7 @@
 To launch node server / website:
 cd node-directory
-node app.js
+
+npm install
+npm start
+
 go to localhost:3002
