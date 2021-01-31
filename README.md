@@ -16,3 +16,7 @@ npm install
 npm start
 open http://127.0.0.1:3002/
 ```
+
+## Deployment
+The `main` branch is automatically deployed to Code for Boston's AWS Elastic Beanstalk instance using GitHub actions.
+Make sure to tag your commit to `main` or the deployment will fail.
