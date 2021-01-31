@@ -6,6 +6,7 @@
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
+    "dotenv": "^8.2.0",
     "ejs": "latest",
     "express": "latest",
     "node-js": "^1.0.0"
