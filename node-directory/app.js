@@ -1,6 +1,7 @@
 // Include the cluster module
 var cluster = require('cluster');
 var fs = require('fs');
+require('dotenv').config()
 // Code to run if we're in the master process
 if (cluster.isMaster) {
 
@@ -24,7 +25,7 @@ if (cluster.isMaster) {
 // Code to run if we're in a worker process
 } else {
     var Airtable = require('airtable');
-    var base = new Airtable({apiKey: '***REMOVED***'}).base('applrO42eyJ3rUQyb');
+    var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
     var sites = []
     var sites_latitude = []
     var sites_longitude = []
