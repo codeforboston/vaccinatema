@@ -37,7 +37,6 @@ if (cluster.isMaster) {
         available = []
         base('MaVaccSites_Today').select({
             // Selecting the first 3 records in Grid view:
-            maxRecords: 120,
             view: "Default all site view"
         }).eachPage(function page(records, fetchNextPage) {
             // This function (`page`) will get called for each page of records.
