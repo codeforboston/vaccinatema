@@ -1,6 +1,6 @@
 # Vaccinate MA
 
-This is the application deployed to AWS Elastic Beanstalk for https://www.vaccinatema.org/. It is written in express.js and JavaScript.
+This is the application deployed to AWS Elastic Beanstalk for https://www.vaccinatema.com. It is written in express.js and JavaScript.
 
 ## Setup
 Get the AirTable API key from a team member and add it to your `.env` file.
