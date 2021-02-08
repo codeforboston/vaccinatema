@@ -82,6 +82,7 @@
       <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
       <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
       <p> <b> Yellow star: </b> Local Vaccination Site (open to select cities/towns) </p>
+      <p> <b> Gray dot: </b> No availability currently </p>
       <p> Seeking volunteers, reach out to <a href="mailto:vaccinatema@gmail.com"> vaccinatema@gmail.com </a> to help out.
       <div class="footer">
         <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
@@ -150,7 +151,11 @@
             });
             var icon_logo;
             var scale;
-            if (element.fields['Serves'].trim() === "Eligible populations statewide") {
+            if (element.fields['Availability'].trim() === 'None') {
+              icon_logo = "https://i.stack.imgur.com/LrMoi.png"
+              scale = 10
+            }
+            else if (element.fields['Serves'].trim() === "Eligible populations statewide") {
               icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
               scale = 5
             }
