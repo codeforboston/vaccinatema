@@ -1,0 +1,81 @@
+var api_key = "XXX"; //ADD YOUR API KEY FROM AIRTABLE HERE
+var baseID = "applrO42eyJ3rUQyb"; //ADD YOUR BASE ID HERE
+var tableName = "MaVaccSites_Today";
+var viewID = "Default all site view";
+var all_records = [];
+
+function pasteDataToSheet(airtableData){
+  console.log(airtableData.length);
+  //select the sheet we want to update, or create it if it doesn't exist yet
+  var ss = SpreadsheetApp.openById("1VKnqOi71ndYf-Ld1kqcUwmVTeFmoXl3mfQwW0bhsPlY");
+  var sheet = ss.getSheetByName("Form Options");
+  
+  
+  //add Airtable record IDs to the second column of each row
+  for (var i = 0; i<airtableData.length; i++){
+    sheet.getRange(i+2,2).setValue(airtableData[i].id);
+  }
+  
+  //add Airtable Site Names to the first column of each row
+  for (var i = 0; i<airtableData.length; i++){
+    var record = airtableData[i];
+    sheet.getRange(i+2,1).setValue(record.fields['Location Name']);
+  }
+  
+}
+
+
+
+
+function fetchDataFromAirtable() {
+  
+  // Initialize the offset.
+  var offset = 0;
+
+  // Initialize the result set.		
+  var records = [];
+
+  // Make calls to Airtable, until all of the data has been retrieved...
+  while (offset !== null){	
+
+    // Specify the URL to call.
+    var url = [
+      "https://api.airtable.com/v0/", 
+      baseID, 
+      "/",
+      encodeURIComponent(tableName),
+      "?",
+      "api_key=", 
+      api_key,
+      "&view=",
+      viewID,
+      "&offset=",
+      offset
+      ].join('');
+    var options =
+        {
+          "method"  : "GET"
+        };
+    
+    console.log(url);
+    //call the URL and add results to to our result set
+    response = JSON.parse(UrlFetchApp.fetch(url,options));
+    records.push.apply(records, response.records);
+    
+    //wait for a bit so we don't get rate limited by Airtable
+    Utilities.sleep(201);
+
+    // Adjust the offset.
+	// Airtable returns NULL when the final batch of records has been returned.
+    if (response.offset){
+      offset = response.offset;
+    } else {
+      offset = null;
+    }
+      
+  }
+  pasteDataToSheet(records);
+  updateForm();
+  
+  return records;
+}

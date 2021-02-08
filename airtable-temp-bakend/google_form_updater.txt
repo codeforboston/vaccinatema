@@ -1,0 +1,28 @@
+var studentNames = [];
+function updateForm(){
+  // call your form and connect to the drop-down item
+  var form = FormApp.openById("1AC0R-6yVTL4pCLaPGF0UZd6ZWTL-bfv9IfgyOw3dJXc");
+  
+  var namesList = form.getItemById("1565142411").asListItem();
+
+// identify the sheet where the data resides needed to populate the drop-down
+  var ss = SpreadsheetApp.openById("1VKnqOi71ndYf-Ld1kqcUwmVTeFmoXl3mfQwW0bhsPlY");
+  var names = ss.getSheetByName("Form Options");
+
+  // grab the values in the first column of the sheet - use 2 to skip header row
+  var namesValues = names.getRange(2, 1, names.getMaxRows() - 1).getValues();
+  console.log(namesValues.length)
+  console.log(namesValues[0][0])
+  console.log(studentNames[0]);
+
+
+  // convert the array ignoring empty cells
+  for(var i = 0; i < namesValues.length; i++)   
+    if(!(namesValues[i][0] === ""))
+      studentNames.push(namesValues[i][0]);
+  // populate the drop-down with the array data
+  namesList.setChoiceValues(studentNames);
+ 
+}
+
+
