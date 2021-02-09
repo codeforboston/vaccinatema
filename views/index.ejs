@@ -81,7 +81,7 @@
       <div id="map"></div>
       <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
       <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
-      <p> <b> Yellow star: </b> Local Vaccination Site (open to select cities/towns) </p>
+      <p> <b> Blue star: </b> Local Vaccination Site (open to select cities/towns) </p>
       <p> <b> Gray dot: </b> No availability currently </p>
       <p> Seeking volunteers, reach out to <a href="mailto:vaccinatema@gmail.com"> vaccinatema@gmail.com </a> to help out.
       <div class="footer">
@@ -160,7 +160,7 @@
               scale = 5
             }
             else {
-              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/4/44/Plain_Yellow_Star.png"
+              icon_logo = "<%= static_path + "/200px-Blue_Star.png" %>"
               scale = 5
             }
             if (element.fields['Location Name'].trim() === "Foxborough: Gillette Stadium" || element.fields['Location Name'].trim() === "Boston: Fenway Park" || element.fields['Location Name'].trim() === "Danvers: Doubletree Hotel" || element.fields['Location Name'].trim() === "Springfield: Eastfield Mall") {
