@@ -83,6 +83,11 @@ if (cluster.isMaster) {
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
 
+    app.use('/robots.txt', function (req, res, next) {
+        res.type('text/plain')
+        res.send("User-agent: *\nDisallow: /");
+    });
+
     app.get('/', function(req, res) {
         res.render('index', {
             static_path: '',
