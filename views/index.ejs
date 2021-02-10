@@ -32,7 +32,7 @@
 
     <div class="container">
       
-      <div class="header" style="">
+      <div class="header">
       <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
         <ul class="nav nav-pills pull-right">
           <li class="active"><a href="/">COVID-19 Vaccine Availability</a></li>
@@ -52,7 +52,7 @@
           <li><a href="/FAQ" >FAQ</a></li>
         </ul>
       </div>
-      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      <div>  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
       </div>
         
       </div>
@@ -141,8 +141,8 @@
           center: boston,
         });
         // The marker, positioned at Uluru
-        
 
+        // Initialize and add the map
         $.get('/initmap', function(data) {
           data.forEach(function(element) {
             var appointment_text = String(element.fields["Book an appointment"]) 
@@ -204,7 +204,6 @@
           })
         })
       }
-    // Initialize and add the map
 
     $(document).ready(function() {
       $("#signup").click(function() {
