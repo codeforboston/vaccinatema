@@ -49,3 +49,6 @@ Thumbs.db
 *.wmv
 
 .elasticbeanstalk/*
+
+# Local environment
+.env
