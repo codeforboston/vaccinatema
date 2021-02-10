@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: process.env.DB_CRED_USER,
-  host: 'ziggy.db.elephantsql.com',
+  host: process.env.DB_HOST,
   database: process.env.DB_CRED_USER,
   password: process.env.DB_CRED_PW,
   port: 5432,
@@ -10,7 +10,7 @@ const pool = new Pool({
 /**
 * Fetch all locations
 **/
-const getAllLocations = async (sortField, sortOrder) => {
+const getAllLocations = async () => {
   try {
     const { error, rows } = await pool.query('SELECT * FROM locations l ORDER BY name DESC');
     return rows;

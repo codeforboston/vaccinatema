@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 
 router.get('/', async function(req, res) {
     try {  
-        let locations = await locationsDb.getAllLocations("name", "DESC");
+        let locations = await locationsDb.getAllLocations();
         res.json(locations);
     } catch (error) {
         res.status(500).send(error);
