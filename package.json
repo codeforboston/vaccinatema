@@ -9,7 +9,8 @@
     "dotenv": "^8.2.0",
     "ejs": "latest",
     "express": "latest",
-    "node-js": "^1.0.0"
+    "express-validator": "^6.9.2",
+    "pg": "^8.5.1"
   },
   "scripts": {
     "start": "node app.js"
