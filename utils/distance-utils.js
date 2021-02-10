@@ -27,27 +27,16 @@ function calculateDistance(record, pos_lat, pos_long) {
  * Returns a list of the n closest locations to the given latitude and longitude.
  */
 function getClosestLocations(locations, n, latitude, longitude) {
-    var locationsWithDistances = [];
-    for (var i = 0; i < locations.length; i++) {
-        locationsWithDistances[i] = {
-            location: locations[i],
-            distance: calculateDistance(
-                locations[i],
-                latitude,
-                longitude
-            ),
-        };
-    }
+    var locationsWithDistances = locations.map(location => ({
+        location: location,
+        distance: calculateDistance(location, latitude, longitude),
+    }));
 
-    locationsWithDistances.sort(function (a, b) {
-        return a.distance - b.distance;
-    });
+    locationsWithDistances.sort((a, b) => (a.distance - b.distance));
 
     return locationsWithDistances
         .slice(0, n)
-        .map(function (locationWithDistance) {
-            return locationWithDistance.location;
-        });
+        .map((locationWithDistance) => locationWithDistance.location);
 }
 
 module.exports = {
