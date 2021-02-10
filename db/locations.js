@@ -8,11 +8,45 @@ const pool = new Pool({
 });
 
 /**
+ * convert a number of miles to meters
+ * @param {*} numMiles 
+ */
+function getMeters(numMiles) {
+  return numMiles * 1609.344;
+}
+
+/**
 * Fetch all locations
 **/
 const getAllLocations = async () => {
   try {
     const { error, rows } = await pool.query('SELECT * FROM locations l ORDER BY name DESC');
+    return rows;
+  } catch (error) {
+    console.error("an error occurred fetching locations ", error);
+    throw new Error("an unexpected error occurred reading from locations DB");
+  }
+}
+
+/**
+ * Find all locations close to the lat/long of a given destination within 
+ * a defined rangeInMiles
+ * @param {*} homeLat 
+ * @param {*} homeLong 
+ * @param {*} rangeInMiles 
+ */
+const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
+  try {
+    // query units require meters, so convert the miles to meters before querying
+    const rangeInMeters = getMeters(rangeInMiles);
+
+    console.log(`LOCATION LOOKUP BASED ON GEO: ${homeLat} ${homeLong} RangeInMeters: ${rangeInMeters}`)
+    const { error, rows, query } = await pool.query(
+      'SELECT *, ' +
+              'ROUND(earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) :: NUMERIC, 2) AS distanceMeters ' +
+      ' FROM locations ' +
+      ' WHERE earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) <= $3 ' +
+      ' ORDER BY distanceMeters DESC ', [homeLat, homeLong, rangeInMeters]);
     return rows;
   } catch (error) {
     console.error("an error occurred fetching locations ", error);
@@ -41,5 +75,6 @@ const createLocation = async (newLocation) => {
 
 module.exports = {
   getAllLocations,
+  getLocationsCloseToGeo,
   createLocation
 }

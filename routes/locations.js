@@ -1,13 +1,34 @@
 const router = require('express').Router();
 const locationsDb = require('../db/locations');
 
-const { body, validationResult } = require('express-validator');
+const defaultRangeInMiles = 10;
 
-router.get('/', async function(req, res) {
+const { body, query, validationResult } = require('express-validator');
+
+router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
+                query('longitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
+                query('rangeMiles').optional().isNumeric().withMessage('Only numbers allowed for rangeMiles')], async function(req, res) {
     try {  
-        let locations = await locationsDb.getAllLocations();
-        res.json(locations);
+        // Finds the validation errors in this request and wraps them in an object 
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const homeLatitude = req.query.latitude;
+        const homeLongitude = req.query.longitude;
+        const homeRangeInMiles = req.query.rangeMiles;
+        if (homeLatitude && homeLongitude)
+        {   
+            const range = homeRangeInMiles ? homeRangeInMiles : defaultRangeInMiles;
+            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, range);
+            res.json(locations);
+        } else{
+            let locations = await locationsDb.getAllLocations();
+            res.json(locations);
+        }
     } catch (error) {
+        console.log(`ERROR OCCURRED LOOKING UP LOCATIONS! ${error}`)
         res.status(500).send(error);
     }
 });
