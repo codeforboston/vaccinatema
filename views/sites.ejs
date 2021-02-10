@@ -32,7 +32,7 @@
   <body>
 
     <div class="container">
-      <div class="header" style="">
+      <div class="header">
       <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
         <ul class="nav nav-pills pull-right">
           <li ><a href="/">COVID-19 Vaccine Availability</a></li>
@@ -51,7 +51,7 @@
           <li><a href="/FAQ" >FAQ</a></li>
         </ul>
       </div>
-      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      <div>  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
       </div>
         
       </div>
@@ -72,35 +72,7 @@
       <div class="footer">
         <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
       </div>
-      
-      
 
     </div> <!-- /container -->
-
-    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
-    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-      $("#signup").click(function() {
-        $.post( "/signup", $("#signupForm").serialize(),
-                function(data) {
-                  $("#signupSuccess").show();
-                }
-              )
-              .error(function(xhr) {
-                switch(xhr.status) {
-                  case 409:
-                    $("#signupDuplicate").show();
-                    break;
-                  default:
-                    $("#signupError").show();
-                }
-              })
-              .always(function() {
-                $("#signupModal").modal('hide');
-              });
-      })
-    })
-    </script>
   </body>
 </html>
