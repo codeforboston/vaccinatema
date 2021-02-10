@@ -182,16 +182,12 @@ if (cluster.isMaster) {
             locations = sites;
         }
 
-        var distanceArray = [];
-        for (var i = 0; i < locations.length; i++) {
-            distanceArray[i] = distanceUtils.calculateDistance(
-                locations[i],
-                req.body.latitude,
-                req.body.longitude
-            );
-        }
-
-        var closest = distanceUtils.getClosestLocations(locations, distanceArray, 5);
+        var closest = distanceUtils.getClosestLocations(
+            locations,
+            5,
+            req.body.latitude,
+            req.body.longitude
+        );
         res.send(closest);
     });
 

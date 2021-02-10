@@ -24,24 +24,30 @@ function calculateDistance(record, pos_lat, pos_long) {
 }
 
 /**
- * Returns a list of the n closest locations.
+ * Returns a list of the n closest locations to the given latitude and longitude.
  */
-function getClosestLocations(locations, distances, n) {
-    var outp = [];
-    for (var i = 0; i < distances.length; i++) {
-        outp.push(i); // add index to output array
-        if (outp.length > n) {
-            outp.sort(function (a, b) {
-                return distances[a] - distances[b];
-            }); // descending sort the output array
-            outp.pop(); // remove the last index (index of farthest element in output array)
-        }
+function getClosestLocations(locations, n, latitude, longitude) {
+    var locationsWithDistances = [];
+    for (var i = 0; i < locations.length; i++) {
+        locationsWithDistances[i] = {
+            location: locations[i],
+            distance: calculateDistance(
+                locations[i],
+                latitude,
+                longitude
+            ),
+        };
     }
-    var closest = [];
-    outp.forEach(function (element) {
-        closest.push(locations[element]);
+
+    locationsWithDistances.sort(function (a, b) {
+        return a.distance - b.distance;
     });
-    return closest;
+
+    return locationsWithDistances
+        .slice(0, n)
+        .map(function (locationWithDistance) {
+            return locationWithDistance.location;
+        });
 }
 
 module.exports = {
