@@ -75,11 +75,6 @@ if (cluster.isMaster) {
 
     AWS.config.region = process.env.REGION
 
-    var sns = new AWS.SNS();
-    var ddb = new AWS.DynamoDB();
-
-    var ddbTable =  process.env.STARTUP_SIGNUP_TABLE;
-    var snsTopic =  process.env.NEW_SIGNUP_TOPIC;
     var app = express();
 
     app.set('view engine', 'ejs');
@@ -131,48 +126,6 @@ if (cluster.isMaster) {
     });
 
     app.use(express.static('static'));
-
-    app.post('/search_query', function(req, res) {
-        console.log(req.body);
-        var item = {
-            'zip-code': {'S': req.body.zipCode},
-            'site-type': {'S': req.body.siteType},
-        };
-
-        
-        console.log(req.body.zipCode);
-        ddb.putItem({
-            'TableName': ddbTable,
-            'Item': item,
-            'Expected': { email: { Exists: false } }        
-        }, function(err, data) {
-            if (err) {
-                var returnStatus = 500;
-
-                if (err.code === 'ConditionalCheckFailedException') {
-                    returnStatus = 409;
-                }
-
-                res.status(returnStatus).end();
-                console.log('DDB Error: ' + err);
-            } else {
-                sns.publish({
-                    'Message': 'Name: ' + req.body.name + "\r\nEmail: " + req.body.email 
-                                        + "\r\nPreviewAccess: " + req.body.previewAccess 
-                                        + "\r\nTheme: " + req.body.theme,
-                    'Subject': 'New user sign up!!!',
-                    'TopicArn': snsTopic
-                }, function(err, data) {
-                    if (err) {
-                        res.status(500).end();
-                        console.log('SNS Error: ' + err);
-                    } else {
-                        res.status(201).end();
-                    }
-                });            
-            }
-        });
-    });
 
     app.post('/search_query_location', function (req, res) {
         var locations = [];
