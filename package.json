@@ -6,12 +6,19 @@
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "latest",
     "express": "latest",
-    "node-js": "^1.0.0"
+    "next": "latest",
+    "node-js": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "sass": "^1.32.7"
   },
   "scripts": {
-    "start": "node app.js"
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "cross-env NODE_ENV=production node server.js"
   }
 }
