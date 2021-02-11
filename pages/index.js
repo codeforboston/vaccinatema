@@ -1,5 +1,3 @@
-// TODO: Move this to index.js when react migration is complete
-
 import Layout from "../components/Layout"
 
 const Home = () => (

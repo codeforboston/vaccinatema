@@ -21,7 +21,7 @@ function saveState() {
                 available_longitude.push(record.get('Longitude'));
                 available_latitude.push(record.get('Latitude'));
             }
-            
+
         });
 
         // To fetch the next page of records, call `fetchNextPage`.
@@ -31,7 +31,7 @@ function saveState() {
 
     }, function done(err) {
         if (err) { console.error(err); return; }
-    });        
+    });
     setTimeout(saveState, 60000);
 }
 
@@ -141,11 +141,23 @@ if (cluster.isMaster) {
             res.send(sites);
         });
 
-        // TODO(hannah): This page is just to prove to us that React is working
-        // as expected. Once we've migrated over, remove it!
+        // NOTE: These routes are for the development of the new react front end
+        // It will be moved off of dev to the root when complete
         server.get('/dev', (req, res) => {
             return app.render(req, res, '/dev', req.query);
-        })
+        });
+
+        server.get('/dev/eligibility', (req, res) => {
+            return app.render(req, res, '/dev/eligibility', req.query);
+        });
+
+        server.get('/dev/sites', (req, res) => {
+            return app.render(req, res, '/dev/sites', req.query);
+        });
+
+        server.get('/dev/FAQ', (req, res) => {
+            return app.render(req, res, '/dev/FAQ', req.query);
+        });
 
         server.use(express.static('static'));
 
@@ -158,10 +170,10 @@ if (cluster.isMaster) {
             }
 
             var closest = distanceUtils.getClosestLocations(
-                locations,
-                5,
-                req.body.latitude,
-                req.body.longitude
+              locations,
+              5,
+              req.body.latitude,
+              req.body.longitude
             );
             res.send(closest);
         });

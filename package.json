@@ -6,7 +6,7 @@
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
-    "cross-env": "7.0.2",
+    "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "latest",
     "express-validator": "^6.9.2",
@@ -15,9 +15,13 @@
     "next": "10.0.3",
     "pg": "^8.5.1",
     "react-dom": "16.13.1",
-    "react": "16.13.1"
+    "react": "16.13.1",
+    "node-js": "^1.0.0",
+    "sass": "^1.32.7"
   },
   "scripts": {
+    "dev": "node app.js",
+    "build": "next build",
     "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
     "start": "next build && cross-env NODE_ENV=production node app.js"
   },
