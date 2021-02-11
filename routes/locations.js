@@ -5,6 +5,7 @@ const defaultRangeInMiles = 10;
 
 const { body, query, validationResult } = require('express-validator');
 
+// Fetch all locations. If lat/long provided will attempt a lookup of locations that are near the provided geolocation
 router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
                 query('longitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
                 query('rangeMiles').optional().isNumeric().withMessage('Only numbers allowed for rangeMiles')], async function(req, res) {
@@ -35,6 +36,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
     }
 });
 
+// Create locations
 router.post('/',
     body('name').isLength({ min: 2 }),
     body('bookinglink').isURL(),
@@ -62,6 +64,7 @@ router.post('/',
     }
 });
 
+// Update locations
 router.put('/:locationId',
     body('name').optional().isLength({ min: 2 }),
     body('bookinglink').optional().isURL(),
@@ -89,7 +92,43 @@ router.put('/:locationId',
     }
 });
 
+// Update location availability
+router.put('/:locationId/availability',
+    body('doses').isNumeric(),
+    body('availabilitytime').isDate({format: 'MM-DD-YYYY'}),
+ async function(req, res) {
+     // Finds the validation errors in this request and wraps them in an object 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+        let updatedLocation = await locationsDb.insertLocationAvailability(req.params.locationId, req.body);
+        res.status(200).json(updatedLocation);
+    } catch (error) {
+        console.log(`ERROR OCCURRED ADDING LOCATION AVAILABILITY! locationId: ${req.params.locationId} body: ${req.body} error: ${error}`)
+        let errorString = `ERROR OCCURRED ADDING LOCATION AVAILABILITY! error: ${error}`;
+        let errorObj = {error: errorString};
+        res.status(500).send(errorObj);
+    }
+});
 
+
+// delete location availability for a location
+router.delete('/:locationId/availability/:locationAvailabilityId',
+ async function(req, res) {
+    try {
+        await locationsDb.deleteLocationAvailability(req.params.locationId, req.params.locationAvailabilityId);
+        res.status(200).json("deleted");
+    } catch (error) {
+        console.log(`ERROR OCCURRED DELETING LOCATION AVAILABILITY! locationId: ${req.params.locationId} locationAvailabilityId: ${req.params.locationAvailabilityId} error: ${error}`)
+        let errorString = `ERROR OCCURRED DELETING LOCATION AVAILABILITY! error: ${error}`;
+        let errorObj = {error: errorString};
+        res.status(500).send(errorObj);
+    }
+});
+
+// delete locations
 router.delete('/:locationId', async function(req, res) {
     try {
         await locationsDb.deleteLocation(req.params.locationId);

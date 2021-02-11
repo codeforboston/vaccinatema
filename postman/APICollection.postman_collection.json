@@ -64,6 +64,35 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
+					"raw": "{\n    \"bookinglink\": \"https://456.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations/{{locationId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations",
+						"{{locationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Location Availability",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
 					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
 					"options": {
 						"raw": {
@@ -118,6 +147,37 @@
 			"response": []
 		},
 		{
+			"name": "Get Locations w/ Geo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Location",
 			"request": {
 				"method": "DELETE",
@@ -141,6 +201,37 @@
 					"path": [
 						"locations",
 						"{{locationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Location Availability",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations/15/availability/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations",
+						"15",
+						"availability",
+						"8"
 					]
 				}
 			},
