@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "c8c60091-2d64-46f7-b5c2-37053a4b105b",
+		"name": "VaccineMA Locations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Location",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var nameId = Math.floor(Math.random() * 99999999) + 1;",
+							"pm.environment.set(\"locationName\", \"Location - \" + nameId);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"var locationResponse = JSON.parse(responseBody);",
+							"",
+							"pm.environment.set(\"locationId\", locationResponse.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{locationName}}\",\n    \"bookinglink\": \"https://123.com\",\n    \"address\":\"123 Fake St Waltham MA 01233\",\n    \"serves\":\"people\",\n    \"siteinstructions\":\"come here and get a shot!\",\n    \"daysopen\": {\n        \"sunday\": {\n          \"open\":false\n        },\n        \"monday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"tuesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"wednesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"thursday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"friday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"saturday\": {\n          \"open\":false\n        }\n    },\n    \"county\": \"Middlesex\",\n    \"latitude\": \"42.4110049\",\n    \"longitude\": \"-71.2512362\",\n    \"availabilitydetails\": \"serving all people!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Location",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations/{{locationId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations",
+						"{{locationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Locations",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Location",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations/{{locationId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations",
+						"{{locationId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
