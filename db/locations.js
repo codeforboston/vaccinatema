@@ -20,7 +20,10 @@ function getMeters(numMiles) {
 **/
 const getAllLocations = async () => {
   try {
-    const { error, rows } = await pool.query('SELECT * FROM locations l ORDER BY name DESC');
+    const { rows } = await pool.query(
+      'SELECT l.* ' +
+      ' FROM locations l ' +
+      ' ORDER BY name desc ');
     return rows;
   } catch (error) {
     console.error("an error occurred fetching locations ", error);
@@ -42,9 +45,12 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
 
     console.log(`LOCATION LOOKUP BASED ON GEO: ${homeLat} ${homeLong} RangeInMeters: ${rangeInMeters}`)
     const { error, rows, query } = await pool.query(
-      'SELECT *, ' +
-              'ROUND(earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) :: NUMERIC, 2) AS distanceMeters ' +
-      ' FROM locations ' +
+      'SELECT l.*, ' +
+      '       la.availabilitydetails, '+
+      '       la.lastupdated, ' + 
+      '       ROUND(earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) :: NUMERIC, 2) AS distanceMeters ' +
+      ' FROM locations l ' +
+      ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ' + 
       ' WHERE earth_distance(ll_to_earth($1, $2), ll_to_earth(latitude, longitude)) <= $3 ' +
       ' ORDER BY distanceMeters DESC ', [homeLat, homeLong, rangeInMeters]);
     return rows;
@@ -55,26 +61,92 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
 }
 
 /**
-* Create a location
-**/
+ * Create a location
+ * @param {*} newLocation 
+ */
 const createLocation = async (newLocation) => {
   try {
-    const { error, result } = await pool.query('INSERT INTO locations (name, bookinglink, address, serves, siteInstructions, daysOpen, county, latitude, longitude)' +
-    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [newLocation.name, newLocation.bookingLink, newLocation.address, newLocation.serves, newLocation.siteInstructions, newLocation.daysOpen, newLocation.county, newLocation.latitude, newLocation.longitude]);
-    if (error){
-      console.error(`Error occurred saving location`, error);
-      throw new Error("An error occurred saving location");
-    }
-    console.log(`CREATED LOCATION ${JSON.stringify(result)} `);
-    return result;
+    const result  = await pool.query('INSERT INTO locations (name, bookinglink, address, serves, siteInstructions, daysOpen, county, latitude, longitude, availabilitydetails) ' +
+    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING *', [newLocation.name, newLocation.bookinglink, newLocation.address, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude, newLocation.availabilitydetails]);
+    console.log(`CREATED LOCATION ${JSON.stringify(result.rows[0])} `);
+    const insertedRow = result.rows[0];
+    return insertedRow;
   } catch (error) {
     console.error(`an error occurred creating location ${newLocation}`, error);
-    throw new Error("An unexpected error occurred saving location");
+    throw new Error(`An unexpected error occurred saving location with error: ${error}`);
   }
 }
+
+/**
+ * Build the location update query to only update the fields specified on
+ * the colsToUpdate
+ * @param {*} locationId 
+ * @param {*} colsToUpdate 
+ */
+function buildUpdateLocationQuery (locationId, colsToUpdate) {
+  // Setup static beginning of query
+  var query = ['UPDATE locations'];
+  query.push('SET');
+
+  // Create another array storing each set command
+  // and assigning a number value for parameterized query
+  var set = [];
+  Object.keys(colsToUpdate).forEach(function (key, i) {
+    set.push(key + ' = ($' + (i + 1) + ')'); 
+  });
+  query.push(set.join(', '));
+
+  // Add the WHERE statement to look up by id
+  query.push('WHERE id = ' + locationId );
+  query.push(' RETURNING *');
+
+  // Return a complete query string
+  return query.join(' ');
+}
+
+/**
+ * Update the location with the specified details in the locationObject
+ * @param {*} locationId 
+ * @param {*} locationObject 
+ */
+const updateLocation = async (locationId, locationObject) => {
+  try {
+    let query = buildUpdateLocationQuery(locationId, locationObject);
+    // only update the columns that were specified
+    var columnValues = Object.keys(locationObject).map(function (key) {
+      return locationObject[key];
+    });
+
+    const result  = await pool.query(query, columnValues);
+    const updatedRow = result.rows[0];
+    console.log(`UPDATED LOCATION ${JSON.stringify(updatedRow)} `);
+    return updatedRow;
+  } catch (error) {
+    console.error(`an error occurred updating location ${locationObject}`, error);
+    throw new Error("An unexpected error occurred updating location");
+  }
+}
+
+/**
+ * Delete the location with the specified locationId
+ * @param {*} locationId 
+ */
+const deleteLocation = async (locationId) => {
+  try {
+    let query = 'DELETE FROM locations where id = $1'
+    await pool.query(query, [locationId]);
+    console.log(`DELETED LOCATION ${locationId} `);
+  } catch (error) {
+    console.error(`an error occurred deleting location ${locationId}`, error);
+    throw new Error("An unexpected error occurred deleting location");
+  }
+}
+
 
 module.exports = {
   getAllLocations,
   getLocationsCloseToGeo,
-  createLocation
+  createLocation,
+  updateLocation,
+  deleteLocation
 }

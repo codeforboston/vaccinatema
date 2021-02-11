@@ -1,35 +1,40 @@
--- DO NOT RUN THIS SCRIPT UNLESS YOU ARE ABSOLUTELY POSITIVE THAT YOU NEED TO CREATE THE ENTIRE SCHEMA.
--- RUNNING THIS COMMAND GETS RID OF ALL DATA IN THESE TABLES
-
 CREATE TABLE locations (
-  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  name VARCHAR
-(200) NOT NULL,
-  bookinglink VARCHAR
+  id               INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name             VARCHAR
+(200)  UNIQUE NOT NULL,
+  bookinglink      VARCHAR
 (1000) NOT NULL,
-  address VARCHAR
+  address          VARCHAR
 (1000) NOT NULL,
-  serves VARCHAR
+  serves           VARCHAR
 (500),
-  siteInstructions VARCHAR
+  siteinstructions VARCHAR
 (2000) NOT NULL,
-  daysOpen VARCHAR
-(500) NOT NULL,
-  county VARCHAR
-(200) NOT NULL,
-  latitude float8 NOT NULL,
-  longitude float8 NOT NULL
+  daysopen         JSONB  NOT NULL,
+  county           VARCHAR
+(200)  NOT NULL,
+  latitude         FLOAT8 NOT NULL,
+  longitude        FLOAT8 NOT NULL,
+  availabilitydetails VARCHAR
+(1000),
+  lastupdated         TIMESTAMPTZ NOT NULL DEFAULT NOW
+()
 );
 
+CREATE OR REPLACE FUNCTION trigger_set_timestamp
+()
+  RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW
+();
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
-CREATE TABLE location_availability (
-  id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  location_id INT,
-  lastupdated VARCHAR
-(200),
-  CONSTRAINT fk_location
-      FOREIGN KEY
-(location_id) 
-	  REFERENCES locations
-(id)
-);
+
+CREATE TRIGGER set_timestamp
+BEFORE
+UPDATE ON locations
+FOR EACH ROW
+EXECUTE FUNCTION trigger_set_timestamp
+();
