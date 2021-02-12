@@ -10,6 +10,7 @@
     "ejs": "latest",
     "express": "latest",
     "express-validator": "^6.9.2",
+    "google-geocoder": "^0.2.1",
     "pg": "^8.5.1"
   },
   "scripts": {

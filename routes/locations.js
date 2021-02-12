@@ -1,13 +1,16 @@
 const router = require('express').Router();
 const locationsDb = require('../db/locations');
+const { getLatLngByZipcode } = require('../geocode/geoLookup');
 
 const defaultRangeInMiles = 10;
 
-const { body, query, validationResult } = require('express-validator');
+const { body, query, param, validationResult } = require('express-validator');
+
 
 // Fetch all locations. If lat/long provided will attempt a lookup of locations that are near the provided geolocation
 router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
                 query('longitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
+                query('zipcode').optional().isNumeric().withMessage('Only numbers allowed for zipcode'),
                 query('rangeMiles').optional().isNumeric().withMessage('Only numbers allowed for rangeMiles')], async function(req, res) {
     try {  
         // Finds the validation errors in this request and wraps them in an object 
@@ -16,15 +19,26 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const homeLatitude = req.query.latitude;
-        const homeLongitude = req.query.longitude;
-        const homeRangeInMiles = req.query.rangeMiles;
+        let homeLatitude = req.query.latitude;
+        let homeLongitude = req.query.longitude;
+        const homeRangeInMiles = req.query.rangeMiles ? req.query.rangeMiles : defaultRangeInMiles;
+
+        // if lat/long provided use that to do a geolookup
         if (homeLatitude && homeLongitude)
         {   
-            const range = homeRangeInMiles ? homeRangeInMiles : defaultRangeInMiles;
-            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, range);
+            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles);
             res.json(locations);
-        } else{
+        } else if(req.query.zipcode){
+            // if zip provided, find the coords of that zip and use that
+            const geoLocation = await getLatLngByZipcode(req.query.zipcode);
+            if(geoLocation){
+                homeLatitude = geoLocation.latitude;
+                homeLongitude = geoLocation.longitude;
+            }
+            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles);
+            res.json(locations);
+        } else {
+            // otherwise just return all with no geo search
             let locations = await locationsDb.getAllLocations();
             res.json(locations);
         }
@@ -40,13 +54,13 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
 router.post('/',
     body('name').isLength({ min: 2 }),
     body('bookinglink').isURL(),
-    // TODO: what is this format?
-    body('address').isLength({ min: 5 }),
+    body('streetaddress').isLength({ min: 2 }),
+    body('city').isLength({ min: 2 }),
+    body('state').isLength({ min: 2 }),
+    body('zipcode').isLength({ min: 5 }),
     body('serves').isLength({ min: 1 }),
     body('siteinstructions').isLength({ min: 10 }),
     body('county').isLength({ min: 5 }),
-    body('latitude').isNumeric(),
-    body('longitude').isNumeric(),
  async function(req, res) {
      // Finds the validation errors in this request and wraps them in an object 
     const errors = validationResult(req);
@@ -54,6 +68,15 @@ router.post('/',
       return res.status(400).json({ errors: errors.array() });
     }
     try {
+        const locationToCreate = req.body;
+
+        // go fetch the geo coords of the location to push into the DB
+        const geoLocation = await getLatLngByZipcode(locationToCreate.zipcode);
+        if(geoLocation){
+            locationToCreate.latitude = geoLocation.latitude;
+            locationToCreate.longitude = geoLocation.longitude;
+        }
+
         let createdLocation = await locationsDb.createLocation(req.body);
         res.status(201).json(createdLocation);
     } catch (error) {
@@ -66,14 +89,16 @@ router.post('/',
 
 // Update locations
 router.put('/:locationId',
+    param('locationId').isNumeric(),
     body('name').optional().isLength({ min: 2 }),
     body('bookinglink').optional().isURL(),
-    body('address').optional().isLength({ min: 5 }),
+    body('streetaddress').optional().isLength({ min: 2 }),
+    body('city').optional().isLength({ min: 2 }),
+    body('state').optional().isLength({ min: 2 }),
+    body('zipcode').optional().isLength({ min: 5 }),
     body('serves').optional().isLength({ min: 1 }),
     body('siteinstructions').optional().isLength({ min: 10 }),
     body('county').optional().isLength({ min: 5 }),
-    body('latitude').optional().isNumeric(),
-    body('longitude').optional().isNumeric(),
  async function(req, res) {
      // Finds the validation errors in this request and wraps them in an object 
     const errors = validationResult(req);
@@ -81,6 +106,18 @@ router.put('/:locationId',
       return res.status(400).json({ errors: errors.array() });
     }
     try {
+
+        let locationToUpdate = req.body;
+        // if zip is being updated, then lets refetch the coords
+        if(locationToUpdate.zipcode){
+            // go fetch the geo coords of the location to push into the DB
+            const geoLocation = await getLatLngByZipcode(locationToUpdate.zipcode);
+            if(geoLocation){
+                locationToUpdate.latitude = geoLocation.latitude;
+                locationToUpdate.longitude = geoLocation.longitude;
+            }
+        }
+
         let updatedLocation = await locationsDb.updateLocation(req.params.locationId, req.body);
         res.status(200).json(updatedLocation);
     } catch (error) {
@@ -94,6 +131,7 @@ router.put('/:locationId',
 
 // Update location availability
 router.put('/:locationId/availability',
+    param('locationId').isNumeric(),
     body('doses').isNumeric(),
     body('availabilitytime').isDate({format: 'MM-DD-YYYY'}),
  async function(req, res) {
@@ -116,6 +154,8 @@ router.put('/:locationId/availability',
 
 // delete location availability for a location
 router.delete('/:locationId/availability/:locationAvailabilityId',
+    param('locationId').isNumeric(),
+    param('locationAvailabilityId').isNumeric(),
  async function(req, res) {
     try {
         await locationsDb.deleteLocationAvailability(req.params.locationId, req.params.locationAvailabilityId);
@@ -129,7 +169,9 @@ router.delete('/:locationId/availability/:locationAvailabilityId',
 });
 
 // delete locations
-router.delete('/:locationId', async function(req, res) {
+router.delete('/:locationId', 
+        param('locationId').isNumeric(),
+        async function(req, res) {
     try {
         await locationsDb.deleteLocation(req.params.locationId);
         res.status(200).send("deleted");

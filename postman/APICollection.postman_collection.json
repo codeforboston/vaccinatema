@@ -32,11 +32,35 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "sUpErsEcrEt",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "vaccinema",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{locationName}}\",\n    \"bookinglink\": \"https://123.com\",\n    \"address\":\"123 Fake St Waltham MA 01233\",\n    \"serves\":\"people\",\n    \"siteinstructions\":\"come here and get a shot!\",\n    \"daysopen\": {\n        \"sunday\": {\n          \"open\":false\n        },\n        \"monday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"tuesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"wednesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"thursday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"friday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"saturday\": {\n          \"open\":false\n        }\n    },\n    \"county\": \"Middlesex\",\n    \"latitude\": \"42.4110049\",\n    \"longitude\": \"-71.2512362\",\n    \"availabilitydetails\": \"serving all people!\"\n}",
+					"raw": "{\n    \"name\": \"THIS IS A TEST\",\n    \"bookinglink\": \"https://123.com\",\n    \"streetaddress\":\"123 Fake St\",\n    \"city\":\"Waltham\",\n    \"state\":\"MA\",\n    \"zipcode\":\"02451\",\n    \"serves\":\"people\",\n    \"siteinstructions\":\"come here and get a shot!\",\n    \"daysopen\": {\n        \"sunday\": {\n          \"open\":false\n        },\n        \"monday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"tuesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"wednesday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"thursday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"friday\": {\n          \"open\":true,\n          \"start\":\"09:00\",\n          \"end\":\"05:00\"\n        },\n        \"saturday\": {\n          \"open\":false\n        }\n    },\n    \"county\": \"Middlesex\",\n    \"latitude\": \"42.4110049\",\n    \"longitude\": \"-71.2512362\",\n    \"availabilitydetails\": \"serving all people!\",\n    \"initialAvailability\":  {\n        \"doses\": 100,\n        \"availabilitytime\": \"2021-02-20\"\n    }\n        \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -147,7 +171,7 @@
 			"response": []
 		},
 		{
-			"name": "Get Locations w/ Geo",
+			"name": "Get Locations w/ Geo Lat/Long",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -164,7 +188,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3002/locations",
+					"raw": "http://localhost:3002/locations?latitude=42.2254318&longitude=-71.5486562&rangeMiles=30",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -172,6 +196,61 @@
 					"port": "3002",
 					"path": [
 						"locations"
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "42.2254318"
+						},
+						{
+							"key": "longitude",
+							"value": "-71.5486562"
+						},
+						{
+							"key": "rangeMiles",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Locations w/ Geo ZipCode",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations?rangeMiles=30&zipcode=01748",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations"
+					],
+					"query": [
+						{
+							"key": "rangeMiles",
+							"value": "30"
+						},
+						{
+							"key": "zipcode",
+							"value": "01748"
+						}
 					]
 				}
 			},

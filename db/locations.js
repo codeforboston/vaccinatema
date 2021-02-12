@@ -49,7 +49,7 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
     const rangeInMeters = getMeters(rangeInMiles);
 
     console.log(`LOCATION LOOKUP BASED ON GEO: ${homeLat} ${homeLong} RangeInMeters: ${rangeInMeters}`)
-    
+
     const query = 'SELECT l.*, ' +
                   '       COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability, ' +
                   '       ROUND(earth_distance(ll_to_earth($1, $2), ll_to_earth(l.latitude, l.longitude)) :: NUMERIC, 2) AS distanceMeters ' +
@@ -73,10 +73,20 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
  */
 const createLocation = async (newLocation) => {
   try {
-    const { rows }  = await pool.query('INSERT INTO locations (name, bookinglink, address, serves, siteInstructions, daysOpen, county, latitude, longitude) ' +
-    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)  RETURNING *', [newLocation.name, newLocation.bookinglink, newLocation.address, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude]);
+    const query = 'INSERT INTO locations ' +
+    ' (name, bookinglink, serves, siteInstructions, daysOpen, county, latitude, longitude, streetaddress, city, state, zipcode ) ' +
+    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)  RETURNING *';
+
+    const { rows }  = await pool.query(query, [newLocation.name, newLocation.bookinglink, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude, newLocation.streetaddress, newLocation.city, newLocation.state, newLocation.zipcode]);
     console.log(`CREATED LOCATION ${JSON.stringify(rows[0])} `);
     const insertedRow = rows[0];
+
+    // if this location is created with initial availability, create it
+    if(newLocation.initialAvailability){
+      let availability = await insertLocationAvailability(insertedRow.id, newLocation.initialAvailability);
+      insertedRow.availability = availability;
+    }
+
     return insertedRow;
   } catch (error) {
     console.error(`an error occurred creating location ${newLocation}`, error);

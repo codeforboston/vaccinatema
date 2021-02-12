@@ -8,8 +8,14 @@ CREATE TABLE locations (
                    (200)  UNIQUE NOT NULL,
   bookinglink      VARCHAR
                    (1000) NOT NULL,
-  address          VARCHAR
+  streetaddress          VARCHAR
                    (1000) NOT NULL,
+  city          VARCHAR
+                   (100) NOT NULL,
+  state          VARCHAR
+                   (30) NOT NULL,
+  zipcode          VARCHAR
+                   (30) NOT NULL,
   serves           VARCHAR
                    (500),
   siteinstructions VARCHAR
@@ -33,9 +39,8 @@ CREATE TABLE location_availability (
   FOREIGN KEY
     (location_id)
   REFERENCES locations
-  (id)
+  (id) ON DELETE CASCADE
 );
-
 
 -- function and trigger responsible for managing lastupdated dates for records
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
