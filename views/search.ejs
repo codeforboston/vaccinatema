@@ -248,210 +248,62 @@
     <script type="text/javascript">
     $(document).ready(function() {
         function timeConverter(string){
-            var dates = string.split('-');
+            var dates = (string || '').split('-');
             var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             var month = months[parseInt(dates[1]) - 1];
             var date = dates[2].substring(0,2);
             var time = 'Latest report: ' + month + ' ' + date;
             return time;
         }
+        function getLatLngByZipcode(zipcode, myCallback) {
+            var geocoder = new google.maps.Geocoder();
+            var address = zipcode;
+            geocoder.geocode({ 'address': 'zipcode '+address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    myCallback({coords: {latitude, longitude}})
+                } else {
+                    return {coords: {}};
+                }
+            });
+        }
+        function linkify(str) {
+            const linkify_regex = /(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi;
+            return str.replace(linkify_regex, function () {
+                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
+            });
+        }
+        function displayLocation(location, placeId, n) {
+            var addr = location.fields["Full Address"] || '';
+            $(placeId).show();
+            $("#site_title_" + n).text(location.fields["Location Name"]);
+            $("#site_address_" + n).text(addr);
+            $("#site_address_" + n).attr("href", "https://maps.google.com/?q=" + addr.replace(" ","+"));
+            $("#details_" + n).text(location.fields["Serves"] || '');
+            $("#book_" + n).html(linkify(String(location.fields["Book an appointment"]) || ''));
+            $("#latest_info_" + n).text(location.fields["Availability"]);
+            $("#latest_report_" + n).text(timeConverter(String(location.fields["Last Updated"])));
+        }
+        function displayData(data) {
+            displayLocation(data[0], '#firstplace', '1');
+            $('ul#sites')[0].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+            displayLocation(data[1], '#secondplace', '2');
+            displayLocation(data[2], '#thirdplace', '3');
+            displayLocation(data[3], '#fourthplace', '4');
+            displayLocation(data[4], '#fifthplace', '5');
+        }
+        function postLocation(pos) {
+            var crd = {...pos.coords, "availability": $('#siteType').val()};
+            $.post( "/search_query_location", crd).done(displayData).error(console.log)
+        }
         $("#signup").click(function() {
             console.log($("#zipCode").val());
-            function getLatLngByZipcode(zipcode, myCallback)
-            {
-                var geocoder = new google.maps.Geocoder();
-                var address = zipcode;
-                geocoder.geocode({ 'address': 'zipcode '+address }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        var latitude = results[0].geometry.location.lat();
-                        var longitude = results[0].geometry.location.lng();
-                        myCallback(latitude, longitude)
-                    } else {
-                        return [];
-                    }
-                });
-            }
-            function postLocation(latitude, longitude)
-            {
-                $.post( "/search_query_location", {"latitude" : latitude, "longitude": longitude, "availability": $('#siteType').val()},
-                        function(data) {
-                            first_location = data[0]
-
-			                      var appointment_text = String(first_location.fields["Book an appointment"])
-                            var booking = appointment_text.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                            });
-                            console.log("this is executing");
-                            $('#firstplace').show();
-                            $('ul#' + "sites")[0].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-                            $("#site_title_1").text(first_location.fields["Location Name"]);
-                            $("#site_address_1").text(first_location.fields["Full Address"]);
-                            $("#site_address_1").attr("href", "https://maps.google.com/?q=" + first_location.fields["Full Address"].replace(" ","+"));
-                            $("#latest_report_1");
-                            $("#details_1").text(first_location.fields["Serves"]);
-                            $("#book_1").html(booking);
-                            $("#latest_info_1").text(first_location.fields["Availability"]);
-                            $("#latest_report_1").text(timeConverter(String(first_location.fields["Last Updated"])));
-
-                            second_location = data[1]
-                            var appointment_text_2 = String(second_location.fields["Book an appointment"])
-                            var booking_2 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                            });
-
-                            $('#secondplace').show();
-                            $("#site_title_2").text(second_location.fields["Location Name"]);
-                            $("#site_address_2").text(second_location.fields["Full Address"]);
-                            $("#site_address_2").attr("href", "https://maps.google.com/?q=" + second_location.fields["Full Address"].replace(" ","+"));
-                            $("#latest_report_2");
-                            $("#details_2").text(second_location.fields["Serves"]);
-                            $("#book_2").html(booking_2);
-                            $("#latest_info_2").text(second_location.fields["Availability"]);
-                            $("#latest_report_2").text(timeConverter(String(second_location.fields["Last Updated"])));
-
-                            third_location = data[2]
-                            var appointment_text_3 = String(third_location.fields["Book an appointment"])
-                            var booking_3 = appointment_text_3.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                            });
-
-                            $('#thirdplace').show();
-                            $("#site_title_3").text(third_location.fields["Location Name"]);
-                            $("#site_address_3").text(third_location.fields["Full Address"]);
-                            $("#site_address_3").attr("href", "https://maps.google.com/?q=" + third_location.fields["Full Address"].replace(" ","+"));
-                            $("#latest_report_3");
-                            $("#details_3").text(third_location.fields["Serves"]);
-                            $("#book_3").html(booking_3);
-                            $("#latest_info_3").text(third_location.fields["Availability"]);
-                            $("#latest_report_3").text(timeConverter(String(third_location.fields["Last Updated"])));
-
-                            fourth_location = data[3]
-                            var appointment_text_4 = String(fourth_location.fields["Book an appointment"])
-                            var booking_4 = appointment_text_4.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                            });
-
-                            $('#fourthplace').show();
-                            $("#site_title_4").text(fourth_location.fields["Location Name"]);
-                            $("#site_address_4").text(fourth_location.fields["Full Address"]);
-                            $("#site_address_4").attr("href", "https://maps.google.com/?q=" + fourth_location.fields["Full Address"].replace(" ","+"));
-                            $("#latest_report_4");
-                            $("#details_4").text(fourth_location.fields["Serves"]);
-                            $("#book_4").html(booking_4);
-                            $("#latest_info_4").text(fourth_location.fields["Availability"]);
-                            $("#latest_report_4").text(timeConverter(String(fourth_location.fields["Last Updated"])));
-
-                            fifth_location = data[4]
-                            var appointment_text_5 = String(fifth_location.fields["Book an appointment"])
-                            var booking_5 = appointment_text_5.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                                return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                            });
-
-                            $('#fifthplace').show();
-                            $("#site_title_5").text(fifth_location.fields["Location Name"]);
-                            $("#site_address_5").text(fifth_location.fields["Full Address"]);
-                            $("#site_address_5").attr("href", "https://maps.google.com/?q=" + fifth_location.fields["Full Address"].replace(" ","+"));
-                            $("#latest_report_5");
-                            $("#details_5").text(fifth_location.fields["Serves"]);
-                            $("#book_5").html(booking_5);
-                            $("#latest_info_5").text(fifth_location.fields["Availability"]);
-                            $("#latest_report_5").text(timeConverter(String(fifth_location.fields["Last Updated"])));
-                        }
-                      )
-            }
             getLatLngByZipcode($("#zipCode").val(),postLocation);
         });
         $("#geolocate").click(function() {
-            function success(pos) {
-                var crd = pos.coords;
-                crd.availability = $('#siteType').val();
-                $.post( "/search_query_location", crd).done(function(data) {
-                    first_location = data[0]
-
-                    var appointment_text = String(first_location.fields["Book an appointment"])
-                    var booking = appointment_text.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                        return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                    });
-
-                    $('#firstplace').show();
-                    $('ul#' + "sites")[0].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-                    $("#site_title_1").text(first_location.fields["Location Name"]);
-                    $("#site_address_1").text(first_location.fields["Full Address"]);
-                    $("#site_address_1").attr("href", "https://maps.google.com/?q=" + first_location.fields["Full Address"].replace(" ","+"));
-                    $("#latest_report_1");
-                    $("#details_1").text(first_location.fields["Serves"]);
-                    $("#book_1").html(booking);
-                    $("#latest_info_1").text(first_location.fields["Availability"]);
-                    console.log(String(first_location.fields["Last Updated"]));
-                    $("#latest_report_1").text(timeConverter(String(first_location.fields["Last Updated"])));
-
-                    second_location = data[1]
-                    var appointment_text_2 = String(second_location.fields["Book an appointment"])
-                    var booking_2 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                        return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                    });
-
-                    $('#secondplace').show();
-                    $("#site_title_2").text(second_location.fields["Location Name"]);
-                    $("#site_address_2").text(second_location.fields["Full Address"]);
-                    $("#site_address_2").attr("href", "https://maps.google.com/?q=" + second_location.fields["Full Address"].replace(" ","+"));
-                    $("#latest_report_2");
-                    $("#details_2").text(second_location.fields["Serves"]);
-                    $("#book_2").html(booking_2);
-                    $("#latest_info_2").text(second_location.fields["Availability"]);
-                    $("#latest_report_2").text(timeConverter(String(second_location.fields["Last Updated"])));
-
-                    third_location = data[2]
-                    var appointment_text_2 = String(third_location.fields["Book an appointment"])
-                    var booking_3 = appointment_text_2.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                        return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                    });
-
-                    $('#thirdplace').show();
-                    $("#site_title_3").text(third_location.fields["Location Name"]);
-                    $("#site_address_3").text(third_location.fields["Full Address"]);
-                    $("#site_address_3").attr("href", "https://maps.google.com/?q=" + third_location.fields["Full Address"].replace(" ","+"));
-                    $("#latest_report_3");
-                    $("#details_3").text(third_location.fields["Serves"]);
-                    $("#book_3").html(booking_3);
-                    $("#latest_info_3").text(third_location.fields["Availability"]);
-                    $("#latest_report_3").text(timeConverter(String(third_location.fields["Last Updated"])));
-
-                    fourth_location = data[3]
-                    var appointment_text_4 = String(fourth_location.fields["Book an appointment"])
-                    var booking_4 = appointment_text_4.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                        return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                    });
-
-                    $('#fourthplace').show();
-                    $("#site_title_4").text(fourth_location.fields["Location Name"]);
-                    $("#site_address_4").text(fourth_location.fields["Full Address"]);
-                    $("#site_address_4").attr("href", "https://maps.google.com/?q=" + fourth_location.fields["Full Address"].replace(" ","+"));
-                    $("#latest_report_4");
-                    $("#details_4").text(fourth_location.fields["Serves"]);
-                    $("#book_4").html(booking_4);
-                    $("#latest_info_4").text(fourth_location.fields["Availability"]);
-                    $("#latest_report_4").text(timeConverter(String(fourth_location.fields["Last Updated"])));
-
-                    fifth_location = data[4]
-                    var appointment_text_5 = String(fifth_location.fields["Book an appointment"])
-                    var booking_5 = appointment_text_5.replace(/(<a href=")?((https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)))(">(.*)<\/a>)?/gi, function () {
-                        return '<a href="' + arguments[2] + '">' + (arguments[7] || arguments[2]) + '</a>'
-                    });
-
-                    $('#fifthplace').show();
-                    $("#site_title_5").text(fifth_location.fields["Location Name"]);
-                    $("#site_address_5").text(fifth_location.fields["Full Address"]);
-                    $("#site_address_5").attr("href", "https://maps.google.com/?q=" + fifth_location.fields["Full Address"].replace(" ","+"));
-                    $("#latest_report_5");
-                    $("#details_5").text(fifth_location.fields["Serves"]);
-                    $("#book_5").html(booking_5);
-                    $("#latest_info_5").text(fifth_location.fields["Availability"]);
-                    $("#latest_report_5").text(timeConverter(String(fifth_location.fields["Last Updated"])));
-                }).error(function(xhr) {console.log("err");})
-            }
             if (window.navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success,console.log);
+                navigator.geolocation.getCurrentPosition(postLocation,console.log);
             }
         });
     })
