@@ -86,6 +86,7 @@ if (cluster.isMaster) {
     app.set('view engine', 'ejs');
     app.set('views', __dirname + '/views');
     app.use(bodyParser.urlencoded({extended:false}));
+    app.use(bodyParser.json());
 
     app.use('/robots.txt', function (req, res, next) {
         res.type('text/plain')
@@ -155,7 +156,11 @@ if (cluster.isMaster) {
         res.send(closest);
     });
 
-    // Start the server.
+
+    // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
+    const locationApi = require('./routes/locations');
+    app.use('/locations', locationApi);
+
     var port = process.env.PORT || 3002;
     var server = app.listen(port, function () {
         console.log('Server running at http://127.0.0.1:' + port + '/');
