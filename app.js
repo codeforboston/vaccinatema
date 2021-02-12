@@ -13,7 +13,6 @@ function saveState() {
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
         records.forEach(function(record) {
-            //console.log('Retrieved', record.get('Location Name'));
             sites.push(record);
             sites_longitude.push(record.get('Longitude'));
             sites_latitude.push(record.get('Latitude'));
