@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A site to help Massachusetts residents find a vaccine">
     <meta name="author" content="MA Volunteers">
+    <meta property="og:title" content="Help people get vaccinated for COVID-19" />
     <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
-    <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
     <meta property="og:image" content="ma_logo.png"/>
 
-    <title>Vaccinate MA</title>
+    <title>Get Involved</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<%= static_path + "/bootstrap/css/theme/" + theme + "/bootstrap.css" %>" rel="stylesheet">
@@ -32,7 +32,7 @@
   <body>
 
     <div class="container">
-      <div class="header" style="">
+      <div class="header">
       <div class="collapse navbar-collapse" id="navbarNav" style="float:right">
         <ul class="nav nav-pills pull-right">
           <li><a href="/">COVID-19 Vaccine Availability</a></li>
@@ -51,7 +51,7 @@
           <li class="active"><a href="/FAQ" >FAQ</a></li>
         </ul>
       </div>
-      <div style="">  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
+      <div>  <h3 class="text-muted" ><img src = "ma_logo.png" style = "height:1em; "> Vaccinate MA</h3>
       </div>
         
       </div>
@@ -63,7 +63,7 @@
   
       <div class="jumbotron">
         <h2>FAQ</h2>
-      <p>We are a group of volunteers helping Massachusetts residents get vaccinated. Our site uses a mix of automated and crowdsourced data to show vaccine appointment availabilty. VaccinateMA launched on January 17, 2021.</p>
+      <p>We are a group of volunteers helping Massachusetts residents get vaccinated. Our site uses a mix of automated and crowdsourced data to show vaccine appointment availability. VaccinateMA launched on January 17, 2021.</p>
 
       </div>
       <h3>Why are you doing this? Isn’t there a state site?</h3>
@@ -73,42 +73,15 @@
       <h3>What if I’m a reporter and I want to contact you?</h3>
       Shoot us an email at <a href="mailto:vaccinatema@gmail.com" target="_blank"> vaccinatema@gmail.com </a>
       <h3>Who are you?</h3>
-      We are a group of volunteers including Code for Boston, Zane, Kunal Shah, and many other engaged citizens.
+      We are a group of volunteers including Code for Boston, Zane, Madeleine, Kunal Shah, and many other engaged citizens.
+      <h3> Disclaimer </h3>
+This site was put together by volunteers using our best efforts to assemble readily available data from public sources. This site does not provide medical advice, nor does it provide any type of technical advice. vaccinatema.com is not responsible for any errors or omissions. vaccinatema.com provides this information on an “as is” basis, with no representations or warranties of any kind, express or implied, including with respect to accuracy, completeness, quality, non-infringement, merchantability or fitness for a particular purpose. vaccinatema.com will not be liable for any damages of any kind arising from the use of, or reliance on, any information made available on this site.
       <br> <br>
       Inspired by <a href="https://vaccinateca.com" target="_blank"> vaccinateca.com </a> and Tyler Cowen of <a href="https://marginalrevolution.com" target="_blank"> Marginal Revolution </a>.  
       <br>
       <div class="footer">
         <p>An effort by a group of Massachusetts volunteers. <a href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform">Let us know if you found this site useful!</a></p>
       </div>
-      
-      
-
     </div> <!-- /container -->
-
-    <script src="<%= static_path + "/jquery/jquery-1.11.3.min.js" %>"></script>
-    <script src="<%= static_path + "/bootstrap/js/bootstrap.min.js" %>"></script>
-    <script type="text/javascript">
-    $(document).ready(function() {
-      $("#signup").click(function() {
-        $.post( "/signup", $("#signupForm").serialize(),
-                function(data) {
-                  $("#signupSuccess").show();
-                }
-              )
-              .error(function(xhr) {
-                switch(xhr.status) {
-                  case 409:
-                    $("#signupDuplicate").show();
-                    break;
-                  default:
-                    $("#signupError").show();
-                }
-              })
-              .always(function() {
-                $("#signupModal").modal('hide');
-              });
-      })
-    })
-    </script>
   </body>
 </html>
