@@ -28,7 +28,12 @@ if (cluster.isMaster) {
 // Code to run if we're in a worker process
 } else {
     var Airtable = require('airtable');
-    var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
+    var base;
+    if (process.env.AIRTABLE_API_KEY) {
+        base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
+    } else {
+        console.error('AIRTABLE_API_KEY should be set in .env');
+    }
     var sites = []
     var sites_latitude = []
     var sites_longitude = []
@@ -66,8 +71,9 @@ if (cluster.isMaster) {
         });        
         setTimeout(saveState, 60000);
     }
-
-    saveState();
+    if (process.env.AIRTABLE_API_KEY) {
+       saveState();
+    }
 
     var AWS = require('aws-sdk');
     var express = require('express');
