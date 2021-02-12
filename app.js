@@ -31,6 +31,8 @@ if (cluster.isMaster) {
     var base;
     if (process.env.AIRTABLE_API_KEY) {
         base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
+    } else {
+        console.error('AIRTABLE_API_KEY should be set in .env');
     }
     var sites = []
     var sites_latitude = []
