@@ -52,3 +52,6 @@ Thumbs.db
 
 # Local environment
 .env
+
+# NextJS build files
+.next/

@@ -72,86 +72,98 @@ if (cluster.isMaster) {
     var AWS = require('aws-sdk');
     var express = require('express');
     var bodyParser = require('body-parser');
+    var next = require('next')
+
+    const isDev = process.env.NODE_ENV !== 'production'
+    const app = next({ isDev })
 
     AWS.config.region = process.env.REGION
 
-    var app = express();
+    app.prepare().then(() => {
+        var server = express();
 
-    app.set('view engine', 'ejs');
-    app.set('views', __dirname + '/views');
-    app.use(bodyParser.urlencoded({extended:false}));
+        server.set('view engine', 'ejs');
+        server.set('views', __dirname + '/views');
+        server.use(bodyParser.urlencoded({extended:false}));
 
-    app.use('/robots.txt', function (req, res, next) {
-        res.type('text/plain')
-        res.send("User-agent: *\nDisallow: /");
-    });
-
-    app.get('/', function(req, res) {
-        res.render('index', {
-            static_path: '',
-            theme: process.env.THEME || 'flatly',
-            flask_debug: process.env.FLASK_DEBUG || 'false'
+        server.use('/robots.txt', function (req, res, next) {
+            res.type('text/plain')
+            res.send("User-agent: *\nDisallow: /");
         });
-    });
 
-    app.get('/search', function(req, res) {
-        res.render('search', {
-            static_path: '',
-            theme: process.env.THEME || 'flatly',
-            flask_debug: process.env.FLASK_DEBUG || 'false'
+        server.get('/', function(req, res) {
+            res.render('index', {
+                static_path: '',
+                theme: process.env.THEME || 'flatly',
+                flask_debug: process.env.FLASK_DEBUG || 'false'
+            });
         });
-    });
 
-    app.get('/eligibility', function(req, res) {
-        res.render('eligibility', {
-            static_path: '',
-            theme: process.env.THEME || 'flatly',
-            flask_debug: process.env.FLASK_DEBUG || 'false'
+        server.get('/search', function(req, res) {
+            res.render('search', {
+                static_path: '',
+                theme: process.env.THEME || 'flatly',
+                flask_debug: process.env.FLASK_DEBUG || 'false'
+            });
         });
-    });
 
-    app.get('/FAQ', function(req, res) {
-        res.render('FAQ', {
-            static_path: '',
-            theme: process.env.THEME || 'flatly',
-            flask_debug: process.env.FLASK_DEBUG || 'false'
+        server.get('/eligibility', function(req, res) {
+            res.render('eligibility', {
+                static_path: '',
+                theme: process.env.THEME || 'flatly',
+                flask_debug: process.env.FLASK_DEBUG || 'false'
+            });
         });
-    });
 
-    app.get('/sites', function(req, res) {
-        res.render('sites', {
-            static_path: '',
-            theme: process.env.THEME || 'flatly',
-            flask_debug: process.env.FLASK_DEBUG || 'false'
+        server.get('/FAQ', function(req, res) {
+            res.render('FAQ', {
+                static_path: '',
+                theme: process.env.THEME || 'flatly',
+                flask_debug: process.env.FLASK_DEBUG || 'false'
+            });
         });
-    });
 
-    app.get('/initmap', function(req, res) {
-        res.send(sites);
-    });
+        server.get('/sites', function(req, res) {
+            res.render('sites', {
+                static_path: '',
+                theme: process.env.THEME || 'flatly',
+                flask_debug: process.env.FLASK_DEBUG || 'false'
+            });
+        });
 
-    app.use(express.static('static'));
+        server.get('/initmap', function(req, res) {
+            res.send(sites);
+        });
 
-    app.post('/search_query_location', function (req, res) {
-        var locations = [];
-        if (req.body.availability === 'Sites with reported doses') {
-            locations = available;
-        } else {
-            locations = sites;
-        }
+        // TODO(hannah): This page is just to prove to us that React is working
+        // as expected. Once we've migrated over, remove it!
+        server.get('/dev', (req, res) => {
+            return app.render(req, res, '/dev', req.query);
+        })
 
-        var closest = distanceUtils.getClosestLocations(
-            locations,
-            5,
-            req.body.latitude,
-            req.body.longitude
-        );
-        res.send(closest);
-    });
+        server.use(express.static('static'));
 
-    // Start the server.
-    var port = process.env.PORT || 3002;
-    var server = app.listen(port, function () {
-        console.log('Server running at http://127.0.0.1:' + port + '/');
+        server.post('/search_query_location', function (req, res) {
+            var locations = [];
+            if (req.body.availability === 'Sites with reported doses') {
+                locations = available;
+            } else {
+                locations = sites;
+            }
+
+            var closest = distanceUtils.getClosestLocations(
+                locations,
+                5,
+                req.body.latitude,
+                req.body.longitude
+            );
+            res.send(closest);
+        });
+
+        // Start the server.
+        var port = process.env.PORT || 3002;
+        server.listen(port, function () {
+            console.log('Server running at http://127.0.0.1:' + port + '/');
+        });
     });
 }
