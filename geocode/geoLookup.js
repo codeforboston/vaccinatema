@@ -26,9 +26,9 @@ const getLatLngByAddress = async (fullAddressString) =>
             }
         });
     });
-}
+};
 
 module.exports = {
     getLatLngByAddress
-}
+};
   

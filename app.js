@@ -1,9 +1,39 @@
 // Include the cluster module
 var cluster = require('cluster');
-var fs = require('fs');
-require('dotenv').config()
+require('dotenv').config();
 
 var distanceUtils = require('./utils/distance-utils');
+
+function saveState() {
+    sites = [];
+    available = [];
+    base('MaVaccSites_Today').select({
+        // Selecting the first 3 records in Grid view:
+        view: 'Default all site view'
+    }).eachPage(function page(records, fetchNextPage) {
+        // This function (`page`) will get called for each page of records.
+        records.forEach(function(record) {
+            sites.push(record);
+            sites_longitude.push(record.get('Longitude'));
+            sites_latitude.push(record.get('Latitude'));
+            if(!(record.get('Availability') === 'None')) {
+                available.push(record);
+                available_longitude.push(record.get('Longitude'));
+                available_latitude.push(record.get('Latitude'));
+            }
+            
+        });
+
+        // To fetch the next page of records, call `fetchNextPage`.
+        // If there are more records, `page` will get called again.
+        // If there are no more records, `done` will get called.
+        fetchNextPage();
+
+    }, function done(err) {
+        if (err) { console.error(err); return; }
+    });        
+    setTimeout(saveState, 60000);
+}
 
 // Code to run if we're in the master process
 if (cluster.isMaster) {
@@ -34,52 +64,21 @@ if (cluster.isMaster) {
     } else {
         console.error('AIRTABLE_API_KEY should be set in .env');
     }
-    var sites = []
-    var sites_latitude = []
-    var sites_longitude = []
-    var available = []
-    var available_latitude = []
-    var available_longitude = []
-    function saveState() {
-        sites = []
-        available = []
-        base('MaVaccSites_Today').select({
-            // Selecting the first 3 records in Grid view:
-            view: "Default all site view"
-        }).eachPage(function page(records, fetchNextPage) {
-            // This function (`page`) will get called for each page of records.
-            records.forEach(function(record) {
-                //console.log('Retrieved', record.get('Location Name'));
-                sites.push(record);
-                sites_longitude.push(record.get('Longitude'));
-                sites_latitude.push(record.get('Latitude'));
-                if(!(record.get("Availability") === "None")) {
-                    available.push(record);
-                    available_longitude.push(record.get('Longitude'));
-                    available_latitude.push(record.get('Latitude'));
-                }
-                
-            });
-
-            // To fetch the next page of records, call `fetchNextPage`.
-            // If there are more records, `page` will get called again.
-            // If there are no more records, `done` will get called.
-            fetchNextPage();
-
-        }, function done(err) {
-            if (err) { console.error(err); return; }
-        });        
-        setTimeout(saveState, 60000);
-    }
+    var sites = [];
+    var sites_latitude = [];
+    var sites_longitude = [];
+    var available = [];
+    var available_latitude = [];
+    var available_longitude = [];
     if (process.env.AIRTABLE_API_KEY) {
-       saveState();
+        saveState();
     }
 
     var AWS = require('aws-sdk');
     var express = require('express');
     var bodyParser = require('body-parser');
 
-    AWS.config.region = process.env.REGION
+    AWS.config.region = process.env.REGION;
 
     var app = express();
 
@@ -88,9 +87,9 @@ if (cluster.isMaster) {
     app.use(bodyParser.urlencoded({extended:false}));
     app.use(bodyParser.json());
 
-    app.use('/robots.txt', function (req, res, next) {
-        res.type('text/plain')
-        res.send("User-agent: *\nDisallow: /");
+    app.use('/robots.txt', function (req, res) {
+        res.type('text/plain');
+        res.send('User-agent: *\nDisallow: /');
     });
 
     app.get('/', function(req, res) {
@@ -162,7 +161,7 @@ if (cluster.isMaster) {
     app.use('/locations', locationApi);
 
     var port = process.env.PORT || 3002;
-    var server = app.listen(port, function () {
+    app.listen(port, function () {
         console.log('Server running at http://127.0.0.1:' + port + '/');
     });
 }
