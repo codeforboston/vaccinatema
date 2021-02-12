@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const locationsDb = require('../db/locations');
-const { getLatLngByZipcode } = require('../geocode/geoLookup');
+const { getLatLngByAddress } = require('../geocode/geoLookup');
 
 const defaultRangeInMiles = 10;
 
@@ -30,7 +30,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
             res.json(locations);
         } else if(req.query.zipcode){
             // if zip provided, find the coords of that zip and use that
-            const geoLocation = await getLatLngByZipcode(req.query.zipcode);
+            const geoLocation = await getLatLngByAddress(req.query.zipcode);
             if(geoLocation){
                 homeLatitude = geoLocation.latitude;
                 homeLongitude = geoLocation.longitude;
@@ -54,13 +54,10 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
 router.post('/',
     body('name').isLength({ min: 2 }),
     body('bookinglink').isURL(),
-    body('streetaddress').isLength({ min: 2 }),
-    body('city').isLength({ min: 2 }),
-    body('state').isLength({ min: 2 }),
-    body('zipcode').isLength({ min: 5 }),
+    body('address').isLength({ min: 5 }),
     body('serves').isLength({ min: 1 }),
-    body('siteinstructions').isLength({ min: 10 }),
-    body('county').isLength({ min: 5 }),
+    body('siteinstructions').isLength({ min: 5 }),
+    body('county').isLength({ min: 2 }),
  async function(req, res) {
      // Finds the validation errors in this request and wraps them in an object 
     const errors = validationResult(req);
@@ -71,8 +68,8 @@ router.post('/',
         const locationToCreate = req.body;
 
         // go fetch the geo coords of the location to push into the DB
-        const geoLocation = await getLatLngByZipcode(locationToCreate.zipcode);
-        if(geoLocation){
+        const geoLocation = await getLatLngByAddress(locationToCreate.address);
+        if (geoLocation){
             locationToCreate.latitude = geoLocation.latitude;
             locationToCreate.longitude = geoLocation.longitude;
         }
@@ -92,13 +89,10 @@ router.put('/:locationId',
     param('locationId').isNumeric(),
     body('name').optional().isLength({ min: 2 }),
     body('bookinglink').optional().isURL(),
-    body('streetaddress').optional().isLength({ min: 2 }),
-    body('city').optional().isLength({ min: 2 }),
-    body('state').optional().isLength({ min: 2 }),
-    body('zipcode').optional().isLength({ min: 5 }),
+    body('address').optional().isLength({ min: 10 }),
     body('serves').optional().isLength({ min: 1 }),
-    body('siteinstructions').optional().isLength({ min: 10 }),
-    body('county').optional().isLength({ min: 5 }),
+    body('siteinstructions').optional().isLength({ min: 5 }),
+    body('county').optional().isLength({ min: 2 }),
  async function(req, res) {
      // Finds the validation errors in this request and wraps them in an object 
     const errors = validationResult(req);
@@ -108,10 +102,10 @@ router.put('/:locationId',
     try {
 
         let locationToUpdate = req.body;
-        // if zip is being updated, then lets refetch the coords
-        if(locationToUpdate.zipcode){
+        // if address is being updated, then lets refetch the coords
+        if (locationToUpdate.address){
             // go fetch the geo coords of the location to push into the DB
-            const geoLocation = await getLatLngByZipcode(locationToUpdate.zipcode);
+            const geoLocation = await getLatLngByAddress(locationToUpdate.address);
             if(geoLocation){
                 locationToUpdate.latitude = geoLocation.latitude;
                 locationToUpdate.longitude = geoLocation.longitude;

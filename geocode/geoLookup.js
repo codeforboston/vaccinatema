@@ -5,15 +5,15 @@ var geo = geocoder({
 });
 
 /**
- * Use googles API to identify the lat/long for a given zipcode
- * @param {*} zipcode 
+ * Use googles API to identify the lat/long for a given fullAddressString
+ * @param {*} fullAddressString 
  */
-const getLatLngByZipcode = async (zipcode) =>
+const getLatLngByAddress = async (fullAddressString) =>
 {
     return new Promise((resolve, reject) => {
-        geo.find(zipcode, function (err, results, status) {
+        geo.find(fullAddressString, function (err, results, status) {
             if(err){
-                console.log(`ERROR OCCURRED LOOKING UP LAT/LONG for zipcode: ${zipcode} error:${JSON.stringify(err)}`);
+                console.log(`ERROR OCCURRED LOOKING UP LAT/LONG for fullAddressString: ${fullAddressString} error:${JSON.stringify(err)}`);
                 resolve({});
             }
             if(results) {
@@ -29,6 +29,6 @@ const getLatLngByZipcode = async (zipcode) =>
 }
 
 module.exports = {
-    getLatLngByZipcode
+    getLatLngByAddress
 }
   

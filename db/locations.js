@@ -74,10 +74,10 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
 const createLocation = async (newLocation) => {
   try {
     const query = 'INSERT INTO locations ' +
-    ' (name, bookinglink, serves, siteInstructions, daysOpen, county, latitude, longitude, streetaddress, city, state, zipcode ) ' +
-    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)  RETURNING *';
+    ' (name, bookinglink, serves, siteInstructions, daysOpen, county, latitude, longitude, address, vaccinesoffered ) ' +
+    ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING *';
 
-    const { rows }  = await pool.query(query, [newLocation.name, newLocation.bookinglink, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude, newLocation.streetaddress, newLocation.city, newLocation.state, newLocation.zipcode]);
+    const { rows }  = await pool.query(query, [newLocation.name, newLocation.bookinglink, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude, newLocation.address, newLocation.vaccinesoffered]);
     console.log(`CREATED LOCATION ${JSON.stringify(rows[0])} `);
     const insertedRow = rows[0];
 
