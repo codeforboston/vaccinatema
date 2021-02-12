@@ -20,7 +20,7 @@ function getMeters(numMiles) {
 **/
 const getAllLocations = async () => {
     try {
-        console.log("getting locatioons");
+        console.log('getting locatioons');
         const query = 'SELECT l.*, ' +
     ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
     ' FROM locations l ' + 

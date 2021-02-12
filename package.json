@@ -14,8 +14,7 @@
     "pg": "^8.5.1"
   },
   "scripts": {
-    "start": "node app.js",
-    "lint": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix"
+    "start": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
