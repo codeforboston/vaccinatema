@@ -9,10 +9,13 @@
     "cross-env": "7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "latest",
+    "express-validator": "^6.9.2",
     "express": "latest",
+    "google-geocoder": "^0.2.1",
     "next": "10.0.6",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "pg": "^8.5.1",
+    "react-dom": "16.13.1",
+    "react": "16.13.1"
   },
   "scripts": {
     "start": "next build && cross-env NODE_ENV=production node app.js"
