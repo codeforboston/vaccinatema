@@ -33,7 +33,7 @@ CREATE TABLE location_availability (
   id                  INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   location_id         INT,
   doses INT NOT NULL DEFAULT 0,
-  availabilitytime DATE,
+  availabilitytime TIMESTAMP,
   lastupdated         TIMESTAMP NOT NULL DEFAULT NOW(),
   CONSTRAINT fk_location
   FOREIGN KEY
