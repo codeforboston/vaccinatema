@@ -30,7 +30,7 @@ if (cluster.isMaster) {
     var Airtable = require('airtable');
     var base;
     if (process.env.AIRTABLE_API_KEY) {
-	base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
+        base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
     }
     var sites = []
     var sites_latitude = []
