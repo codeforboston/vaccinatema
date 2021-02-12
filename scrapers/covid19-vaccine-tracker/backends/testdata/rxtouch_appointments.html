@@ -1,0 +1,725 @@
+
+<!-- PharmScheduler.master -->
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head id="ctl00_ctl00_Head1"><title>
+	
+    
+	Appointment Scheduling
+
+
+</title><link href="/rbssched/bundles/css?v=KpCLF7sjPhdUuTpw_u_SGmpmLCmhD4VnRpHUecMvQ501" rel="stylesheet"/>
+<script src="/rbssched/bundles/jquery?v=5YpcwJa0Dea15P6JFrXCmFOSkBKSWlYNJ0UXd18mXwg1"></script>
+<script src="/rbssched/bundles/jqueryui?v=o2sGgDUaKWTw-CwUzjNOd5ivYB0SEgbm-lY-_pFPHNc1"></script>
+<script src="/rbssched/bundles/jqueryval?v=JkspQuRvyfufle6wMJxIL2wYigLwGxgxqQ9rYjFqPK41"></script>
+<script src="/rbssched/bundles/jqueryother?v=jDDu_1Zl-D9bzByIvB3hJzLgy6G1bhdceOTlKhOuwDU1"></script>
+<script src="/rbssched/bundles/custom?v=pGTpG_nctDX67qMetY6BFcJ-i34tyEwvGjz7WBWZYb41"></script>
+<script src="/rbssched/bundles/sessiontimeout?v=ByBHW7OXAyzHrmcMGchCX1zN9c3vTK-_fstHIocEKQ41"></script>
+
+
+
+
+
+
+	
+	<link rel="icon" href="/rbssched/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/rbssched/favicon.ico" type="image/x-icon" />
+	
+	<link rel="styleSheet" href="/rbssched/Styles/jquery/default-theme/jquery-ui-1.11.4.custom.css" type="text/css" />
+
+	
+	<!--[if IE 7]>
+		<link rel="stylesheet" href="/rbssched/Styles/ie7.css" type="text/css" />
+	<![endif]-->
+	    
+        <link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/jquery.mobile-1.4.5.min.css" type="text/css" />    
+		<link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/jquery.mobile.theme-1.4.5.min.css" type="text/css" />    
+		<link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/RxTouch.css?v=20210210202335482" type="text/css" />    
+		<link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/RxTouch.custom.css?v=20210210202335482" type="text/css" />
+		<link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/jquery.mobile.icons.min.css" type="text/css" />
+		<link rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/jquery/jquery.dataTables_themeroller.css" type="text/css" />
+	
+	<link type="text/css" rel="stylesheet" href="/rbssched/Themes/StopAndShopRx/ThemeStyle.css"  />
+	    
+	    
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function () {
+            $.mobile.ajaxEnabled = false;
+        });
+    </script>
+        
+     
+	
+    <script type="text/javascript" src="/rbssched/Scripts/jquery.dataTables.js"></script>
+
+
+	
+	
+	
+
+    
+	<script type="text/javascript">
+
+	    $(document).ready(function () {
+	        //Fix for nodeName undefined error on IE
+	        if (window.navigator.userAgent.match(/MSIE|Trident/) !== null) {
+	            $.widget("mobile.popup", $.mobile.popup, {
+	                _safelyBlur: function (currentElement) {
+	                    try {
+	                        this._super();
+	                    } catch (ex) {
+	                    }
+	                }
+	            });
+	        }
+	    });
+
+		$.ajaxSetup({ cache: false, timeout: 60000 });
+
+		$(document).keydown(function (e) {
+			if (e.keyCode == 27) {
+				e.preventDefault(); // Prevent ESC key
+			}
+		});
+	</script>
+
+	
+	<script type="text/javascript">
+	    var timeoutMilliseconds = parseInt('1140000');
+	    var redirectUrl = '/rbssched/program/covid19/Login/Logout';
+	    var silentLogoutUrl = '/rbssched/program/covid19/Login/SilentLogout';
+	    var refreshTimeoutUrl = "/rbssched/program/covid19/Index/RefreshSession";
+	    sessionTimeoutStart(redirectUrl, silentLogoutUrl, timeoutMilliseconds);
+	</script>
+	
+
+    <script type="text/javascript" src="/rbssched/Scripts/jquery.mobile-1.4.5.js"></script>
+	    
+    <link rel = "StyleSheet" href="/rbssched/Styles/jquery/stopandshoprx-theme/jquery-ui-1.11.4.custom.css" type="text/css" /> 
+        
+    <script type="text/javascript" src="/rbssched/Scripts/calendarScheduler.js"></script>
+	<script type="text/javascript">
+
+	    let previousScrollY = 0;
+
+	    $(document).on('popupafteropen', function() {
+	        previousScrollY = window.scrollY;
+	        $('html').addClass('popup-open').css({
+	            marginTop: -previousScrollY,
+	            overflow: 'hidden',
+	            left: 0,
+	            right: 0,
+	            top: 0,
+	            bottom: 0,
+	            position: 'fixed',
+	        });
+	    }).on('popupafterclose', function() {
+	        $('html').removeClass('popup-open').css({
+	            marginTop: 0,
+	            overflow: 'visible',
+	            left: 'auto',
+	            right: 'auto',
+	            top: 'auto',
+	            bottom: 'auto',
+	            position: 'static',
+	        });
+	        window.scrollTo(0, previousScrollY);
+	    });
+
+	    $.calendar.calendarUrl = '/rbssched/program/covid19/Calendar/PatientCalendar';
+	    $.calendar.dailyUrl = '/rbssched/program/covid19/Calendar/PatientCalendarDay';
+	    $.calendar.scheduleUrl = '/rbssched/program/covid19/Calendar/SchedulePatientAppointment';
+	    $.calendar.summaryUrl = '/rbssched/program/covid19?ForceLoginDisplay=True&skipProgramResolve=True&cameFromPharmacyGrid=False';
+	    $.calendar.facilityInfoUrl = '/rbssched/program/covid19/Facility/GetInfo';
+	    $.calendar.loginUrl = '/rbssched/program/covid19/Patient/Advisory';
+	    $.calendar.snapCalendarToFirstAvailMonth = false;
+	    $.calendar.facilityId = 51589;
+	    $.calendar.month = 2;
+	    $.calendar.year = 2021;
+    
+	    
+	            $.calendar.appointmentType = 5957;                 
+	        
+
+	    if (!$.calendar.appointmentType)
+	    {
+	        $.calendar.appointmentType = 5957;       
+	    }
+        
+
+
+	    var submittedForm = null;
+	    var fromDialog = false;
+	    var elReturnToFocus = null;
+	    $(document).ready(function () {
+	        var facilities = '';
+	        console.log(facilities);
+             var test = '01003';
+			var currentUrl = escape(window.document.location);
+			var newHref = '/rbssched/program/covid19/Patient/SetLocation?clearZip=True';
+			newHref += "&prevUrl=" + currentUrl;
+			$("#lnkChangeZip").attr("href", newHref);
+
+			$("#ddlApptTypes").change(function () {
+			    var selectedValue = $("#ddlApptTypes option:selected").val();
+			    $.calendar.appointmentType = selectedValue;
+			    var url = '/rbssched/program/covid19/Patient/Schedule?zip=01003&appointmentType=!!!';
+			    url = (url + "").replace("!!!", selectedValue);
+			    window.location = url;
+		    });
+
+			$(".cancel-appointment-form").submit(function () {
+			    if (fromDialog) {
+			        return true;
+			    }
+			    submittedForm = $(this);
+			    //$("#dialog-confirm-cancel").popup("open");
+			    openPopup('dialog-confirm-cancel', document.activeElement, '');
+			    return false;
+			});
+
+			$.calendar.onRenderCalendar = setupAccessibility;
+
+			setupHandleEnterSpacePress($("#locationChangeBtn"));
+
+			$("#locationPopupMenu").on("popupafteropen", function() {
+			    $("#locationPopupMenu li a")[0].focus();
+			})
+	    });
+
+	    function setupAccessibility () {
+	        $(".ui-datepicker-prev, .ui-datepicker-next").attr("tabindex", 0);
+	        $(".ui-datepicker-prev, .ui-datepicker-next").on("keydown", function(event) {
+	            if (event.keyCode == 13 || event.keyCode == 32)
+	                $(event.target).click();
+	            if ($(event.target).hasClass('ui-datepicker-next') && event.keyCode == 9) {
+	                if (event.shiftKey) {
+	                    event.preventDefault();
+	                    $('.ui-datepicker-prev')[0].focus();
+	                } else {
+	                    firstDate = $(".ui-datepicker-calendar tbody td:not('.ui-datepicker-unselectable')")[0];
+	                    firstDate.focus();
+	                }
+	            }
+	        });
+	        $("#calendar .ui-datepicker-calendar").attr("role", "grid");
+	        $("#calendar .ui-datepicker-calendar tbody").attr("role", "presentation");
+	        $("#calendar .ui-datepicker-calendar thead th").attr("tabindex", -1);
+	        addMonthChangeText();
+	        addDateText();
+	        addTableAccessibility(function(eventTarget, gridCells, isShiftTab){
+	            gridCells.attr('tabindex', -1);
+	            if (isShiftTab) {
+	                if ($($(eventTarget).children()[0]).hasClass('ui-state-default')) { // a date link
+	                    $('.ui-datepicker-next')[0].focus();
+	                } else if ($(eventTarget).hasClass('ui-datepicker-prev')) { // the prev link
+	                    $('#facility-map-link')[0].focus();
+	                } else if ($(eventTarget).hasClass('ui-datepicker-next')) { // the next link
+	                    activeDate = $('.ui-state-highlight') ||
+                                    $('.ui-state-active')[0];
+	                    if (activeDate) {
+	                        activeDate.focus();
+	                    }
+	                } else {
+                        $('tr[role="contentinfo"]').attr('tabindex',0).focus();
+	                }
+	            } else {
+	                $('tr[role="contentinfo"]').attr('tabindex',0).focus();
+	            }
+	            return false;
+	        },
+                function(eventTarget, gridCells){
+                    eventTarget.click();
+                },
+                function(event){
+                    if ($(event.target).is('a') && $(event.target).parent().is("td")) 
+                        event.target = $(event.target).parent()[0];
+                }
+                );
+	    }
+
+	    function addDateText() {
+	        var unavailableDates = $(".ui-state-disabled");
+	        var selectableDates = $(".ui-datepicker-calendar tbody td:not('.ui-datepicker-unselectable')");
+	        var unavailableText = "Date unavailable";
+	        var selectableText = $(".ui-datepicker-month").html() + " " + $(".ui-datepicker-year").html();
+
+	        for (i=0; i < selectableDates.length; i++) {
+	            var current = $(selectableDates[i]);
+	            var date = current.children().html();
+	            current.attr("aria-label", date + " " + selectableText);
+	        }
+
+	        for (i=0; i < unavailableDates.length; i++) { 
+	            var current = $(unavailableDates[i]);
+	            var date = current.children().html();
+	            current.attr("aria-label", date + " " + unavailableText);
+	        }
+	    }
+
+	    function addMonthChangeText() {
+	        var prev = $(".ui-datepicker-prev");
+	        var next = $(".ui-datepicker-next");
+	        var months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+	        var currentMonth = $.calendar.month - 1; //minus one to account for zeroth element of array
+	        var nextMonth = "";
+	        var prevMonth = "";
+	        nextMonth = months[currentMonth + 1];
+	        prevMonth = months[currentMonth - 1];
+	        if (currentMonth == 0) {
+	            prevMonth = "december";
+	        } else if (currentMonth == 11) {
+                nextMonth = "january"
+	        }
+	        prev.attr("aria-label", "Previous month " + prevMonth);
+	        next.attr("aria-label", "Next month " + nextMonth);
+	    }
+
+	    function DontseeWhatYouWantOkButtonClicked() {
+	        var appointmentDescription = $("#ddlApptTypes option:selected").text();
+	        var facilityId = $("#facility option:selected").val();
+	        var facilityDescription = $("#hdn" + facilityId).val();
+	        var paramCount = 0;
+	        var zipCode = '01003';
+            var url = '/rbssched/program/covid19/Patient/SchedulingAssistance';
+
+            if ((appointmentDescription == undefined) || (appointmentDescription == "")) {
+                appointmentDescription = "COVID-19 Vaccine";
+            };
+
+            if ((appointmentDescription !== undefined) && (appointmentDescription !== "")) {
+                paramCount++;
+                url += '?appointmentType=' + escape(appointmentDescription);
+            }
+
+            if (facilityId !== undefined) {
+                if (paramCount == 0) {
+                    url += '?facilityId=' + escape(facilityId);
+                }
+                else {
+                    url += '&facilityId=' + escape(facilityId);
+                }
+
+                paramCount++;
+            }
+
+            if (facilityDescription !== undefined) {
+                if (paramCount == 0) {
+                    url += '?facilityName=' + escape(facilityDescription);
+                }
+                else {
+                    url += '&facilityName=' + escape(facilityDescription);
+                }
+                paramCount++;
+            }
+
+            if (zipCode !== undefined) {
+                if (paramCount == 0) {
+                    url += '?searchedForZip=' + escape(zipCode);
+                }
+                else {
+                    url += '&searchedForZip=' + escape(zipCode);
+                }
+                paramCount++;
+            }
+
+            window.location.href = url;
+        }
+
+
+        function DialogConfirmCancelClicked() {
+            if (submittedForm != null) {
+                fromDialog = true;
+                submittedForm.submit();
+            }
+        }
+
+        
+        function OnChangeFacility(id) {
+            setTimeout( function() {
+                $("#facility option").attr("selected", false);
+                $("#facility option[value='" + id + "']").attr("selected", "selected");
+           
+                $("#facility").val(id).change();
+            }, 1000);
+	    }
+
+
+
+
+	</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" /></head>
+
+<body style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px;">
+    <div data-role="page" > 
+        
+
+<div id="timeout-message">
+    <div id="timeoutAlert" role="alert" style="position:absolute; width:0; height:0; clip: rect(0,0,0,0);"></div>
+    <p>
+        <img src="/rbssched/Images/Interface/error.png" alt="warning" height="16" width="16" />
+        Your session is about to expire. Please <a href="">click here</a> to renew your session, or you will be redirected to the login page in <span role="timer">60</span> seconds.
+    </p>
+</div>
+    <table width='100%' cellpadding = "0" cellspacing = "0" border = "0">
+        <tr>
+            <td colspan='4'>
+                <table width = "100%" border = "0" cellspacing = "0" cellpadding = "0">
+                    <tr>
+                       <td width = "80%" align="left" valign="top" style="padding-top: 5px;">
+                            <a href=""><img src="/rbssched/Images/StopAndShopRxLogo.png" border="0"  class="logo" alt="Stop and shop"/></a>
+                       </td>
+                       <td width="20%" align="center" valign="middle">
+                            
+                       </td>
+                    </tr>    
+                    <tr>
+                        <td colspan='2'>
+                            <div style="width:100%; height: 6px; background-color: #E0004D;"></div>
+                            <div style="width:100%; height: 18px; background-color: #E0004D;"></div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <table width="100%" cellpadding = "0" cellspacing = "0" border = "0" class = "body">
+                    <tr>
+                        <td>
+                            <div id="Content">
+                                <div class="login-status">
+                                    
+                                </div>
+                                
+    <div class="patient-schedule-wrapper">
+	    <div class="leftPaddingOnly section schedule-options">
+            <br />
+            <br />
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <b>ZIP:</b>
+                    01003
+                    
+
+                    <div >
+                        <b>APPT Type:</b>
+                        COVID-19 Vaccine
+                        
+                    </div>
+                    
+	                    <div>
+		                    <b>Current APPT Type:</b>
+	                    </div>
+
+	                    <div>
+		                    COVID-19 Vaccine
+	                    </div>
+	                
+                </div>
+                <div class="ui-block-b">
+                    <a href="/rbssched/program/covid19/Patient/Advisory" id="backbtn" class="ui-btn ui-btn-b ui-corner-all" style="max-width: 100px; padding: 15px; float: right;">Go Back</a>
+                </div>
+            </div>
+            <br />
+            
+            <div>
+                <h4>Instructions:</h4>
+                <p>If the location below looks correct, click on a date to schedule an appointment. If not, click Change.</p>
+            </div>
+
+            
+
+            
+
+            
+
+            <div>
+	            
+
+
+	            
+	                    <input type="hidden" id="hdn51589" value="STOP AND SHOP PHARMACY #0784" />
+	                
+
+	                <input type="hidden" id="facility-name" />
+	                <input type="hidden" id="facility-banner" />
+                    <br /> 
+
+                    <div class="ui-grid-a ui-responsive">
+                        <div class="">
+                            <div class="selected-location ui-grid-a smallscreen-break" style="border: 3px solid; padding: 5px 15px;">
+                                <h3 style="text-align: center;">Selected Location</h3>
+
+                                <table class="ui-block-a">
+                                    <tr>
+                                        
+                                        <td id="name"></td>
+                                    </tr>
+
+                                    
+
+                                    <tr>
+                                        
+                                        <td id="address"></td>
+                                    </tr>
+
+                                    <tr>
+                                        
+                                        <td id="cityStateZip"></td>
+                                    </tr>
+                                </table>
+
+                                <div class="ui-grid-a ui-block-b">
+                                    <div class="ui-block-a">
+                                        <a href="#locationPopupMenu" id="locationChangeBtn" data-rel="popup" data-transition="pop" data-position-to="#locationChangeBtn" class="ui-btn ui-corner-all ui-shadow ui-btn-a" aria-label="Change location">Change</a>
+                                        <div data-role="popup" id="locationPopupMenu" data-theme="b">
+                                            <ul data-role="listview" data-inset="true" style="min-width: 210px;">
+                                                <li data-role="list-divider">Choose a new location</li>
+                                                
+		                                                <li><a href="#" onclick="OnChangeFacility(51589); return false;" data-rel="back" style="white-space: normal; white-space: break-spaces;"> - STOP AND SHOP PHARMACY #0784 - N ADAMS - 36 miles</a></li>
+                                                    
+                                            </ul>
+                                        </div>
+                                        <fieldset style="display:none;" data-role="controlgroup" data-type="horizontal">
+                                            <label for="facility"><h3>Select a Location:</h3></label>
+                                            <select id="facility" name="facility" style="white-space:normal">                 
+                                                
+		                                                <option value="51589"> - STOP AND SHOP PHARMACY #0784 - N ADAMS - 36 miles</option>
+                                                    
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="ui-grid-b">
+                                        
+                                        <a href="javascript:void(0)" id="facility-map-link" class="ui-btn ui-corner-all ui-btn-a" target="_blank">View Map</a>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+
+	                        
+
+                        </div>
+                            
+
+                        
+                    </div>      
+
+                    <div id="dialog-confirm-cancel-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate" >
+                        <div data-role="popup" id="dialog-confirm-cancel" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all">
+	                        <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	                            <h1 class="ui-title" role="heading" aria-level="1">Cancel Appointment</h1>
+	                        </div>
+	                        <div role="main" class="ui-content">
+		                        <p>Are you sure you want to cancel this appointment? </p>
+
+                                <div class="ui-grid-a ui-responsive">
+                                    <div class="ui-block-a">                                                
+                                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-a " data-rel="back">No</a>
+                                    </div>
+                                    <div class="ui-block-b">
+		                            <a href="javascript:DialogConfirmCancelClicked()" id="confirmCancelYes" class="ui-btn ui-corner-all ui-shadow ui-btn-a ">Yes</a>
+
+                                    </div>
+                                </div>
+	                        </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        <div class="calendar-container leftPaddingOnly section" style="margin: 20px 0;">
+            
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+		    // Load the calendar grid.
+		    $.calendar.Initialize();
+	    
+
+	    $("#dialog-confirm-appointment").on("popupafteropen", function () {
+	        setTimeout(function () {
+	            $("#confirmApptYes").focus();
+	        }, 0);	        
+	    })
+	});
+
+    function DialogConfirmAppointmentClicked() {
+        $("#dialog-confirm-appointment").popup("close");
+        $("#dialog-processing").popup("open");
+        $.post(
+            $.calendar.scheduleUrl,
+            {
+                facilityId: $.calendar.facilityId,
+                timeslotString: $.calendar.clickedTimeslot,
+                year: $.calendar.year,
+                appointmentId: $.calendar.appointmentToModify,
+                appointmentType: $.calendar.appointmentType
+            },
+            function (response) {
+                var msg = "";
+                if (response.Success) {
+                    if (response.Data.ConfirmText) {
+                        msg = response.Data.ConfirmText;
+                    } else {
+                        var beginMsg = $.calendar.appointmentToModify ?
+                                                                            "Your existing appointment has been cancelled, and a new appointment has been set for" :
+                                                                            "You have an appointment reserved for";
+                        msg = beginMsg + " " + $.calendar.BuildAppointmentDetails() + ". " + response.Message;
+                    };
+                } else {
+                    msg = response.Message;
+                }
+
+                $("#dialog-message-content").html("<p>" + msg + "</p>");
+                $("#dialog-processing").popup("close");
+                //$("#dialog-message").popup("open");
+                openPopup('dialog-message', "", 'dialog-message a');
+            });
+    };
+
+    function DialogMessageCalendarClicked() {
+        $("#dialog-message").popup("close");
+        window.location.href = $.calendar.summaryUrl;
+    };
+
+</script>
+
+<div id='calendar' style="margin: 0 auto" class="calendar"></div>
+    
+
+<div id="dialog-message-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate" >
+    <div data-role="popup" role="dialog" id="dialog-message" aria-labelledby="dialog-message-head" aria-describedby="dialog-message-content" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all">
+	    <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	        <h1 class="ui-title" role="heading" aria-level="1" id="dialog-message-head">Confirmation</h1>
+	    </div>
+	    <div role="main" class="ui-content">
+            <div id="dialog-message-content"></div>                                                              
+            <a href="javascript:DialogMessageCalendarClicked()" class="ui-btn ui-corner-all ui-shadow ui-btn-a " >Ok</a>
+	    </div>
+    </div>
+</div>
+
+
+<div id="dialog-processing-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate" >
+    <div data-role="popup" id="dialog-processing" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all">
+	    <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	        <h1 class="ui-title" role="heading" aria-level="1">Processing</h1>
+	    </div>
+	    <div role="main" class="ui-content">
+            <div style="margin: 1em 3em;">
+                <div style="font-size: 1.2em; font-weight: bold; float: left;">
+		            Processing...
+                </div>
+	            <img src="/rbssched/Images/Interface/ajax-loader.gif" style="margin-left: 1em;" alt="Processing" />
+            </div>
+            
+	    </div>
+    </div>
+</div>
+
+
+<div id="dialog-confirm-appointment-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate" >
+    <div data-role="popup" role="dialog" id="dialog-confirm-appointment" aria-labelledby="dialog-confirm-appointment-heading" aria-describedby="dialog-confirm-appointment-content" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all">
+	    <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	        <h1 class="ui-title" role="heading" aria-level="1" id="dialog-confirm-appointment-heading">Confirm Appointment</h1>
+	    </div>
+	    <div role="main" class="ui-content">
+            <div id="dialog-confirm-appointment-content" class="DialogPopupSize">
+                <p>
+		            You are about to schedule an appointment, please confirm by clicking the "Yes" button.
+	            </p>
+            </div>
+
+            <div class="ui-grid-a ui-responsive">
+                <div class="ui-block-a">                                                
+                    <a id="confirmApptYes" href="javascript:DialogConfirmAppointmentClicked()" class="ui-btn ui-corner-all ui-shadow ui-btn-a ">Yes</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-a " data-rel="back" onclick="setupAccessibility();">No</a>
+                </div>
+            </div>
+	    </div>
+    </div>
+</div>
+
+
+<div id="dialog-schedule-appointment-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate">
+    <div data-role="popup" role="dialog" id="dialog-schedule-appointment" aria-labelledby="dialog-schedule-appointment-heading" aria-describedby="dialog-schedule-appointment-content-text" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all"  style="max-width:400px !important;">
+	    <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	        <h1 class="ui-title" role="heading" aria-level="1" id="dialog-schedule-appointment-heading" style="margin: 0;">
+                Schedule an Appointment
+	        </h1>
+            <a href="#" id="scheduleDialogClose" data-role="none" data-rel="back" style="color: white;text-decoration: none;font-size: 1.3em;font-weight: normal;" class="ui-btn-right" aria-label="close popup" onclick="setupAccessibility();">X</a>
+	    </div>
+	    <div role="main" class="ui-content schedule-content">
+            <div id="dialog-schedule-appointment-content" class="DialogPopupSize">
+                <div class="dialog-schedule-appointment-content-text-wrapper">
+                    <div id="dialog-schedule-appointment-content-text">Select an Appointment Type:</div>
+                </div>
+                <div class="ui-field-contain" id="dialog-schedule-time-list-wrapper">
+                    
+                    
+                    <div id="dialog-schedule-time-list"></div>
+                </div>
+                
+            </div>
+	    </div>
+    </div>
+</div>
+
+
+<div id="dialog-facility-info-popup" class="ui-popup-container pop ui-popup-hidden ui-popup-truncate" >
+    <div data-role="popup" role="dialog" id="dialog-facility-info" aria-describedby="dialog-facility-info-content" aria-labelledby="facilityHeading" data-overlay-theme="a" data-theme="a" data-dismissible="false" data-position-to="window" class="ui-popup ui-body-a ui-overlay-shadow ui-corner-all">
+	    <div data-role="header" data-theme="a" role="banner" class="ui-header ui-bar-a">
+	        <h1 id="facilityHeading" class="ui-title" role="heading" aria-level="1">Information</h1>
+	    </div>
+	    <div role="main" class="ui-content">
+            <div id="dialog-facility-info-content" class="DialogPopupSize"></div>       
+            <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-a " data-rel="back">Ok</a>
+	    </div>
+    </div>
+</div>
+
+
+
+            
+            
+        </div>
+        
+    </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan='4'>
+                <div style="width:100%; height: 12px; background-color: #E0004D;"></div>                
+                <div style="width:100%; height: 6px; background-color: #E0004D;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                
+                <div class="version-string">Version 3.2.18</div>
+            </td>
+        </tr>
+    </table>
+    <div class="pageHeaderSection" visible="false">
+        
+    Schedule an Appointment
+
+    </div>
+ 
+         
+    </div>
+</body>
+</html>

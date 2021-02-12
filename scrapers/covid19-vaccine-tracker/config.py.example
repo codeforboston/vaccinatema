@@ -1,0 +1,43 @@
+from backends.curative import CurativeBackend
+from backends.rxtouch import RxTouchBackend
+from backends.maimmunizations import MAImmunizationsBackend
+from backends.cvs import CVSPharmacyBackend
+from backends.example import ExampleBackend
+
+from backends.curative_test import CurativeTestBackend
+from backends.rxtouch_test import RxTouchTestBackend
+from backends.maimmunizations_test import MAImmunizationsTestBackend
+from backends.cvs_test import CVSPharmacyTestBackend
+
+from notifiers.console import ConsoleNotifier
+from notifiers.slack import SlackNotifier
+from notifiers.csvlog import CSVLogNotifier
+
+# Construct backends using the provided services for
+# specific locations or areas (e.g., using a ZIP code)
+BACKENDS = [
+    CurativeBackend("<location_id>"),
+    RxTouchBackend("<location_id>", "<zip>"),
+    MAImmunizationsBackend("<address>", radius_miles="25"),
+    CVSPharmacyBackend("<address>", radius_miles="25")
+]
+
+# Specify ways in which you want to be notified
+# about available doses
+NOTIFIERS = [
+    ConsoleNotifier(),
+    SlackNotifier('slack_api_token', '#slack-channel', 'bot-username'),
+    CSVLogNotifier('path/to/output.csv')
+]
+
+# Used for testing. These backends provide fake data.
+TEST_BACKENDS = [
+    # An example backend. Does not work.
+    # ExampleBackend("1234"),
+    # Adjust the boolean argument as to whether they should provide
+    # fake appointment data (True), or output that there are no
+    # appointments available (False)
+    CurativeTestBackend(False),
+    RxTouchTestBackend(False),
+    MAImmunizationsTestBackend(False)
+]

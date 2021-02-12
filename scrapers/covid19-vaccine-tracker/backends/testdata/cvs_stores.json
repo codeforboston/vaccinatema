@@ -1,0 +1,2413 @@
+{
+  "responseMetaData": {
+    "statusCode": "0000",
+    "statusDesc": "Success",
+    "conversationID": "Id-e4bd186084a8dce38877aebe",
+    "refId": "Id-e4bd186084a8dce38877aebe"
+  },
+  "responsePayloadData": {
+    "schedulerRefType": "IMZ_STORE",
+    "availableDates": [
+      "2021-02-01",
+      "2021-02-02",
+      "2021-02-03",
+      "2021-02-04"
+    ],
+    "locations": [
+      {
+        "StoreNumber": "02256",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2236974",
+        "addressLine": "2 CENTER PLAZA",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02108",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.360100",
+        "geographicLongitudePoint": "-71.060600",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175233653",
+        "pharmacyPhonenumber": "6175233653",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "Closed"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.13",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_02256"
+      },
+      {
+        "StoreNumber": "00049",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2220933",
+        "addressLine": "333 WASHINGTON STREET, DOWNTOWN CROSSING",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02108",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.357000",
+        "geographicLongitudePoint": "-71.059000",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6177420783",
+        "pharmacyPhonenumber": "6177420783",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.14",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_00049"
+      },
+      {
+        "StoreNumber": "17807",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 1,
+        "pharmacyNCPDPProviderIdentifier": "2248070",
+        "addressLine": "100 CAMBRIDGE STREET, SUITE 102",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02114",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.361000",
+        "geographicLongitudePoint": "-71.062600",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "N",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "N",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "N",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6178501998",
+        "pharmacyPhonenumber": "6178501998",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "WED",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "THU",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "Closed"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 12:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 12:00 PM"
+            }
+          ]
+        },
+        "distance": "0.25",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_17807"
+      },
+      {
+        "StoreNumber": "01900",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2233978",
+        "addressLine": "218 HANOVER STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02113",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.362900",
+        "geographicLongitudePoint": "-71.055600",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6177204935",
+        "pharmacyPhonenumber": "6177204935",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 11:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.31",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01900"
+      },
+      {
+        "StoreNumber": "00361",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2222052",
+        "addressLine": "55 SUMMER STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02110",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.354300",
+        "geographicLongitudePoint": "-71.059200",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6174262690",
+        "pharmacyPhonenumber": "6174262690",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.33",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_00361"
+      },
+      {
+        "StoreNumber": "04666",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2243486",
+        "addressLine": "101 CANAL STREET, SUITE A",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02114",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.364600",
+        "geographicLongitudePoint": "-71.059900",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172270720",
+        "pharmacyPhonenumber": "6172270720",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "09:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.39",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_04666"
+      },
+      {
+        "StoreNumber": "01258",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230376",
+        "addressLine": "191-193 CAMBRIDGE STREET, CHARLES RIVER PLAZA",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02114",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.362100",
+        "geographicLongitudePoint": "-71.066100",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6173670441",
+        "pharmacyPhonenumber": "6173670441",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.44",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01258"
+      },
+      {
+        "StoreNumber": "05874",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2240377",
+        "addressLine": "631 WASHINGTON ST.",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02111",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.352500",
+        "geographicLongitudePoint": "-71.062900",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6173380128",
+        "pharmacyPhonenumber": "6173380128",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "08:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "08:00 AM - 07:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.5",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_05874"
+      },
+      {
+        "StoreNumber": "10174",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2244628",
+        "addressLine": "700 ATLANTIC AVE., SOUTH STATION",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02111",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.352200",
+        "geographicLongitudePoint": "-71.055200",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6177377232",
+        "pharmacyPhonenumber": "6177377232",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 07:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "Closed"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "Closed"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.5",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_10174"
+      },
+      {
+        "StoreNumber": "00260",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2233411",
+        "addressLine": "155-157 CHARLES STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02114",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.360600",
+        "geographicLongitudePoint": "-71.070600",
+        "indicatorStoreTwentyFourHoursOpen": "Y",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "N",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175231028",
+        "pharmacyPhonenumber": "6175231028",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "WED",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "THU",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "Open 24 Hours"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.62",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_00260"
+      },
+      {
+        "StoreNumber": "10517",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2245341",
+        "addressLine": "85 SEAPORT BLVD. UNIT H",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02210",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.351600",
+        "geographicLongitudePoint": "-71.045900",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "N",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "8573504646",
+        "pharmacyPhonenumber": "8573504646",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 11:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.83",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_10517"
+      },
+      {
+        "StoreNumber": "03307",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2239817",
+        "addressLine": "400 TREMONT STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02116",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.347100",
+        "geographicLongitudePoint": "-71.068300",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "Y",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175422107",
+        "pharmacyPhonenumber": "6175422107",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 11:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.96",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_03307"
+      },
+      {
+        "StoreNumber": "11082",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "addressLine": "341 HARRISON AVE",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02118",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.345400",
+        "geographicLongitudePoint": "-71.063900",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "N",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175563922",
+        "pharmacyPhonenumber": "6175563922",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "08:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "08:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "0.98",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_11082"
+      },
+      {
+        "StoreNumber": "01217",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230720",
+        "addressLine": "587 BOYLSTON STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02116",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.350400",
+        "geographicLongitudePoint": "-71.077000",
+        "indicatorStoreTwentyFourHoursOpen": "Y",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6174378414",
+        "pharmacyPhonenumber": "6174378414",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "WED",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "THU",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "Open 24 Hours"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "Open 24 Hours"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.11",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01217"
+      },
+      {
+        "StoreNumber": "08972",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2242799",
+        "addressLine": "285 COLUMBUS AVE.",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02116",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.347200",
+        "geographicLongitudePoint": "-71.073800",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172368538",
+        "pharmacyPhonenumber": "6172368538",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 05:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.12",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_08972"
+      },
+      {
+        "StoreNumber": "01009",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2227901",
+        "addressLine": "21 AUSTIN ST., BUNKER HILL MALL, CORNER OF MAIN STREET AND AUSTIN STREET",
+        "addressCityDescriptionText": "CHARLESTOWN",
+        "addressState": "MA",
+        "addressZipCode": "02129",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.375700",
+        "geographicLongitudePoint": "-71.065300",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "Y",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172422950",
+        "pharmacyPhonenumber": "6172422950",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.2",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01009"
+      },
+      {
+        "StoreNumber": "01206",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230857",
+        "addressLine": "240 NEWBURY STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02116",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.349500",
+        "geographicLongitudePoint": "-71.081900",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172364007",
+        "pharmacyPhonenumber": "6172364007",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.36",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01206"
+      },
+      {
+        "StoreNumber": "10891",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2247458",
+        "addressLine": "225 CAMBRIDGE ST",
+        "addressCityDescriptionText": "CAMBRIDGE",
+        "addressState": "MA",
+        "addressZipCode": "02141",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.371200",
+        "geographicLongitudePoint": "-71.079600",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "N",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175282109",
+        "pharmacyPhonenumber": "6175282109",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "10:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.36",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_10891"
+      },
+      {
+        "StoreNumber": "11200",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2247636",
+        "addressLine": "800 BOYLSTON STREET",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02199",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.346700",
+        "geographicLongitudePoint": "-71.080300",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "N",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6178801497",
+        "pharmacyPhonenumber": "6178801497",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "08:00 AM - 09:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 05:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.39",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_11200"
+      },
+      {
+        "StoreNumber": "01265",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230439",
+        "addressLine": "210 BORDER STREET",
+        "addressCityDescriptionText": "EAST BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02128",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.375500",
+        "geographicLongitudePoint": "-71.040700",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "Y",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6175675147",
+        "pharmacyPhonenumber": "6175675147",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "06:00 AM - 11:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "06:00 AM - 11:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 06:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "10:00 AM - 06:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.46",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01265"
+      },
+      {
+        "StoreNumber": "00979",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230390",
+        "addressLine": "423 WEST BROADWAY",
+        "addressCityDescriptionText": "SOUTH BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02127",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.336400",
+        "geographicLongitudePoint": "-71.047700",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "Y",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "Y",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172697656",
+        "pharmacyPhonenumber": "6172697656",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "08:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.66",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_00979"
+      },
+      {
+        "StoreNumber": "01259",
+        "minuteClinicID": "0",
+        "opticalClinicID": "0",
+        "storeType": 0,
+        "pharmacyNCPDPProviderIdentifier": "2230388",
+        "addressLine": "231 MASSACHUSETTS AVENUE",
+        "addressCityDescriptionText": "BOSTON",
+        "addressState": "MA",
+        "addressZipCode": "02115",
+        "addressCountry": "US",
+        "geographicLatitudePoint": "42.344200",
+        "geographicLongitudePoint": "-71.086500",
+        "indicatorStoreTwentyFourHoursOpen": "N",
+        "indicatorPrescriptionService": "Y",
+        "indicatorPhotoCenterService": "Y",
+        "indicatorOpticalService": "N",
+        "instorePickupService": "N",
+        "indicatorDriveThruService": "N",
+        "indicatorPharmacyTwentyFourHoursOpen": "N",
+        "rxConvertedFlag": "Y",
+        "indicatorCircularConverted": "Y",
+        "indicatorH1N1FluShot": "N",
+        "indicatorRxFluFlag": "N",
+        "indicatorWicService": "N",
+        "snapIndicator": "Y",
+        "indicatorVaccineServiceSupport": "N",
+        "indicatorPneumoniaShotService": "N",
+        "indicatorWeeklyAd": "Y",
+        "indicatorCVSStore": "Y",
+        "indicatorStorePickup": "N",
+        "storeLocationTimeZone": "EST",
+        "storePhonenumber": "6172666775",
+        "pharmacyPhonenumber": "6172666775",
+        "storeHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "07:00 AM - 10:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "07:00 AM - 10:00 PM"
+            }
+          ]
+        },
+        "pharmacyHours": {
+          "DayHours": [
+            {
+              "Day": "MON",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "TUE",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "WED",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "THU",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "FRI",
+              "Hours": "07:00 AM - 09:00 PM"
+            },
+            {
+              "Day": "SAT",
+              "Hours": "09:00 AM - 08:00 PM"
+            },
+            {
+              "Day": "SUN",
+              "Hours": "09:00 AM - 08:00 PM"
+            }
+          ]
+        },
+        "adVersionCdCurrent": "B",
+        "adVersionCdNext": "B",
+        "distance": "1.75",
+        "immunizationAvailability": {
+          "available": [
+            "FLU"
+          ],
+          "unavailable": []
+        },
+        "schedulerRefId": "CVS_01259"
+      }
+    ]
+  }
+}
