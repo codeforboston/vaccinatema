@@ -6,18 +6,14 @@
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
-    "cross-env": "7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "latest",
-    "express-validator": "^6.9.2",
     "express": "latest",
+    "express-validator": "^6.9.2",
     "google-geocoder": "^0.2.1",
-    "next": "10.0.6",
-    "pg": "^8.5.1",
-    "react-dom": "16.13.1",
-    "react": "16.13.1"
+    "pg": "^8.5.1"
   },
   "scripts": {
-    "start": "next build && cross-env NODE_ENV=production node app.js"
+    "start": "node app.js"
   }
 }
