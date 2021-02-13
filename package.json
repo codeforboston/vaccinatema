@@ -6,16 +6,20 @@
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
+    "cross-env": "7.0.2",
     "dotenv": "^8.2.0",
     "ejs": "latest",
-    "express": "latest",
     "express-validator": "^6.9.2",
+    "express": "latest",
     "google-geocoder": "^0.2.1",
-    "pg": "^8.5.1"
+    "next": "10.0.3",
+    "pg": "^8.5.1",
+    "react-dom": "16.13.1",
+    "react": "16.13.1"
   },
   "scripts": {
     "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
-    "start": "node app.js"
+    "start": "next build && cross-env NODE_ENV=production node app.js"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
