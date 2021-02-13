@@ -159,9 +159,15 @@ if (cluster.isMaster) {
             return app.render(req, res, '/dev/FAQ', req.query);
         });
 
+        server.get('/dev/search', (req, res) => {
+            return app.render(req, res, '/dev/search', req.query);
+        });
+
         server.use(express.static('static'));
 
         server.post('/search_query_location', function (req, res) {
+            console.log(req);
+            console.log(req.body);
             var locations = [];
             if (req.body.availability === 'Sites with reported doses') {
                 locations = available;
