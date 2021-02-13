@@ -77,12 +77,12 @@ if (cluster.isMaster) {
     var AWS = require('aws-sdk');
     var express = require('express');
     var bodyParser = require('body-parser');
-    var next = require('next')
+    var next = require('next');
 
-    const isDev = process.env.NODE_ENV !== 'production'
-    const app = next({ isDev })
+    const dev = process.env.NODE_ENV !== 'production';
+    const app = next({ dev });
 
-    AWS.config.region = process.env.REGION
+    AWS.config.region = process.env.REGION;
 
     app.prepare().then(() => {
         var server = express();
@@ -93,8 +93,8 @@ if (cluster.isMaster) {
         server.use(bodyParser.json());
 
         server.use('/robots.txt', function (req, res) {
-            res.type('text/plain')
-            res.send("User-agent: *\nDisallow: /");
+            res.type('text/plain');
+            res.send('User-agent: *\nDisallow: /');
         });
 
         server.get('/', function(req, res) {
@@ -170,10 +170,10 @@ if (cluster.isMaster) {
             }
 
             var closest = distanceUtils.getClosestLocations(
-              locations,
-              5,
-              req.body.latitude,
-              req.body.longitude
+                locations,
+                5,
+                req.body.latitude,
+                req.body.longitude
             );
             res.send(closest);
         });

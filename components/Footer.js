@@ -1,7 +1,9 @@
+import Logo from './subcomponents/Logo';
+
 const Footer = () => {
   return(
     <div className="footer">
-      Footer goes here
+      <Logo/>
     </div>
   );
 }
