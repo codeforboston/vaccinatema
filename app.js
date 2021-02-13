@@ -21,7 +21,7 @@ function saveState() {
                 available_longitude.push(record.get('Longitude'));
                 available_latitude.push(record.get('Latitude'));
             }
-            
+
         });
 
         // To fetch the next page of records, call `fetchNextPage`.
@@ -31,7 +31,7 @@ function saveState() {
 
     }, function done(err) {
         if (err) { console.error(err); return; }
-    });        
+    });
     setTimeout(saveState, 60000);
 }
 
@@ -77,12 +77,12 @@ if (cluster.isMaster) {
     var AWS = require('aws-sdk');
     var express = require('express');
     var bodyParser = require('body-parser');
-    var next = require('next')
+    var next = require('next');
 
-    const isDev = process.env.NODE_ENV !== 'production'
-    const app = next({ isDev })
+    const dev = process.env.NODE_ENV !== 'production';
+    const app = next({ dev });
 
-    AWS.config.region = process.env.REGION
+    AWS.config.region = process.env.REGION;
 
     app.prepare().then(() => {
         var server = express();
@@ -93,8 +93,8 @@ if (cluster.isMaster) {
         server.use(bodyParser.json());
 
         server.use('/robots.txt', function (req, res) {
-            res.type('text/plain')
-            res.send("User-agent: *\nDisallow: /");
+            res.type('text/plain');
+            res.send('User-agent: *\nDisallow: /');
         });
 
         server.get('/', function(req, res) {
@@ -141,11 +141,23 @@ if (cluster.isMaster) {
             res.send(sites);
         });
 
-        // TODO(hannah): This page is just to prove to us that React is working
-        // as expected. Once we've migrated over, remove it!
+        // NOTE: These routes are for the development of the new react front end
+        // It will be moved off of dev to the root when complete
         server.get('/dev', (req, res) => {
             return app.render(req, res, '/dev', req.query);
-        })
+        });
+
+        server.get('/dev/eligibility', (req, res) => {
+            return app.render(req, res, '/dev/eligibility', req.query);
+        });
+
+        server.get('/dev/sites', (req, res) => {
+            return app.render(req, res, '/dev/sites', req.query);
+        });
+
+        server.get('/dev/FAQ', (req, res) => {
+            return app.render(req, res, '/dev/FAQ', req.query);
+        });
 
         server.use(express.static('static'));
 
