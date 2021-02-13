@@ -246,14 +246,16 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script language="javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDxF3aT2MwmgzcAzFt5PtB-B3UNp4Js2h4"></script>
     <script type="text/javascript">
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     $(document).ready(function() {
-        function timeConverter(string){
+        function timeConverter(string) {
             var dates = (string || '').split('-');
-            var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            if (dates.length !=3) {
+                return '';
+            }
             var month = months[parseInt(dates[1]) - 1];
             var date = dates[2].substring(0,2);
-            var time = 'Latest report: ' + month + ' ' + date;
-            return time;
+            return 'Latest report: ' + month + ' ' + date;
         }
         function getLatLngByZipcode(zipcode, myCallback) {
             var geocoder = new google.maps.Geocoder();
@@ -282,7 +284,7 @@
             $("#site_address_" + n).attr("href", "https://maps.google.com/?q=" + addr.replace(" ","+"));
             $("#details_" + n).text(location.fields["Serves"] || '');
             $("#book_" + n).html(linkify(String(location.fields["Book an appointment"]) || ''));
-            $("#latest_info_" + n).text(location.fields["Availability"]);
+            $("#latest_info_" + n).text(location.fields["Availability"] || '');
             $("#latest_report_" + n).text(timeConverter(String(location.fields["Last Updated"])));
         }
         function displayData(data) {
