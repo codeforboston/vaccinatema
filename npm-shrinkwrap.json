@@ -5312,14 +5312,6 @@
         "scheduler": "^0.19.1"
       }
     },
-    "react-geocode": {
-      "version": "0.2.3",
-      "resolved": "https://registry.npmjs.org/react-geocode/-/react-geocode-0.2.3.tgz",
-      "integrity": "sha512-sIpbgmn1IUzAxO4haOZ6jeeFnMD8ya9PC38yiNrmJ9vPWbvAO2D/2yfCBzZjGZVUm4PRzKAc0KghXfaEnug0TQ==",
-      "requires": {
-        "regenerator-runtime": "^0.13.3"
-      }
-    },
     "react-is": {
       "version": "16.13.1",
       "resolved": "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz",
