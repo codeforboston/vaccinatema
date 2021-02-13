@@ -1,5 +1,5 @@
 {
-  "name": "Elastic-Beanstalk-Sample-App",
+  "name": "vaccinate-ma",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -18,6 +18,11 @@
     "react": "16.13.1"
   },
   "scripts": {
+    "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
     "start": "next build && cross-env NODE_ENV=production node app.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-plugin-react": "^7.22.0"
   }
 }
