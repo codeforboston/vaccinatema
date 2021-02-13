@@ -1,5 +1,5 @@
 import Seo from './Seo';
-import NavHeader from './Navheader';
+import NavHeader from './NavHeader';
 import Footer from './Footer';
 export default function Layout({
   children,
