@@ -1,7 +1,6 @@
-import Seo from './seo'
-import NavHeader from './navheader'
-import Footer from './footer'
-
+import Seo from './Seo';
+import NavHeader from './Navheader';
+import Footer from './Footer';
 export default function Layout({
   children,
   pageTitle = '',
