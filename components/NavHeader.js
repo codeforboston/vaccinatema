@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+
 import Logo from './subcomponents/Logo';
 
 // TODO: remove "/dev" after promoting to root
 
 const NavHeader = () => {
   const router = useRouter()
-  const [navClass, setNavClass] = useState("");
-
-  useEffect(() => {
-    if (document.body.clientWidth < 768) {
-      setNavClass("nav-mobile");
-    } else {
-      setNavClass("collapse navbar-collapse")
-    }
-  }, []);
 
   const renderLinkClass = (nav) => {
     const path = nav === "home" ? "/" : nav;
@@ -34,7 +26,7 @@ const NavHeader = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
             <NavDropdown title="Language" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Coming Soon</NavDropdown.Item>
+              <NavDropdown.Item>Coming Soon</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>

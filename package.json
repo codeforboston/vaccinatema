@@ -22,7 +22,6 @@
     "sass": "^1.32.7"
   },
   "scripts": {
-    "dev": "node app.js",
     "build": "next build",
     "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
     "start": "next build && cross-env NODE_ENV=production node app.js"
