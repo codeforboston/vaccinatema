@@ -1,6 +1,7 @@
-// Include the cluster module
-var cluster = require('cluster');
 require('dotenv').config();
+require('newrelic');
+require('@newrelic/aws-sdk')
+var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
 
