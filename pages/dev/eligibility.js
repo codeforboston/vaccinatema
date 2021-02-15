@@ -1,11 +1,10 @@
-import Layout from "../../components/Layout"
+import Layout from "../../components/Layout";
+import { withTranslation } from "../../i18n";
 
-const Eligibility = () => (
+const Eligibility = ({t}) => (
   <Layout pageTitle="Eligibility">
-    <div>
-    Eligibility
-    </div>
+    <div>{t("eligibility")}</div>
   </Layout>
 );
 
-export default Eligibility;
+export default withTranslation("common")(Eligibility);
