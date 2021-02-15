@@ -5,15 +5,15 @@ const locationsDb = require('../db/locations');
 
 
 async function pullClinics() {
-	const records = await base('MaVaccSites_Today').select()
-		.all();
-	return getFields(records);
-};
+    const records = await base('MaVaccSites_Today').select()
+        .all();
+    return getFields(records);
+}
 
 function getFields(records) {
-	return records.map(record => {
-		return convertAirtableObjectToSqlObject(record.fields);
-	});
+    return records.map(record => {
+        return convertAirtableObjectToSqlObject(record.fields);
+    });
 }
 
 function convertAirtableObjectToSqlObject(airTableObject) {
@@ -41,7 +41,7 @@ function fetchAirtableRowsAndBackfill() {
         .then(clinics => {
             const futures = [];
             clinics.forEach(clinic => {
-                futures.push(locationsDb.createLocation(clinic))
+                futures.push(locationsDb.createLocation(clinic));
             });
             return Promise.all(futures);
         })

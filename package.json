@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "next build",
-    "local": "eslint src/* app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix",
+    "lint": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js jobs/*  --fix",
     "start": "next build && cross-env NODE_ENV=production node app.js",
     "migration": "node jobs/migration.js"
   },
