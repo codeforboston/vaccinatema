@@ -10,7 +10,7 @@ const NavHeader = () => {
   const router = useRouter()
 
   const renderLinkClass = (nav) => {
-    const path = nav === "home" ? "/" : nav;
+    const path = nav === "home" ? "/dev" : nav;
     if (router.pathname.match(`${path}$`)) {
       return "active";
     } else {
@@ -30,10 +30,10 @@ const NavHeader = () => {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link className={renderLinkClass("home")} href="/dev">Home</Nav.Link>
+            <Nav.Link className={renderLinkClass("home")} href="/dev">Search</Nav.Link>
             <Nav.Link className={renderLinkClass("eligibility")} href="/dev/eligibility">Eligibility</Nav.Link>
-            <Nav.Link className={renderLinkClass("sites")} href="/dev/sites">Vaccination Sites</Nav.Link>
             <Nav.Link className={renderLinkClass("FAQ")} href="/dev/FAQ">FAQ</Nav.Link>
+            <Nav.Link className={renderLinkClass("press")} href="/dev/press">Press</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

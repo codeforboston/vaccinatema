@@ -1,5 +1,32 @@
 body {
   background: #E5E5E5;
+  color: #252525;
+  font-family: Mulish, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-family: Mulish, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 45px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+h2 {
+  font-family: Mulish, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0.01em;
+  text-align: left;
 }
 
 h3 {
@@ -10,8 +37,8 @@ h3 {
   line-height: 34px;
   letter-spacing: 0.01em;
   text-align: left;
-  color: #252525;
 }
+
 h4 {
   font-family: Mulish, sans-serif;
   font-size: 21px;
@@ -22,12 +49,28 @@ h4 {
   text-align: left;
 }
 
+h6 {
+  font-family: Mulish, sans-serif;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+.header {
+  .logo-container {
+    max-width: 60vw;
+  }
+}
+
 .header,
 .footer {
   .logo-container {
     cursor: pointer;
     img {
-      height: 60px;
+      height: 70px;
       padding-right: 10px;
     }
   }
@@ -43,27 +86,55 @@ h4 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 15px;
+  padding: 15px 15px 0 15px;
   .footer-box {
     display: block;
     width: 30%;
     min-width: 300px;
-    font-family: Mulish, sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 23px;
-    letter-spacing: 0;
-    text-align: left;
-    padding: 0 5px;
+    padding: 0 5px 15px 5px;
     .logo-sub-text {
       position: relative;
-      left: 72px;
+      left: $logo-offset;
       top: -25px;
       span {
         color: red;
       }
     }
+    .social-header {
+      position: relative;
+      left: $logo-offset;
+    }
+    .social-container {
+      position: relative;
+      display: inline;
+      left: $logo-offset;
+      svg {
+        color: black;
+        height: 30px;
+        margin-right: 10px;
+      }
+    }
   }
 }
 
+#eligibility-page {
+  padding-bottom: 30px;
+  .eligibility-image {
+    width: 100%;
+  }
+  h6 {
+    padding-top: 30px;
+    padding-bottom: 16px;
+  }
+}
+
+#faq-page,
+#press-page {
+  padding-bottom: 30px;
+  h6 {
+    padding-top: 30px;
+  }
+  h2 {
+    padding-top: 16px;
+  }
+}

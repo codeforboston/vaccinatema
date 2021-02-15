@@ -1,4 +1,19 @@
 import Logo from './subcomponents/Logo';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EmailLink from './subcomponents/EmailLink';
+import { faEnvelopeSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter, faFacebookSquare, faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, } from "react-share";
+
+/*
+   NOTE on social sharing: the react-share library includes support for the following fields:
+   Facebook: quote and one hashtag
+   Twitter: title, via, list of hashtags, list of related accounts
+   LinkedIn: title and summary
+   Email: subject and body
+   Automatic sharing is not available for instagram, linking to our page instead
+ */
+
 
 const Footer = () => {
   return(
@@ -10,14 +25,33 @@ const Footer = () => {
           <br/>
           with <span>❤</span> in Boston
         </div>
+        <h4 className="social-header">Share</h4>
+        <div className="social-container">
+          <TwitterShareButton url="http://vaccinatema.com/"
+                              hashtags={["covid19vaccine", "GetTheShot", "vaccinateMA"]} via="ma_covid">
+            <FontAwesomeIcon icon={faTwitter} />
+          </TwitterShareButton>
+          <FacebookShareButton url="http://vaccinatema.com/"
+                               hashtag="#GetTheShot">
+            <FontAwesomeIcon icon={faFacebookSquare} />
+          </FacebookShareButton>
+          <a href="https://www.instagram.com/vaccinate_ma/" target="_blank">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <EmailShareButton url="http://vaccinatema.com/"
+                            subject="Helping Massachusetts Residents Get Vaccinated"
+                            body="Check COVID-19 vaccine availability from 100+ local and retail sites across the
+                            commonwealth.">
+            <FontAwesomeIcon icon={faEnvelopeSquare} />
+          </EmailShareButton>
+          <LinkedinShareButton url="http://vaccinatema.com/">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </LinkedinShareButton>
+        </div>
       </div>
       <div className="footer-box">
         <h4>Get involved</h4>
-        <p>
-          Email us at{" "}
-          <a href="mailto:vaccinatema@gmail.com" target="_blank">vaccinatema@gmail.com</a>
-          {" "}if you'd like to help out.
-        </p>
+        <p>Email us at{" "}<EmailLink/>{" "}if you'd like to help out.</p>
         <h4>Feedback</h4>
         <p>
           Like the site? Found a bug? Have a feature idea?
