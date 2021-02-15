@@ -107,18 +107,6 @@
             });
             var icon_logo;
             var scale;
-            if (element.fields['Availability']?.trim() === 'None') {
-              icon_logo = "https://i.stack.imgur.com/LrMoi.png"
-              scale = 10
-            }
-            else if (element.fields['Serves']?.trim() === "Eligible populations statewide") {
-              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
-              scale = 5
-            }
-            else {
-              icon_logo = "<%= static_path + "/200px-Blue_Star.png" %>"
-              scale = 5
-            }
             const loc = element.fields['Location Name']?.trim();
             if (
               loc === "Foxborough: Gillette Stadium"
@@ -129,6 +117,18 @@
             ) {
               icon_logo = "https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg"
               scale = 5
+            } else if (element.fields['Serves']?.trim() === "Eligible populations statewide") {
+              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
+              scale = 5
+            }
+            else {
+              icon_logo = "<%= static_path + "/200px-Blue_Star.png" %>"
+              scale = 5
+            }
+
+            if (element.fields['Availability']?.trim() === 'None') {
+              icon_logo = "https://i.stack.imgur.com/LrMoi.png"
+              scale = 10
             }
 
             var icon_fixed = {
