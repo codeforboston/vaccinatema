@@ -1,9 +1,10 @@
-import Logo from './subcomponents/Logo';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EmailLink from './subcomponents/EmailLink';
 import { faEnvelopeSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter, faFacebookSquare, faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton, } from "react-share";
+
+import Logo from './subcomponents/Logo';
+import EmailLink from './subcomponents/EmailLink';
 
 /*
    NOTE on social sharing: the react-share library includes support for the following fields:

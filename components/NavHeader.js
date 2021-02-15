@@ -1,10 +1,10 @@
 import React from 'react';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useRouter } from 'next/router';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 import Logo from './subcomponents/Logo';
 
-// TODO: remove "/dev" after promoting to root
+// TODO: remove "/dev" after promoting to root (in hrefs and renderLinkClass)
 
 const NavHeader = () => {
   const router = useRouter()
