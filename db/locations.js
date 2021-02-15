@@ -20,7 +20,7 @@ function getMeters(numMiles) {
 **/
 const getAllLocations = async () => {
     try {
-        console.log('getting locatioons');
+        console.log('getting locations');
         const query = 'SELECT l.*, ' +
     ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
     ' FROM locations l ' + 
@@ -32,6 +32,28 @@ const getAllLocations = async () => {
     } catch (error) {
         console.error('an error occurred fetching locations ', error);
         throw new Error('an unexpected error occurred reading from locations DB');
+    }
+};
+
+/**
+ * Fetch all locations that match the provided name
+ **/
+const getLocationsByName = async (locationName) => {
+    try {
+        const locationNameToLookup = '%'+locationName.toLowerCase()+'%';
+        console.log(`getting locations by name: ${locationNameToLookup}`);
+        const query = 'SELECT l.*, ' +
+            ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
+            ' FROM locations l ' +
+            ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ' +
+            ' WHERE LOWER(l.name) LIKE $1 ' +
+            ' GROUP BY l.id ' +
+            ' ORDER BY l.name desc ';
+        const { rows } = await pool.query(query,[locationNameToLookup]);
+        return rows;
+    } catch (error) {
+        console.error('an error occurred fetching locations for location name:  ' + locationName, error);
+        throw new Error('an unexpected error occurred reading from locations DB for locationName');
     }
 };
 
@@ -201,6 +223,7 @@ const deleteLocationAvailability = async (locationId, locationAvailabilityId) =>
 
 module.exports = {
     getAllLocations,
+    getLocationsByName,
     getLocationsCloseToGeo,
     createLocation,
     updateLocation,
