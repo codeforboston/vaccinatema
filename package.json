@@ -32,12 +32,13 @@
   },
   "scripts": {
     "build": "next build",
-    "lint": "eslint '*/*.js' --fix",
+    "lint": "eslint '**/*.js' --fix --ignore-pattern 'static/*'",
     "start": "next build && cross-env NODE_ENV=production node app.js",
     "migration": "node jobs/migration.js"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
-    "eslint-plugin-react": "^7.22.0"
+    "eslint-plugin-react": "^7.22.0",
+    "babel-eslint": "10.1.0"
   }
 }
