@@ -22,22 +22,6 @@ The `main` branch is automatically deployed to Code for Boston's AWS Elastic Bea
 
 
 ## Folder Structure
-```
-├── components
-│   └── subcomponents
-├── db
-├── pages
-│   └── dev
-├── postman
-├── routes
-├── static
-│   ├── bootstrap
-│   └── jquery
-├── styles
-├── utils
-├── views
-└── app.js
-```
 ### `components`
 `components` contains the React components that make up the pages. Its subdirectory, `subcomponents`, contains components that make up other components.
 
