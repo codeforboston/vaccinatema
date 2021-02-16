@@ -12,17 +12,19 @@ class Search extends React.Component {
     state = {
         siteData: [],
         zipCode: "",
-        availability: "Sites with reported doses"
+        availability: "Sites with reported doses",
+        zipCodeError: false,
+        geolocationError: false
     }
 
     searchByZipCode = e => {
-        console.log("Search by zip code")
-        if (this.state.zipCode.length != 5) {
-            console.log("Invalid zip code") /* TODO Better zipcode validation and display to user */
-        }
-        else {
+        this.setState({zipCodeError: false, geolocationError: false})
+        if (/^\d{5}$/.test(this.state.zipCode)) {
             this.getLatitudeAndLongitudeByZipcode(this.state.zipCode)
                 .then(data => this.getLocationData(data.latitude, data.longitude, this.state.availability))
+            
+        } else {
+            this.setState({zipCodeError: true})
         }
     }
 
@@ -31,7 +33,6 @@ class Search extends React.Component {
         return Geocode.fromAddress(zipCode).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
-                console.log(lat, lng);
                 return {
                     latitude: lat,
                     longitude: lng
@@ -44,16 +45,15 @@ class Search extends React.Component {
     }
 
     searchByGeolocation = e => {
-        console.log("Search by geolocation")
+        this.setState({zipCodeError: false, geolocationError: false})
         if ("geolocation" in navigator) {
-            console.log("Geolocation Available")
             this.getLatitudeAndLongitudeByGeolocation()
                 .then(position => this.getLocationData(position.coords.latitude, position.coords.longitude, this.state.availability))
                 .catch(error => {
-                    console.log(error);
+                    console.error(error);
                 });
         } else {
-        console.log("Geolocation Not Available")
+            this.setState({geolocationError: true})
         }
     }
 
@@ -71,8 +71,6 @@ class Search extends React.Component {
     }
 
     getLocationData = (latitude, longitude, availability) => {
-        /* TODO Figure out why this is returning first 5 and not top 5 results. 
-        both the filter by availability and filter by location seem to be not working */
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
@@ -117,7 +115,7 @@ class Search extends React.Component {
                     <div className= "container">
                         <div className= "row">
                             <div className="relative max-w-xs">
-                                    <div className="form-group" >
+                                    <div className="form-group">
                                         <label for="type">Find </label>
                                         <select value={this.state.availability} onChange={this.handleChange} className="form-control" name="availability" id="availability" >
                                             <option value="Sites with reported doses">Sites with reported doses</option>
@@ -126,10 +124,12 @@ class Search extends React.Component {
                                     </div>
                                     <p> near </p>
                                     <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
+                                    {this.state.geolocationError && <p>Cannot figure out your location. Please enter your zip code instead.</p>}
                                     <div className="form-group">
                                         <span> or near</span>
                                         <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
                                     </div>
+                                    {this.state.zipCodeError && <p>Zip code is not valid!</p>}
                                     <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>
                             </div>
                         </div>

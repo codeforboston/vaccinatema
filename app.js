@@ -166,8 +166,6 @@ if (cluster.isMaster) {
         server.use(express.static('static'));
 
         server.post('/search_query_location', function (req, res) {
-            console.log(req);
-            console.log(req.body);
             var locations = [];
             if (req.body.availability === 'Sites with reported doses') {
                 locations = available;
