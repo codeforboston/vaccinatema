@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-brands-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@newrelic/aws-sdk": "^3.1.0",
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
     "body-parser": "latest",
@@ -13,6 +18,7 @@
     "express": "latest",
     "express-validator": "^6.9.2",
     "google-geocoder": "^0.2.1",
+    "newrelic": "^7.1.1",
     "next": "10.0.3",
     "node-js": "^1.0.0",
     "pg": "^8.5.1",
@@ -20,6 +26,7 @@
     "react-bootstrap": "^1.4.3",
     "react-dom": "^16.13.1",
     "react-geocode": "^0.2.3",
+    "react-share": "^4.3.1",
     "sass": "^1.32.7"
   },
   "scripts": {

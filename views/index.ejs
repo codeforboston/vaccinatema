@@ -107,11 +107,11 @@
             });
             var icon_logo;
             var scale;
-            if (element.fields['Availability'].trim() === 'None') {
+            if (element.fields['Availability']?.trim() === 'None') {
               icon_logo = "https://i.stack.imgur.com/LrMoi.png"
               scale = 10
             }
-            else if (element.fields['Serves'].trim() === "Eligible populations statewide") {
+            else if (element.fields['Serves']?.trim() === "Eligible populations statewide") {
               icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
               scale = 5
             }
@@ -119,7 +119,13 @@
               icon_logo = "<%= static_path + "/200px-Blue_Star.png" %>"
               scale = 5
             }
-            if (element.fields['Location Name'].trim() === "Foxborough: Gillette Stadium" || element.fields['Location Name'].trim() === "Boston: Fenway Park" || element.fields['Location Name'].trim() === "Danvers: Doubletree Hotel" || element.fields['Location Name'].trim() === "Springfield: Eastfield Mall") {
+            const loc = element.fields['Location Name']?.trim();
+            if (
+              loc === "Foxborough: Gillette Stadium"
+              || loc === "Boston: Fenway Park"
+              || loc === "Danvers: Doubletree Hotel"
+              || loc === "Springfield: Eastfield Mall"
+            ) {
               icon_logo = "https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg"
               scale = 5
             }
