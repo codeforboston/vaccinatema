@@ -1,6 +1,6 @@
 // TODO: Rename this index.js when react migration is complete
 
-import Layout from "../components/Layout"
+import Layout from "../../components/Layout"
 
 const Home = () => (
   <Layout pageTitle="Home">
