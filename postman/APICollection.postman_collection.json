@@ -60,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Gillette Stadium \",\n  \"bookinglink\": \"https://www.maimmunizations.org/client/registration?clinic_id=1499\",\n  \"address\": \"Gillette Stadium, Foxborough MA, 02035\",\n  \"serves\": \"Adults, Seniors\",\n  \"vaccinnesoffered\": \"Moderna COVID-19 Vaccine\",\n  \"siteinstructions\": \"If you are signing up for a second dose, you must get the same vaccine brand as your first dose.\",\n  \"daysopen\": {\n    \"sunday\": {\n      \"open\": false\n    },\n    \"monday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"tuesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"wednesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"thursday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"friday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"saturday\": {\n      \"open\": false\n    }\n  },\n  \"county\": \"Middlesex\",\n  \"availabilitydetails\": \"***Per the Commonwealth of Massachusetts' vaccine distribution timeline, this clinic is for all Phase 1 priority groups, plus the first priority group in Phase 2: individuals ages 75 and older.*** Please arrive only 5 minutes prior to your appointment (not sooner or later) and bring proof of eligibility. Please remember to wear a mask and practice social distancing at all times. You should expect to be at the vaccination site for about 60-75 minutes, all told — from the time you check in until your post-shot observation period ends. There is a 15-minute variance depending on the duration required for your post-shot observation.\",\n  \"initialAvailability\": {\n    \"doses\": 100,\n    \"availabilitytime\": \"2021-02-20\"\n  }\n}",
+					"raw": "{\n  \"name\": \"{{locationName}}\",\n  \"bookinglink\": \"https://www.maimmunizations.org/client/registration?clinic_id=1499\",\n  \"address\": \"Gillette Stadium, Foxborough MA, 02035\",\n  \"serves\": \"Adults, Seniors\",\n  \"vaccinnesoffered\": \"Moderna COVID-19 Vaccine\",\n  \"siteinstructions\": \"If you are signing up for a second dose, you must get the same vaccine brand as your first dose.\",\n  \"daysopen\": {\n    \"sunday\": {\n      \"open\": false\n    },\n    \"monday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"tuesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"wednesday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"thursday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"friday\": {\n      \"open\": true,\n      \"start\": \"09:00\",\n      \"end\": \"05:00\"\n    },\n    \"saturday\": {\n      \"open\": false\n    }\n  },\n  \"county\": \"Middlesex\",\n  \"availabilitydetails\": \"***Per the Commonwealth of Massachusetts' vaccine distribution timeline, this clinic is for all Phase 1 priority groups, plus the first priority group in Phase 2: individuals ages 75 and older.*** Please arrive only 5 minutes prior to your appointment (not sooner or later) and bring proof of eligibility. Please remember to wear a mask and practice social distancing at all times. You should expect to be at the vaccination site for about 60-75 minutes, all told — from the time you check in until your post-shot observation period ends. There is a 15-minute variance depending on the duration required for your post-shot observation.\",\n  \"initialAvailability\": {\n    \"doses\": 100,\n    \"availabilitytime\": \"2021-02-20\"\n  }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -165,6 +165,43 @@
 					"port": "3002",
 					"path": [
 						"locations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Locations w/ Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"availabilitydetails\": \"updated availability goes here!\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3002/locations?name={{locationName}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3002",
+					"path": [
+						"locations"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{locationName}}"
+						}
 					]
 				}
 			},
