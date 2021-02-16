@@ -152,8 +152,8 @@ if (cluster.isMaster) {
             return app.render(req, res, '/dev/eligibility', req.query);
         });
 
-        server.get('/dev/sites', (req, res) => {
-            return app.render(req, res, '/dev/sites', req.query);
+        server.get('/dev/press', (req, res) => {
+            return app.render(req, res, '/dev/press', req.query);
         });
 
         server.get('/dev/FAQ', (req, res) => {
