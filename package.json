@@ -31,8 +31,9 @@
   },
   "scripts": {
     "build": "next build",
-    "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
-    "start": "next build && cross-env NODE_ENV=production node app.js"
+    "lint": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js jobs/*  --fix",
+    "start": "next build && cross-env NODE_ENV=production node app.js",
+    "migration": "node jobs/migration.js"
   },
   "devDependencies": {
     "eslint": "^7.19.0",
