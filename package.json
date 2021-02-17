@@ -31,7 +31,8 @@
   },
   "scripts": {
     "build": "next build",
-    "lint": "eslint '**/*.js' --fix --ignore-pattern 'static/*'",
+    "lint": "eslint '**/*.js' --ignore-pattern 'static/*'",
+    "lint-fix": "eslint '**/*.js' --fix --ignore-pattern 'static/*'",
     "start": "next build && cross-env NODE_ENV=production node app.js",
     "migration": "node jobs/migration.js"
   },
