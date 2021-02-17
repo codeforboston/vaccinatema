@@ -107,26 +107,26 @@
             });
             var icon_logo;
             var scale;
+            const massVaccinationSites = ["Foxborough: Gillette Stadium", 
+                                          "Boston: Fenway Park", 
+                                          "Danvers: Doubletree Hotel", 
+                                          "Springfield: Eastfield Mall",
+                                          "Dartmouth: Circuit City at Dartmouth Towne Center", 
+                                          "Lowell: Lowell General Hospital at Cross River Center"];
             const loc = element.fields['Location Name']?.trim();
-            if (
-              loc === "Foxborough: Gillette Stadium"
-              || loc === "Boston: Fenway Park"
-              || loc === "Danvers: Doubletree Hotel"
-              || loc === "Springfield: Eastfield Mall"
-              || loc === "Dartmouth: Circuit City at Dartmouth Towne Center"
-            ) {
-              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/3/34/Red_star.svg"
+            if (massVaccinationSites.includes(loc)) {
+              icon_logo = "<%= static_path + "/Red_Star.svg" %>"
               scale = 5
             } else if (element.fields['Serves']?.trim() === "Eligible populations statewide") {
-              icon_logo = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Green_star_41-108-41.svg/807px-Green_star_41-108-41.svg.png"
+              icon_logo = "<%= static_path + "/Green_Star.png" %>"
               scale = 5
             } else {
-              icon_logo = "<%= static_path + "/200px-Blue_Star.png" %>"
+              icon_logo = "<%= static_path + "/Blue_Star.png" %>"
               scale = 5
             }
 
-            if (loc === 'None') {
-              icon_logo = "https://i.stack.imgur.com/LrMoi.png"
+            if (element.fields['Availability']?.trim() === 'None') {
+              icon_logo = "<%= static_path + "/Gray_dot.png" %>"
               scale = 10
             }
 
