@@ -160,6 +160,10 @@ if (cluster.isMaster) {
             return app.render(req, res, '/dev/FAQ', req.query);
         });
 
+        server.get('/dev/search', (req, res) => {
+            return app.render(req, res, '/dev/search', req.query);
+        });
+
         server.use(express.static('static'));
 
         server.post('/search_query_location', function (req, res) {
