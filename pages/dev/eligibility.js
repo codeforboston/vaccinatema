@@ -1,11 +1,12 @@
-import Layout from "../../components/Layout"
+import Layout from "../../components/Layout";
+import { withTranslation } from "../../i18n";
 
 // TODO: should the phase and group be set to variables?
 
-const Eligibility = () => (
+const Eligibility = ({t}) => (
   <Layout pageTitle="Eligibility">
     <div id="eligibility-page">
-      <h1>Eligibility for the COVID-19 vaccine in Massachusetts</h1>
+      <h1>{t("eligibility_title")}</h1>
       <h6>
         Massachusetts is now in vaccine eligibility Phase 2, Group 1, which started on Febuary 1, 2021. Please check
         all eligibility requirements below and sign up for your appointment in advance using the link or phone number
@@ -25,4 +26,4 @@ const Eligibility = () => (
   </Layout>
 );
 
-export default Eligibility;
+export default withTranslation("common")(Eligibility);
