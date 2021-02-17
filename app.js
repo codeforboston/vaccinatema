@@ -1,6 +1,6 @@
 require('dotenv').config();
 require('newrelic');
-require('@newrelic/aws-sdk')
+require('@newrelic/aws-sdk');
 var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
@@ -158,6 +158,10 @@ if (cluster.isMaster) {
 
         server.get('/dev/FAQ', (req, res) => {
             return app.render(req, res, '/dev/FAQ', req.query);
+        });
+
+        server.get('/dev/map', (req, res) => {
+            return app.render(req, res, '/dev/map', req.query);
         });
 
         server.use(express.static('static'));

@@ -18,6 +18,7 @@
     "express": "latest",
     "express-validator": "^6.9.2",
     "google-geocoder": "^0.2.1",
+    "google-map-react": "^2.1.9",
     "newrelic": "^7.1.1",
     "next": "10.0.3",
     "node-js": "^1.0.0",

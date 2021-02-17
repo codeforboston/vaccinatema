@@ -29,7 +29,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
         let locationName = req.query.name;
         // if a name is provided do a lookup based on that, or...
         if(locationName) {
-            console.log(locationName)
+            console.log(locationName);
             let locations = await locationsDb.getLocationsByName(locationName);
             res.json(locations);
         } // if lat/long provided use that to do a geolookup

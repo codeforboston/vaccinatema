@@ -117,6 +117,74 @@ h6 {
   }
 }
 
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: #808080;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.star {
+  position: relative;
+  
+  display: inline-block;
+  width: 0;
+  height: 0;
+  
+  margin-left: .9em;
+  margin-right: .9em;
+  margin-bottom: 1.2em;
+  
+  border-right:  .3em solid transparent;
+  border-left:   .3em solid transparent;
+
+  /* Controlls the size of the stars. */
+  font-size: 12px;
+  
+  &:before, &:after {
+    content: '';
+    
+    display: block;
+    width: 0;
+    height: 0;
+    
+    position: absolute;
+    top: .6em;
+    left: -1em;
+  
+    border-right:  1em solid transparent;
+    border-left:   1em solid transparent;
+  
+    transform: rotate(-35deg);
+  }
+  
+  &:after {  
+    transform: rotate(35deg);
+  }
+}
+
+.star-red {
+  border-bottom: .7em  solid #FF0000;
+  &:before, &:after {
+    border-bottom: .7em  solid #FF0000;
+  }
+}
+
+.star-green {
+  border-bottom: .7em  solid #00FF00;
+  &:before, &:after {
+    border-bottom: .7em  solid #00FF00;
+  }
+}
+
+.star-blue {
+  border-bottom: .7em  solid #0000FF;
+  &:before, &:after {
+    border-bottom: .7em  solid #0000FF;
+  }
+}
+
 #eligibility-page {
   padding-bottom: 30px;
   .eligibility-image {
