@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const locationsDb = require('../db/locations');
-const { getLatLngByAddress } = require('../geocode/geoLookup');
+const { getLatLngByAddress } = require('../utils/geo-lookup');
 
 const defaultRangeInMiles = 10;
 

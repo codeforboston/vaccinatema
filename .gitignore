@@ -55,3 +55,6 @@ Thumbs.db
 
 # NextJS build files
 static/_next/
+
+# Vscode files
+.vscode/

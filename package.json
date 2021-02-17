@@ -21,18 +21,21 @@
     "google-map-react": "^2.1.9",
     "newrelic": "^7.1.1",
     "next": "10.0.3",
+    "next-i18next": "7.0.1",
     "node-js": "^1.0.0",
     "pg": "^8.5.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^16.13.1",
+    "react-geocode": "^0.2.3",
     "react-share": "^4.3.1",
     "sass": "^1.32.7"
   },
   "scripts": {
     "build": "next build",
-    "local": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js  --fix & node app.js",
-    "start": "next build && cross-env NODE_ENV=production node app.js"
+    "lint": "eslint app.js db/*.js geocode/*.js routes/*.js utils/*.js jobs/*  --fix",
+    "start": "next build && cross-env NODE_ENV=production node app.js",
+    "migration": "node jobs/migration.js"
   },
   "devDependencies": {
     "eslint": "^7.19.0",

@@ -60,3 +60,8 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON locations
 FOR EACH ROW
 EXECUTE FUNCTION trigger_set_timestamp();
+
+ALTER TABLE locations
+ADD COLUMN phone VARCHAR(15)
+ADD COLUMN accessibility VARCHAR(100)
+ADD COLUMN email VARCHAR(100)
