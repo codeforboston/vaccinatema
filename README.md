@@ -20,6 +20,8 @@ open http://127.0.0.1:3002/
 ## Deployment
 The `main` branch is automatically deployed to Code for Boston's AWS Elastic Beanstalk instance.
 
+## Issue Tracking
+Project Issues are tracked on [Trello](https://trello.com/b/BGnTPDSi/vaccinatema).
 
 ## Folder Structure
 ### `components`
