@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 
-const Marker = ({ text, tooltip, typeOfSite, $hover }) => {
+const Marker = ({ id, lat, lng, tooltip, typeOfSite, setPopupData, getSiteDataByKey, $hover }) => {
     const handleClick = () => {
+        console.log(id)
+        const data = getSiteDataByKey(id)
+        setPopupData({
+            lat,
+            lng,
+            data
+        })
         console.log(`You clicked on ${tooltip}`);
       };
     return (
       <div
         className={$hover ? typeOfSite + " hover" : typeOfSite}
         onClick={handleClick}
+        style={{
+            position: 'absolute',
+            transform: 'translate(-50%, -50%)'
+        }}
       >
+        {$hover && <p>{id + tooltip}</p>}
       </div>
     )
 }
@@ -56,15 +68,28 @@ const determineTypeOfSite = (availability, serves, locationName) => {
     }
 }
 
-const PopUp = () => (
-    <div>
-        <p>I am a pop-up!</p>
+const Popup = ({data}) => (
+    <div style={{
+        position: 'absolute',
+        transform: 'translate(0%, -50%)',
+        color: '#000000',
+        backgroundColor: '#FFFFFF',
+        width: '100px',
+        height: '100px'
+    }}>
+        <p>Hey, I did it!</p>
+        <p>{data.locationName}</p>
+        <p>{data.populationsServed}</p>
     </div>
 )
 
 const Map = () => {
     const [siteData, setSiteData] = useState([]);
-    const [showPopUp, setShowPopUp] = useState(true);
+    const [popupData, setPopupData] = useState(null);
+
+    const getSiteDataByKey = key => siteData.find(site => {
+        return key === site.id
+    })
 
     useEffect(() => {
         fetch('/initmap')
@@ -84,18 +109,19 @@ const Map = () => {
         {siteData && siteData.map((site) => (
             <Marker
                 key={site.id}
+                id={site.id}
                 lat={site.latitude}
                 lng={site.longitude}
-                text={site.locationName}
                 tooltip={site.locationName}
                 typeOfSite={site.typeOfSite}
+                setPopupData={setPopupData}
+                getSiteDataByKey={getSiteDataByKey}
             />
         ))}
-        {showPopUp && (<PopUp style={{ position: 'absolute', top: 0, left: 0, width: '200px' }} />)}
-        {popupInfo && (<Popup
-            store={popupInfo}
-            lat={popupInfo.latitude}
-            lng={popupInfo.longitude}
+        {popupData && (<Popup
+            lat={popupData.lat}
+            lng={popupData.lng}
+            data={popupData.data}
            />)}
         </GoogleMapReact>
         </div>
