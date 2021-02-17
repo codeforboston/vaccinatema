@@ -18,15 +18,23 @@ function getMeters(numMiles) {
 /**
 * Fetch all locations
 **/
-const getAllLocations = async () => {
+const getAllLocations = async (hasAvailability) => {
     try {
-        console.log('getting locations');
+        console.log('getting locations ' + hasAvailability);
+        // if instructed to only include locations with available doses, swap the join
+        // to filter only locations joining to availability with doses > 0
+        let availabilityJoin = ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ';
+        if(hasAvailability === true){
+            availabilityJoin = ' JOIN location_availability la ON la.location_id = l.id and la.doses > 0 ';
+        }
         const query = 'SELECT l.*, ' +
-    ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
-    ' FROM locations l ' + 
-    ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ' +
-    ' GROUP BY l.id ' +
-    ' ORDER BY l.name desc ';
+                        ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
+                        ' FROM locations l ' +
+                        availabilityJoin +
+                        ' GROUP BY l.id ' +
+                        ' ORDER BY l.name asc ';
+
+        console.log(query);
         const { rows } = await pool.query(query);
         return rows;
     } catch (error) {
@@ -38,14 +46,22 @@ const getAllLocations = async () => {
 /**
  * Fetch all locations that match the provided name
  **/
-const getLocationsByName = async (locationName) => {
+const getLocationsByName = async (locationName, hasAvailability) => {
     try {
         const locationNameToLookup = '%'+locationName.toLowerCase()+'%';
         console.log(`getting locations by name: ${locationNameToLookup}`);
+
+        // if instructed to only include locations with available doses, swap the join
+        // to filter only locations joining to availability with doses > 0
+        let availabilityJoin = ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ';
+        if(hasAvailability === true){
+            availabilityJoin = ' JOIN location_availability la ON la.location_id = l.id and la.doses > 0 ';
+        }
+
         const query = 'SELECT l.*, ' +
             ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
             ' FROM locations l ' +
-            ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ' +
+             availabilityJoin +
             ' WHERE LOWER(l.name) LIKE $1 ' +
             ' GROUP BY l.id ' +
             ' ORDER BY l.name desc ';
@@ -72,11 +88,18 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
 
         console.log(`LOCATION LOOKUP BASED ON GEO: ${homeLat} ${homeLong} RangeInMeters: ${rangeInMeters}`);
 
+        // if instructed to only include locations with available doses, swap the join
+        // to filter only locations joining to availability with doses > 0
+        let availabilityJoin = ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ';
+        if(hasAvailability === true){
+            availabilityJoin = ' JOIN location_availability la ON la.location_id = l.id and la.doses > 0 ';
+        }
+
         const query = 'SELECT l.*, ' +
                   '       COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability, ' +
                   '       ROUND(earth_distance(ll_to_earth($1, $2), ll_to_earth(l.latitude, l.longitude)) :: NUMERIC, 2) AS distanceMeters ' +
                   ' FROM locations l ' +
-                  ' LEFT OUTER JOIN location_availability la ON la.location_id = l.id ' + 
+                    availabilityJoin +
                   ' WHERE earth_distance(ll_to_earth($1, $2), ll_to_earth(l.latitude, l.longitude)) <= $3 ' + 
                   ' GROUP BY l.id' +
                   ' ORDER BY distanceMeters DESC ';

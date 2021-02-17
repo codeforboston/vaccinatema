@@ -13,6 +13,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
     query('longitude').optional().isNumeric().withMessage('Only numbers allowed for lat/long'),
     query('zipcode').optional().isNumeric().withMessage('Only numbers allowed for zipcode'),
     query('rangeMiles').optional().isNumeric().withMessage('Only numbers allowed for rangeMiles'),
+    query('hasAvailability').optional().isBoolean().default(false).withMessage('hasAvailability must be true/false '),
     query('name').optional().isString()], async function(req, res) {
     try {  
         // Finds the validation errors in this request and wraps them in an object 
@@ -20,7 +21,7 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-
+        let hasAvailability = (req.query.hasAvailability === 'true')
         let homeLatitude = req.query.latitude;
         let homeLongitude = req.query.longitude;
         const homeRangeInMiles = req.query.rangeMiles ? req.query.rangeMiles : defaultRangeInMiles;
@@ -30,24 +31,24 @@ router.get('/', [query('latitude').optional().isNumeric().withMessage('Only numb
         // if a name is provided do a lookup based on that, or...
         if(locationName) {
             console.log(locationName)
-            let locations = await locationsDb.getLocationsByName(locationName);
+            let locations = await locationsDb.getLocationsByName(locationName, hasAvailability);
             res.json(locations);
         } // if lat/long provided use that to do a geolookup
         else if (homeLatitude && homeLongitude) {
-            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles);
+            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles, hasAvailability);
             res.json(locations);
         } else if(req.query.zipcode) {
             // if zip provided, find the coords of that zip and use that
-            const geoLocation = await getLatLngByAddress(req.query.zipcode);
+            const geoLocation = await getLatLngByAddress(req.query.zipcode, hasAvailability);
             if(geoLocation){
                 homeLatitude = geoLocation.latitude;
                 homeLongitude = geoLocation.longitude;
             }
-            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles);
+            let locations = await locationsDb.getLocationsCloseToGeo(homeLatitude, homeLongitude, homeRangeInMiles, hasAvailability);
             res.json(locations);
         } else {
             // otherwise just return all with no geo search
-            let locations = await locationsDb.getAllLocations();
+            let locations = await locationsDb.getAllLocations(hasAvailability);
             res.json(locations);
         }
     } catch (error) {
