@@ -23,7 +23,7 @@ const Eligibility = ({t}) => (
                 <b>All sites require appointments.</b>
             </h6>
             <img className="eligibility-image"
-                src="https://www.mass.gov/files/images/2021-02/2.2-covidvaccine_phases-1-and-2a-timing-by-group_1920x1080-no-url.png"
+                src="https://www.mass.gov/files/styles/embedded_full_width/public/images/2021-02/covidvaccine_phases-1-and-2ab-timing-by-group_social_1920x1080-no-url.png"
                 alt="Eligibility"/>
         </div>
     </Layout>
