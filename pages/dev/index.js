@@ -1,13 +1,13 @@
-// TODO: Rename this index.js when react migration is complete
+import React from 'react';
 
-import Layout from "../../components/Layout"
+import Layout from '../../components/Layout';
 
 const Home = () => (
-  <Layout pageTitle="Home">
-    <div>
+    <Layout pageTitle="Home">
+        <div>
       Home page
-    </div>
-  </Layout>
+        </div>
+    </Layout>
 );
 
 export default Home;
