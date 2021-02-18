@@ -111,13 +111,18 @@
                                           "Boston: Fenway Park", 
                                           "Danvers: Doubletree Hotel", 
                                           "Springfield: Eastfield Mall",
-                                          "Dartmouth: Circuit City at Dartmouth Towne Center", 
-                                          "Lowell: Lowell General Hospital at Cross River Center"];
+                                          "Dartmouth: Former Circuit City", 
+                                          "Lowell: Lowell General Hospital at Cross River Center",
+                                          "Natick: Natick Mall"];
+            // String matching is messy... the first one should be standard now but just in case
+            const textForStatewideSite = ["All eligible people statewide",
+                                          "Eligible populations statewide"];
             const loc = element.fields['Location Name']?.trim();
+            const serves = element.fields['Serves']?.trim();
             if (massVaccinationSites.includes(loc)) {
               icon_logo = "<%= static_path + "/Red_Star.svg" %>"
               scale = 5
-            } else if (element.fields['Serves']?.trim() === "Eligible populations statewide") {
+            } else if (textForStatewideSite.includes(serves)) {
               icon_logo = "<%= static_path + "/Green_Star.png" %>"
               scale = 5
             } else {
