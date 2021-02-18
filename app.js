@@ -95,7 +95,7 @@ if (cluster.isMaster) {
 
         server.use('/robots.txt', function (req, res) {
             res.type('text/plain');
-            res.send('User-agent: *\nDisallow: /');
+            res.send('User-agent: *\nAllow: /');
         });
 
         server.get('/', function(req, res) {
@@ -158,6 +158,10 @@ if (cluster.isMaster) {
 
         server.get('/dev/FAQ', (req, res) => {
             return app.render(req, res, '/dev/FAQ', req.query);
+        });
+
+        server.get('/dev/search', (req, res) => {
+            return app.render(req, res, '/dev/search', req.query);
         });
 
         server.use(express.static('static'));
