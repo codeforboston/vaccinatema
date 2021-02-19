@@ -95,7 +95,7 @@ if (cluster.isMaster) {
 
         server.use('/robots.txt', function (req, res) {
             res.type('text/plain');
-            res.send('User-agent: *\nDisallow: /');
+            res.send('User-agent: *\nAllow: /');
         });
 
         server.get('/', function(req, res) {

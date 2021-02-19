@@ -1,4 +1,4 @@
-// TODO: Rename this index.js when react migration is complete
+import React from 'react';
 
 import Layout from "../../components/Layout"
 import Map from "../../components/Map"
