@@ -6,11 +6,11 @@ import Map from "../../components/Map"
 const Home = () => (
   <Layout pageTitle="Home">
     <div>
-      <div class="jumbotron">
+      <div className="jumbotron">
         <h2>COVID-19 Vaccine Availability</h2>
-        <p class="lead">For <a href="/eligibility"> eligible individuals </a>, find an appointment from the map below or</p>
-        <div class="btn-group" style={{width: "100%", display:"flex", alignItems: "center", justifyContent: "center"}}>
-          <a class="btn btn-success"  data-toggle="modal" href="/search" style={{justifyContent: "center"}}>Find Locations Near You</a>
+        <p className="lead">For <a href="/eligibility"> eligible individuals </a>, find an appointment from the map below or</p>
+        <div className="btn-group" style={{width: "100%", display:"flex", alignItems: "center", justifyContent: "center"}}>
+          <a className="btn btn-success"  data-toggle="modal" href="/search" style={{justifyContent: "center"}}>Find Locations Near You</a>
         </div>
         
       </div>

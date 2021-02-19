@@ -5932,6 +5932,11 @@
         "warning": "^4.0.3"
       }
     },
+    "react-process-string": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/react-process-string/-/react-process-string-1.2.0.tgz",
+      "integrity": "sha512-+ExcVuECeALN6PTqj2XyjqkxzRdUmZv6bb15fjEMwzo9SbXzDzOr8R8RTwzPzQpCxiSGfqf3JPjOHGMiRuQ8Eg=="
+    },
     "react-refresh": {
       "version": "0.8.3",
       "resolved": "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
+import parseBookAppointmentString from './utilities/parseBookAppointmentString';
 
 const parseDate = dateString => (
     new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: "America/New_York"})
@@ -14,7 +15,7 @@ const parseLocationData = data => {
             populationsServed: site.fields["Serves"] ?? "",
             vaccineAvailability: site.fields["Availability"] ?? "",
             lastUpdated: (site.fields["Last Updated"] && parseDate(site.fields["Last Updated"])) ?? "",
-            bookAppointmentInformation: site.fields["Book an appointment"] ?? "",
+            bookAppointmentInformation: (site.fields["Book an appointment"] && parseBookAppointmentString(site.fields["Book an appointment"])) ?? "",
             latitude: site.fields["Latitude"] ?? 0,
             longitude: site.fields["Longitude"] ?? 0,
             sitePinShape: determineSitePinShape(
@@ -79,7 +80,7 @@ const Popup = ({data, setPopupData}) => (
         padding: '5px'
     }}>
         <div id="content">
-            <h4 id="firstHeading" class="firstHeading">{data.locationName}</h4>
+            <h4 id="firstHeading" className="firstHeading">{data.locationName}</h4>
             <div id="bodyContent">
                 <p><b>Details</b> {data.populationsServed}</p>
                 <p><b>Address</b> {data.address}</p>
