@@ -82,6 +82,7 @@ if (cluster.isMaster) {
 
     const dev = process.env.NODE_ENV !== 'production';
     const app = next({ dev });
+    const handle = app.getRequestHandler();
 
     AWS.config.region = process.env.REGION;
 
@@ -186,6 +187,8 @@ if (cluster.isMaster) {
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
         const locationApi = require('./routes/locations');
         server.use('/locations', locationApi);
+
+        server.all('*', handle);
 
         // Start the server.
         var port = process.env.PORT || 3002;
