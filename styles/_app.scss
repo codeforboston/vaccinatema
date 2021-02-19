@@ -118,8 +118,10 @@ h6 {
 }
 
 .dot {
-  height: 12px;
-  width: 12px;
+  position: relative;
+  z-index: -1;
+  height: 4px;
+  width: 4px;
   background-color: #808080;
   border-radius: 50%;
   display: inline-block;
