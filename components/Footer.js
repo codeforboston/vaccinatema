@@ -18,66 +18,66 @@ import EmailLink from './subcomponents/EmailLink';
 
 
 const Footer = () => {
-    return(
-        <div className="footer">
-            <div className="footer-box">
-                <Logo/>
-                <div className="logo-sub-text">
+  return(
+    <div className="footer">
+      <div className="footer-box">
+        <Logo/>
+        <div className="logo-sub-text">
           Made by volunteers
-                    <br/>
+          <br/>
           with <span>❤</span> in Boston
-                </div>
-                <h4 className="social-header">Share</h4>
-                <div className="social-container">
-                    <TwitterShareButton url="http://vaccinatema.com/"
-                        hashtags={['covid19vaccine', 'GetTheShot', 'vaccinateMA']} via="ma_covid">
-                        <FontAwesomeIcon icon={faTwitter} />
-                    </TwitterShareButton>
-                    <FacebookShareButton url="http://vaccinatema.com/"
-                        hashtag="#GetTheShot">
-                        <FontAwesomeIcon icon={faFacebookSquare} />
-                    </FacebookShareButton>
-                    <a href="https://www.instagram.com/vaccinate_ma/" target="_blank" rel="noreferrer">
-                        <FontAwesomeIcon icon={faInstagram} />
-                    </a>
-                    <EmailShareButton url="http://vaccinatema.com/"
-                        subject="Helping Massachusetts Residents Get Vaccinated"
-                        body="Check COVID-19 vaccine availability from 100+ local and retail sites across the
+        </div>
+        <h4 className="social-header">Share</h4>
+        <div className="social-container">
+          <TwitterShareButton url="http://vaccinatema.com/"
+            hashtags={['covid19vaccine', 'GetTheShot', 'vaccinateMA']} via="ma_covid">
+            <FontAwesomeIcon icon={faTwitter} />
+          </TwitterShareButton>
+          <FacebookShareButton url="http://vaccinatema.com/"
+            hashtag="#GetTheShot">
+            <FontAwesomeIcon icon={faFacebookSquare} />
+          </FacebookShareButton>
+          <a href="https://www.instagram.com/vaccinate_ma/" target="_blank" rel="noreferrer">
+            <FontAwesomeIcon icon={faInstagram} />
+          </a>
+          <EmailShareButton url="http://vaccinatema.com/"
+            subject="Helping Massachusetts Residents Get Vaccinated"
+            body="Check COVID-19 vaccine availability from 100+ local and retail sites across the
                             commonwealth.">
-                        <FontAwesomeIcon icon={faEnvelopeSquare} />
-                    </EmailShareButton>
-                    <LinkedinShareButton url="http://vaccinatema.com/">
-                        <FontAwesomeIcon icon={faLinkedin} />
-                    </LinkedinShareButton>
-                </div>
-            </div>
-            <div className="footer-box">
-                <h4>Get involved</h4>
-                <p>Email us at{' '}<EmailLink/>{' '}if you&apos;d like to help out.</p>
-                <h4>Feedback</h4>
-                <p>
+            <FontAwesomeIcon icon={faEnvelopeSquare} />
+          </EmailShareButton>
+          <LinkedinShareButton url="http://vaccinatema.com/">
+            <FontAwesomeIcon icon={faLinkedin} />
+          </LinkedinShareButton>
+        </div>
+      </div>
+      <div className="footer-box">
+        <h4>Get involved</h4>
+        <p>Email us at{' '}<EmailLink/>{' '}if you&apos;d like to help out.</p>
+        <h4>Feedback</h4>
+        <p>
           Like the site? Found a bug? Have a feature idea?
           Get a vaccine from info you found here?{' '}
-                    <a
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSel9cjb4X0Zv5zuygWx9UnXpXrP2INJTrOW7j9MNXNdv7lKnw/viewform"
+            target="_blank"
+            rel="noreferrer"
+          >
             Let us know on this feedback form
-                    </a>
-                </p>
-            </div>
-            <div className="footer-box">
-                <h4>Disclaimer</h4>
-                <p>
+          </a>
+        </p>
+      </div>
+      <div className="footer-box">
+        <h4>Disclaimer</h4>
+        <p>
           This site was put together by volunteers using our best efforts to assemble readily available data from
           public sources. This site does not provide medical advice, nor does it provide any type of technical advice.
           vaccinatema.com is not responsible for any errors or omissions.
-                </p>
-            </div>
+        </p>
+      </div>
 
-        </div>
-    );
+    </div>
+  );
 };
 
 export default Footer;

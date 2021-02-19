@@ -6,13 +6,13 @@ import '../styles/index.scss';
 import {appWithTranslation} from '../i18n';
 
 class VaccinateMAApp extends App {
-    render() {
-        const {Component, pageProps} = this.props;
+  render() {
+    const {Component, pageProps} = this.props;
 
-        return (
-            <Component {...pageProps} />
-        );
-    }
+    return (
+      <Component {...pageProps} />
+    );
+  }
 }
 
 export default appWithTranslation(VaccinateMAApp);
