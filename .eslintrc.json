@@ -21,14 +21,9 @@
         "react"
     ],
     "rules": {
-        "template-curly-spacing": "off",
         "indent": [
-          "warn",
-          2,
-          {
-            "ignoredNodes": ["TemplateLiteral"],
-            "SwitchCase": 1
-          }
+            "error",
+            4
         ],
         "linebreak-style": [
             "error",

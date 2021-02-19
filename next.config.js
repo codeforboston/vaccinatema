@@ -1,3 +1,3 @@
 module.exports = {
-  distDir: 'static/_next',
+    distDir: 'static/_next',
 };
