@@ -1,36 +1,39 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Layout from '../../components/Layout';
-import { withTranslation } from '../../i18n';
 
 // TODO: should the phase and group be set to variables?
 
-const Eligibility = ({t}) => (
+const Eligibility = () => (
     <Layout pageTitle="Eligibility">
         <div id="eligibility-page">
-            <h1>{t('eligibility_title')}</h1>
+            <h1>Eligibility</h1>
             <h6>
-        Massachusetts is now in vaccine eligibility Phase 2, Group 1, which started on Febuary 1, 2021. Please check
-        all eligibility requirements below and sign up for your appointment in advance using the link or phone number
-        included in the site location’s details. Vaccination locations are available only to those within active and
-        eligible priority groups as a part of the Massachusetts{' '}
-                <a href="https://www.mass.gov/info-details/covid-19-vaccine-distribution-timeline-phase-overview"
-                    target="_blank" rel="noreferrer">
-          vaccine distribution timeline
+                Massachusetts is now in vaccine eligibility Phase 2, Group 2,
+                which started on Febuary 18, 2021. Please check all eligibility
+                requirements below and sign up for your appointment in advance
+                using the link or phone number included in the site location’s
+                details. Note that minors (16-17 years old) are only eligible to
+                receive the Pfizer vaccine, not Moderna. Vaccination locations
+                are available only to those within active and eligible priority
+                groups as a part of the Massachusetts{' '}
+                <a
+                    href="https://www.mass.gov/info-details/covid-19-vaccine-distribution-timeline-phase-overview"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    vaccine distribution timeline
                 </a>
-        . Individuals must present proof of their eligibility to receive the vaccine.{' '}
-                <b>All sites require appointments.</b>
+                . Individuals must present proof of their eligibility to receive
+                the vaccine. <b>All sites require appointments.</b>
             </h6>
-            <img className="eligibility-image"
+            <img
+                className="eligibility-image"
                 src="https://www.mass.gov/files/styles/embedded_full_width/public/images/2021-02/covidvaccine_phases-1-and-2ab-timing-by-group_social_1920x1080-no-url.png"
-                alt="Eligibility"/>
+                alt="COVID-19 Vaccination in MA: Phase 1 and 2 Eligibility Status"
+            />
         </div>
     </Layout>
 );
 
-export default withTranslation('common')(Eligibility);
-
-Eligibility.propTypes = {
-    t: PropTypes.func,
-};
+export default Eligibility;
