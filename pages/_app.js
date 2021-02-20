@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 
+import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/index.scss';
 
