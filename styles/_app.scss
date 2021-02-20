@@ -180,9 +180,9 @@ h6 {
 }
 
 .star-green {
-  border-bottom: .7em  solid #00FF00;
+  border-bottom: .7em  solid $green;
   &:before, &:after {
-    border-bottom: .7em  solid #00FF00;
+    border-bottom: .7em  solid $green;
   }
 }
 
