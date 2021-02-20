@@ -49,6 +49,28 @@ const FAQ = () => (
                 We are a group of volunteers including Code for Boston, Zane,
                 Madeleine, Kunal Shah, and many other engaged citizens.
             </p>
+            <br />
+            <p>
+                <i>
+                    Inspired by{' '}
+                    <a
+                        href="https://vaccinateca.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        vaccinateca.com
+                    </a>{' '}
+                    and Tyler Cowen of{' '}
+                    <a
+                        href="https://marginalrevolution.com"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        Marginal Revolution
+                    </a>
+                    .
+                </i>
+            </p>
         </div>
     </Layout>
 );
