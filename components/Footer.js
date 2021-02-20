@@ -52,7 +52,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-box">
-                <h4 className="footer-header">Get involved</h4>
+                <h4 className="footer-heading">Get involved</h4>
                 <p>Email us at{' '}<EmailLink/>{' '}if you&apos;d like to help out.</p>
                 <h4>Feedback</h4>
                 <p>
@@ -68,7 +68,7 @@ const Footer = () => {
                 </p>
             </div>
             <div className="footer-box">
-                <h4 className="footer-header">Disclaimer</h4>
+                <h4 className="footer-heading">Disclaimer</h4>
                 <p>
           This site was put together by volunteers using our best efforts to assemble readily available data from
           public sources. This site does not provide medical advice, nor does it provide any type of technical advice.
