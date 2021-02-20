@@ -13,6 +13,23 @@ export default function SEO({ pageTitle }) {
             <link rel="shortcut icon" type="image/x-icon" href="ma_logo.png" />
             <meta property="og:title" content="Helping Massachusetts residents get vaccinated" />
             <meta property="og:image" content="ma_logo.png"/>
+
+            {/* Global site tag (gtag.js) - Google Analytics https://stackoverflow.com/a/62552263 */}
+            <script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-TPH643QYMP"
+            />
+
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', 'G-TPH643QYMP');
+                        `,
+                }}
+            />
         </Head>
     );
 }
