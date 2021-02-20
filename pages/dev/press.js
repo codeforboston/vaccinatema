@@ -28,7 +28,23 @@ const Press = () => {
             name: 'Framingham Source',
             title: 'Framingham High Graduates Helping People Book COVID Vaccines Through VaccinateMA.com Website',
             link: 'https://framinghamsource.com/index.php/2021/02/10/framingham-high-graduates-helping-people-book-covid-vaccines-through-vaccinatema-com-website/'
-        },
+        }, {
+            name: 'The Verge',
+            title: 'How to score a COVID-19 vaccine appointment',
+            link: 'https://theverge.com/22279023/covid-19-vaccine-appointment-how-to',
+        }, {
+            name: 'El Planeta',
+            title: 'Diseñan sitios web de citas para la vacuna COVID-19 en MA',
+            link: 'https://elplaneta.com/news/2021/feb/10/disenan-sitios-web-citas-para-vacuna-covid-massachusetts',
+        }, {
+            name: 'YourArlington',
+            title: 'Vaccine site by on-leave engineer keeps going',
+            link: 'https://yourarlington.com/arlington-archives/town-school/town-news/health/18329-shots-020721.html',
+        }, {
+            name: 'Code for America',
+            title: 'February Brigade Project Standup: VaccinateMA.com, Public Utility Data, Brigade Project Index',
+            link: 'https://www.youtube.com/embed/jehr59QzQBo?start=208&end=1470',
+        }
     ];
 
     const pressLinks = pressPackage.map(item => {
