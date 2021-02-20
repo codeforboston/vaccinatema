@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 
 import Logo from './subcomponents/Logo';
 
@@ -24,11 +24,7 @@ const NavHeader = () => {
                 <Navbar.Brand href="#"><Logo/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title="Language" id="collasible-nav-dropdown">
-                            <NavDropdown.Item>Coming Soon</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
+                    <Nav className="mr-auto"></Nav>
                     <Nav>
                         <Nav.Link className={renderLinkClass('home')} href="/dev">Search</Nav.Link>
                         <Nav.Link className={renderLinkClass('eligibility')} href="/dev/eligibility">Eligibility</Nav.Link>
