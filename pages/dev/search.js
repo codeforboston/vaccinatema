@@ -107,7 +107,7 @@ class Search extends React.Component {
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
     
-    renderSiteDate = () => {
+    renderSiteData = () => {
         const { siteData } = this.state;
 
         if (siteData.length > 0) {
@@ -131,7 +131,7 @@ class Search extends React.Component {
     };
 
     render() {
-        const { renderSiteDate } = this;
+        const { renderSiteData } = this;
         
         return (
             <Layout pageTitle="Search">
@@ -170,7 +170,7 @@ class Search extends React.Component {
                         </div>
                     </div>
                 </div>
-                {renderSiteDate()}
+                {renderSiteData()}
             </Layout>
         );
     }
