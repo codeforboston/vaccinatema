@@ -3,6 +3,26 @@ import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 import parseBookAppointmentString from './utilities/parseBookAppointmentString';
 
+// High volume, large venue sites
+const MASS_VACCINATION_SITES = [
+    'Foxborough: Gillette Stadium',
+    'Boston: Fenway Park',
+    'Danvers: Doubletree Hotel',
+    'Springfield: Eastfield Mall',
+    'Dartmouth: Former Circuit City', 
+    'Lowell: Lowell General Hospital at Cross River Center',
+    'Natick: Natick Mall'
+];
+
+const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
+    'All eligible people statewide',
+    'Eligible populations statewide'
+];
+
+const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEWIDE_TEXT.includes(serves?.trim());
+
+const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
+
 const parseDate = dateString => (
     new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
 );
@@ -31,14 +51,9 @@ const parseLocationData = data => {
 const determineSitePinShape = (availability, serves, locationName) => {
     if (!availability || availability?.trim() === 'None') {
         return 'dot';
-    } else if (serves?.trim() === 'Eligible populations statewide') {
+    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
         return 'star star-green';
-    } else if (
-        locationName === 'Foxborough: Gillette Stadium'
-        || locationName === 'Boston: Fenway Park'
-        || locationName === 'Danvers: Doubletree Hotel'
-        || locationName === 'Springfield: Eastfield Mall'
-    ) {
+    } else if (isSiteAMassVaccinationSite(locationName)) {
         return 'star star-red';
     } else {
         return 'star star-blue';
