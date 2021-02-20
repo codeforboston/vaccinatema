@@ -65,14 +65,16 @@ h6 {
   }
 }
 
-.header,
-.footer {
-  .logo-container {
-    cursor: pointer;
-    img {
-      height: 70px;
-      padding-right: 10px;
-    }
+.logo-container {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  img {
+    height: 70px;
+    padding-right: 10px;
+  }
+  h1 {
+    font-size: 27px;
   }
 }
 
@@ -92,6 +94,10 @@ h6 {
     width: 30%;
     min-width: 300px;
     padding: 0 5px 15px 5px;
+    .footer-header {
+      // This matches the vertical padding built into the Vaccinate MA logo.
+      padding-top: 15px;
+    }
     .logo-sub-text {
       position: relative;
       left: $logo-offset;
