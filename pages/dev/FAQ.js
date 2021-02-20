@@ -6,7 +6,7 @@ import EmailLink from '../../components/subcomponents/EmailLink';
 const FAQ = () => (
     <Layout pageTitle="FAQ">
         <div id="faq-page">
-            <h1>FAQ</h1>
+            <h1>Frequently Asked Questions</h1>
             <h6>
                 We are a group of volunteers helping Massachusetts residents get
                 vaccinated. Our site uses a mix of automated and crowdsourced
