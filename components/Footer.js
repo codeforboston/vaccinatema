@@ -27,7 +27,7 @@ const Footer = () => {
                     <br/>
           with <span>❤</span> in Boston
                 </div>
-                <h4 className="social-header">Share</h4>
+                <h2 className="social-header">Share</h2>
                 <div className="social-container">
                     <TwitterShareButton url="http://vaccinatema.com/"
                         hashtags={['covid19vaccine', 'GetTheShot', 'vaccinateMA']} via="ma_covid">
@@ -37,8 +37,9 @@ const Footer = () => {
                         hashtag="#GetTheShot">
                         <FontAwesomeIcon icon={faFacebookSquare} />
                     </FacebookShareButton>
-                    <a href="https://www.instagram.com/vaccinate_ma/" target="_blank" rel="noreferrer">
-                        <FontAwesomeIcon icon={faInstagram} />
+                    <a href="https://www.instagram.com/vaccinate_ma/"
+                        target="_blank" rel="noreferrer" aria-label="Instagram">
+                        <FontAwesomeIcon icon={faInstagram}/>
                     </a>
                     <EmailShareButton url="http://vaccinatema.com/"
                         subject="Helping Massachusetts Residents Get Vaccinated"
@@ -52,9 +53,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className="footer-box">
-                <h4 className="footer-heading">Get involved</h4>
+                <h2 className="footer-heading">Get involved</h2>
                 <p>Email us at{' '}<EmailLink/>{' '}if you&apos;d like to help out.</p>
-                <h4>Feedback</h4>
+                <h2>Feedback</h2>
                 <p>
           Like the site? Found a bug? Have a feature idea?
           Get a vaccine from info you found here?{' '}
@@ -68,7 +69,7 @@ const Footer = () => {
                 </p>
             </div>
             <div className="footer-box">
-                <h4 className="footer-heading">Disclaimer</h4>
+                <h2 className="footer-heading">Disclaimer</h2>
                 <p>
           This site was put together by volunteers using our best efforts to assemble readily available data from
           public sources. This site does not provide medical advice, nor does it provide any type of technical advice.

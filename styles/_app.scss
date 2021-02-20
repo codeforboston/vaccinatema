@@ -59,6 +59,14 @@ h6 {
   text-align: left;
 }
 
+a {
+  color: $dark-blue;
+;
+  &:hover {
+    color: $dark-blue;
+  }
+}
+
 .header {
   .logo-container {
     max-width: 60vw;
@@ -73,8 +81,14 @@ h6 {
     height: 70px;
     padding-right: 10px;
   }
-  h1 {
+  .logo-text {
+    font-family: Mulish, sans-serif;
     font-size: 27px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 45px;
+    letter-spacing: 0.01em;
+    text-align: left;
   }
 }
 
@@ -89,6 +103,11 @@ h6 {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 15px 15px 0 15px;
+  h2 {
+    font-size: 21px;
+    line-height: 26px;
+    letter-spacing: 0;
+  }
   .footer-box {
     display: block;
     width: 30%;
@@ -103,7 +122,7 @@ h6 {
       left: $logo-offset;
       top: -25px;
       span {
-        color: red;
+        color: darkred;
       }
     }
     .social-header {
@@ -121,6 +140,13 @@ h6 {
       }
     }
   }
+}
+
+.btn.btn-success {
+  background: $green;
+}
+.btn-primary {
+  background: $dark-blue;
 }
 
 .dot {

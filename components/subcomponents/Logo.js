@@ -4,8 +4,8 @@ import React from 'react';
 
 const Logo = () => (
     <div className="logo-container" onClick={() => window.location.href = '/' }>
-        <img src={'../../ma_logo.png'} alt="Vaccinate MA logo"/>
-        <h1>VaccinateMA</h1>
+        <img src={'../../ma_logo.png'} alt=""/>
+        <span className="logo-text">VaccinateMA</span>
     </div>
 );
 

@@ -106,8 +106,33 @@ class Search extends React.Component {
     parseDate = dateString => (
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
+    
+    renderSiteData = () => {
+        const { siteData } = this.state;
+
+        if (siteData.length > 0) {
+            const sites = siteData.map( (site, i) => {
+                return (
+                    <div key={i}>
+                        <Site data={site}/>
+                    </div>
+                );
+            });
+
+            return (
+                <div>
+                    <h3>Results:</h3>
+                    <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
+                        {sites}
+                    </ul>
+                </div>
+            );
+        }
+    };
 
     render() {
+        const { renderSiteData } = this;
+        
         return (
             <Layout pageTitle="Search">
                 <div className= "jumbotron">
@@ -126,7 +151,7 @@ class Search extends React.Component {
                         <div className= "row">
                             <div className="relative max-w-xs">
                                 <div className="form-group">
-                                    <label htmlFor="type">Find </label>
+                                    <label htmlFor="availability">Find</label>
                                     <select value={this.state.availability} onChange={this.handleChange} className="form-control" name="availability" id="availability" >
                                         <option value="Sites with reported doses">Sites with reported doses</option>
                                         <option value="All known vaccination sites">All known vaccination sites</option>
@@ -136,7 +161,7 @@ class Search extends React.Component {
                                 <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
                                 {this.state.geolocationError && <p>Cannot figure out your location. Please enter your zip code instead.</p>}
                                 <div className="form-group">
-                                    <span> or near</span>
+                                    <label htmlFor="zipCode">or near</label>
                                     <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
                                 </div>
                                 {this.state.zipCodeError && <p>Zip code is not valid!</p>}
@@ -145,17 +170,7 @@ class Search extends React.Component {
                         </div>
                     </div>
                 </div>
-                <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
-                    {
-                        this.state.siteData
-                        &&
-                        this.state.siteData.map( (site, i) => (
-                            <div key={i}>
-                                <Site data={site} />
-                            </div>
-                        ))
-                    }
-                </ul>
+                {renderSiteData()}
             </Layout>
         );
     }
