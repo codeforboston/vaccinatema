@@ -4,13 +4,13 @@ import { Navbar, Nav } from 'react-bootstrap';
 
 import Logo from './subcomponents/Logo';
 
-// TODO: remove "/dev" after promoting to root (in hrefs and renderLinkClass)
-
 const NavHeader = () => {
     const router = useRouter();
+    // TODO: Change root to just '/' when we migrate over to the React site.
+    const root = '/dev';
 
     const renderLinkClass = (nav) => {
-        const path = nav === 'home' ? '/dev' : nav;
+        const path = nav === 'home' ? root : nav;
         if (router.pathname.match(`${path}$`)) {
             return 'active';
         } else {
@@ -26,10 +26,30 @@ const NavHeader = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto"></Nav>
                     <Nav>
-                        <Nav.Link className={renderLinkClass('home')} href="/dev/search">Search</Nav.Link>
-                        <Nav.Link className={renderLinkClass('eligibility')} href="/dev/eligibility">Eligibility</Nav.Link>
-                        <Nav.Link className={renderLinkClass('FAQ')} href="/dev/FAQ">FAQ</Nav.Link>
-                        <Nav.Link className={renderLinkClass('press')} href="/dev/press">Press</Nav.Link>
+                        <Nav.Link
+                            className={renderLinkClass('home')}
+                            href={`${root}/search`}
+                        >
+                            Search
+                        </Nav.Link>
+                        <Nav.Link
+                            className={renderLinkClass('eligibility')}
+                            href={`${root}/eligibility`}
+                        >
+                            Eligibility
+                        </Nav.Link>
+                        <Nav.Link
+                            className={renderLinkClass('FAQ')}
+                            href={`${root}/FAQ`}
+                        >
+                            FAQ
+                        </Nav.Link>
+                        <Nav.Link
+                            className={renderLinkClass('press')}
+                            href={`${root}/press`}
+                        >
+                            Press
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
