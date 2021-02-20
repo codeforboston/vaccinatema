@@ -13,6 +13,14 @@ const secondParser = (key, result) => (
   </span>
 );
 
+/**
+ * Given a string that contains URLs, returns an array that turns the URLs into hyperlinks
+ * so when you use the output of this function in a React layout, the URLs will be clickable
+ * 
+ * Based on example code/regex from https://www.npmjs.com/package/react-process-string
+ * 
+ * @return array
+ */
 const parseBookAppointmentString = text => {
   let config = [{
     regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |,|$|\.)/gim,

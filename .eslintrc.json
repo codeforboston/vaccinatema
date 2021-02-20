@@ -24,7 +24,7 @@
         "template-curly-spacing": "off",
         "indent": [
           "warn",
-          2,
+          4,
           {
             "ignoredNodes": ["TemplateLiteral"],
             "SwitchCase": 1
