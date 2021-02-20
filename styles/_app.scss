@@ -198,19 +198,30 @@ h6 {
   .eligibility-image {
     width: 100%;
   }
-  h6 {
+  h2 {
+    font-size: 36px;
+  }
+  p {
     padding-top: 30px;
     padding-bottom: 16px;
+    font-size: 21px;
   }
 }
 
 #faq-page,
 #press-page {
   padding-bottom: 30px;
-  h6 {
+  h2 {
+    font-size: 36px;
+  }
+  .faq-description {
     padding-top: 30px;
   }
-  h2 {
+  h3 {
     padding-top: 16px;
+    font-size: 24px;
+  }
+  p, a {
+    font-size: 21px;
   }
 }

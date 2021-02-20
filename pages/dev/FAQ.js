@@ -6,14 +6,14 @@ import EmailLink from '../../components/subcomponents/EmailLink';
 const FAQ = () => (
     <Layout pageTitle="FAQ">
         <div id="faq-page">
-            <h1>Frequently Asked Questions</h1>
-            <h6>
+            <h2>Frequently Asked Questions</h2>
+            <p className="faq-description">
                 We are a group of volunteers helping Massachusetts residents get
                 vaccinated. Our site uses a mix of automated and crowdsourced
                 data to show vaccine appointment availability. VaccinateMA
                 launched on January 17, 2021.
-            </h6>
-            <h2>Why are you doing this? Isn’t there a state site?</h2>
+            </p>
+            <h3>Why are you doing this? Isn’t there a state site?</h3>
             <p>
                 Massachusetts is ~40th out of 50 states in percentage of doses
                 administered,{' '}
@@ -36,15 +36,15 @@ const FAQ = () => (
                 covers 100+ additional local and retail sites. We use a
                 combination of automation and manual checking by volunteers.
             </p>
-            <h2>What if I want to help?</h2>
+            <h3>What if I want to help?</h3>
             <p>
                 Shoot us an email at <EmailLink />.
             </p>
-            <h2>What if I&apos;m a reporter and I want to contact you?</h2>
+            <h3>What if I&apos;m a reporter and I want to contact you?</h3>
             <p>
                 Shoot us an email at <EmailLink />.
             </p>
-            <h2>Who are you?</h2>
+            <h3>Who are you?</h3>
             <p>
                 We are a group of volunteers including Code for Boston, Zane,
                 Madeleine, Kunal Shah, and many other engaged citizens.

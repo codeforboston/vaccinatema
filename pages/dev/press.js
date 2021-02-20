@@ -42,10 +42,10 @@ const Press = () => {
     });
 
     return (
-        <Layout pageTitle="Vaccination Sites">
+        <Layout pageTitle="Press">
             <div id="press-page">
-                <h1>In the press</h1>
-                <h6>Are you a reporter and want to contact us? Shoot us an email at{' '}<EmailLink/></h6>
+                <h2>In the press</h2>
+                <p>Are you a reporter and want to contact us? Shoot us an email at{' '}<EmailLink/>.</p>
                 {pressLinks}
             </div>
         </Layout>
