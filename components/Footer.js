@@ -37,8 +37,9 @@ const Footer = () => {
                         hashtag="#GetTheShot">
                         <FontAwesomeIcon icon={faFacebookSquare} />
                     </FacebookShareButton>
-                    <a href="https://www.instagram.com/vaccinate_ma/" target="_blank" rel="noreferrer">
-                        <FontAwesomeIcon icon={faInstagram} />
+                    <a href="https://www.instagram.com/vaccinate_ma/"
+                        target="_blank" rel="noreferrer" aria-label="Instagram">
+                        <FontAwesomeIcon icon={faInstagram}/>
                     </a>
                     <EmailShareButton url="http://vaccinatema.com/"
                         subject="Helping Massachusetts Residents Get Vaccinated"
