@@ -106,8 +106,33 @@ class Search extends React.Component {
     parseDate = dateString => (
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
+    
+    renderSiteDate = () => {
+        const { siteData } = this.state;
+
+        if (siteData.length > 0) {
+            const sites = siteData.map( (site, i) => {
+                return (
+                    <div key={i}>
+                        <Site data={site}/>
+                    </div>
+                );
+            });
+
+            return (
+                <div>
+                    <h3>Results:</h3>
+                    <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
+                        {sites}
+                    </ul>
+                </div>
+            );
+        }
+    };
 
     render() {
+        const { renderSiteDate } = this;
+        
         return (
             <Layout pageTitle="Search">
                 <div className= "jumbotron">
@@ -126,7 +151,7 @@ class Search extends React.Component {
                         <div className= "row">
                             <div className="relative max-w-xs">
                                 <div className="form-group">
-                                    <p>Find</p>
+                                    <label htmlFor="availability">Find</label>
                                     <select value={this.state.availability} onChange={this.handleChange} className="form-control" name="availability" id="availability" >
                                         <option value="Sites with reported doses">Sites with reported doses</option>
                                         <option value="All known vaccination sites">All known vaccination sites</option>
@@ -145,17 +170,7 @@ class Search extends React.Component {
                         </div>
                     </div>
                 </div>
-                <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
-                    {
-                        this.state.siteData
-                        &&
-                        this.state.siteData.map( (site, i) => (
-                            <div key={i}>
-                                <Site data={site} />
-                            </div>
-                        ))
-                    }
-                </ul>
+                {renderSiteDate()}
             </Layout>
         );
     }
