@@ -1,0 +1,73 @@
+.search-result {
+    border-radius: 4px;
+    display: flex;
+    overflow: hidden;
+
+    h4 {
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    .header {
+        background-color: $green-light;
+        display: flex;
+        justify-content: space-between;
+        padding: 16px;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+        }
+
+                h4 {
+            font-size: 21px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+
+    .bar {
+        background-color: $green;
+        width: 8px;
+    }
+
+    .contents {
+        background-color: $white;
+        display: flex;
+        padding: 16px;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+        }
+
+        div {
+            padding-right: 16px;
+        }
+    }
+    
+    .button-container {
+        align-items: center;
+        display: flex;
+    }
+
+    // TODO(hannah): The button styling isn't quite right yet.
+    button {
+        background-color: $green;
+        border-radius: 4px;
+        color: $white;
+        height: max-content;
+        padding: 16px;
+        // TODO(hannah): Make sure this looks okay in other languages.
+        width: 275px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 21px;
+        font-weight: 800;
+    }
+}
