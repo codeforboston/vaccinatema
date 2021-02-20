@@ -40,7 +40,11 @@ const Press = () => {
             name: 'YourArlington',
             title: 'Vaccine site by on-leave engineer keeps going',
             link: 'https://yourarlington.com/arlington-archives/town-school/town-news/health/18329-shots-020721.html',
-        },
+        }, {
+            name: 'Code for America',
+            title: 'February Brigade Project Standup: VaccinateMA.com, Public Utility Data, Brigade Project Index',
+            link: 'https://www.youtube.com/embed/jehr59QzQBo?start=208&end=1470'
+        }
     ];
 
     const pressLinks = pressPackage.map(item => {
