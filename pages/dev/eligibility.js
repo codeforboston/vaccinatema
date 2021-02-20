@@ -7,7 +7,7 @@ import Layout from '../../components/Layout';
 const Eligibility = () => (
     <Layout pageTitle="Eligibility">
         <div id="eligibility-page">
-            <h2>Eligibility</h2>
+            <h1>Eligibility</h1>
             <p>
                 Massachusetts is now in vaccine eligibility Phase 2, Group 2,
                 which started on Febuary 18, 2021. Please check all eligibility
