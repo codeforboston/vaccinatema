@@ -7,12 +7,12 @@ const FAQ = () => (
     <Layout pageTitle="FAQ">
         <div id="faq-page">
             <h1>Frequently Asked Questions</h1>
-            <h6>
+            <p className="faq-description">
                 We are a group of volunteers helping Massachusetts residents get
                 vaccinated. Our site uses a mix of automated and crowdsourced
                 data to show vaccine appointment availability. VaccinateMA
                 launched on January 17, 2021.
-            </h6>
+            </p>
             <h2>Why are you doing this? Isn’t there a state site?</h2>
             <p>
                 Massachusetts is ~40th out of 50 states in percentage of doses

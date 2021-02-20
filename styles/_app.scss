@@ -13,7 +13,7 @@ h1 {
   font-family: Mulish, sans-serif;
   font-size: 36px;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 45px;
   letter-spacing: 0.01em;
   text-align: left;
@@ -198,19 +198,24 @@ h6 {
   .eligibility-image {
     width: 100%;
   }
-  h6 {
+  p {
     padding-top: 30px;
     padding-bottom: 16px;
+    font-size: 21px;
   }
 }
 
 #faq-page,
 #press-page {
   padding-bottom: 30px;
-  h6 {
+  .faq-description {
     padding-top: 30px;
   }
   h2 {
     padding-top: 16px;
+    font-size: 24px;
+  }
+  p, a {
+    font-size: 21px;
   }
 }
