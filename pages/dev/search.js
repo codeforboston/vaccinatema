@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../../components/Layout';
 import Site from '../../components/Site';
 import Geocode from 'react-geocode';
+import parseBookAppointmentString from '../../components/utilities/parseBookAppointmentString';
 
 class Search extends React.Component {
     constructor(props) {
@@ -92,12 +93,12 @@ class Search extends React.Component {
     parseLocationData = data => {
         return data.map( site => (
             {
-                locationName: site.fields['Location Name'],
-                address: site.fields['Full Address'],
-                populationsServed: site.fields['Serves'],
-                vaccineAvailability: site.fields['Availability'],
-                lastUpdated: this.parseDate(site.fields['Last Updated']),
-                bookAppointmentInformation: site.fields['Book an appointment']
+                locationName: site.fields['Location Name'] ?? '',
+                address: site.fields['Full Address'] ?? '',
+                populationsServed: site.fields['Serves'] ?? '',
+                vaccineAvailability: site.fields['Availability'] ?? '',
+                lastUpdated: (site.fields['Last Updated'] && this.parseDate(site.fields['Last Updated'])) ?? '',
+                bookAppointmentInformation: (site.fields['Book an appointment'] && parseBookAppointmentString(site.fields['Book an appointment'])) ?? ''
             }
         ));
     }
