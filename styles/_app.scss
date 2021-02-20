@@ -81,8 +81,14 @@ a {
     height: 70px;
     padding-right: 10px;
   }
-  h1 {
+  .logo-text {
+    font-family: Mulish, sans-serif;
     font-size: 27px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 45px;
+    letter-spacing: 0.01em;
+    text-align: left;
   }
 }
 
@@ -97,6 +103,11 @@ a {
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 15px 15px 0 15px;
+  h2 {
+    font-size: 21px;
+    line-height: 26px;
+    letter-spacing: 0;
+  }
   .footer-box {
     display: block;
     width: 30%;
