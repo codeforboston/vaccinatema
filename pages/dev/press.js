@@ -43,7 +43,7 @@ const Press = () => {
         }, {
             name: 'Code for America',
             title: 'February Brigade Project Standup: VaccinateMA.com, Public Utility Data, Brigade Project Index',
-            link: 'https://www.youtube.com/embed/jehr59QzQBo?start=208&end=1470'
+            link: 'https://www.youtube.com/embed/jehr59QzQBo?start=208&end=1470',
         }
     ];
 
