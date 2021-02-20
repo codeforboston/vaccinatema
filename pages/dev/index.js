@@ -15,11 +15,11 @@ const Home = () => (
         
             </div>
             <Map />
+            <br />
             <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
             <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
             <p> <b> Blue star: </b> Local Vaccination Site (open to select cities/towns) </p>
             <p> <b> Gray dot: </b> No availability currently </p>
-            <p> Seeking volunteers, reach out to <a href="mailto:vaccinatema@gmail.com"> vaccinatema@gmail.com </a> to help out.</p>
         </div>
     </Layout>
 );

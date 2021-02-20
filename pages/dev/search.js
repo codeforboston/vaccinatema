@@ -112,7 +112,16 @@ class Search extends React.Component {
             <Layout pageTitle="Search">
                 <div className= "jumbotron">
                     <h2>Search Near Me</h2>
-                    <p className="lead">We check the availability of every provider found on the <a href=""> state website</a></p>
+                    <p className="lead">
+                        We check the availability of every provider found on the{' '}
+                        <a
+                            href="https://vaxfinder.mass.gov"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            state website
+                        </a>.
+                    </p>
                     <div className= "container">
                         <div className= "row">
                             <div className="relative max-w-xs">
