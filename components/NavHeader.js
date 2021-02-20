@@ -27,7 +27,7 @@ const NavHeader = () => {
                     <Nav className="mr-auto"></Nav>
                     <Nav>
                         <Nav.Link
-                            className={renderLinkClass('home')}
+                            className={renderLinkClass('search')}
                             href={`${root}/search`}
                         >
                             Search
