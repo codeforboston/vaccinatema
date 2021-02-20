@@ -58,3 +58,6 @@ static/_next/
 
 # Vscode files
 .vscode/
+
+# Prettier configuration file
+.prettierrc
