@@ -159,7 +159,7 @@ const Map = ({height = '400px', width = '100%'}) => {
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
         <div style={{ height, width }}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyDxF3aT2MwmgzcAzFt5PtB-B3UNp4Js2h4' }}
+                bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
                 defaultCenter={bostonCoordinates}
                 defaultZoom={defaultMassachusettsZoom}
                 draggableCursor="crosshair"
