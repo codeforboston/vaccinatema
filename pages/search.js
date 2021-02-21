@@ -159,13 +159,15 @@ class Search extends React.Component {
                                 </div>
                                 <p> near </p>
                                 <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
-                                {this.state.geolocationError && <p>Cannot figure out your location. Please enter your zip code instead.</p>}
+                                {this.state.geolocationError && <p>Cannot figure out your location.</p>}
+                                <p><i>Search by zip code is temporarily unavailable. Please check back later!</i></p>
+                                {/* Temporarily disable searching by ZIP code.
                                 <div className="form-group">
                                     <label htmlFor="zipCode">or near</label>
                                     <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
                                 </div>
                                 {this.state.zipCodeError && <p>Zip code is not valid!</p>}
-                                <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>
+                                <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>*/}
                             </div>
                         </div>
                     </div>
