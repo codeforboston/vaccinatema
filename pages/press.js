@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Layout from '../../components/Layout';
-import EmailLink from '../../components/subcomponents/EmailLink';
-import PressTile from '../../components/subcomponents/PressTile';
+import Layout from '../components/Layout';
+import EmailLink from '../components/subcomponents/EmailLink';
+import PressTile from '../components/subcomponents/PressTile';
 
 const Press = () => {
 

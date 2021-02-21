@@ -1,5 +1,5 @@
 body {
-  background: #E5E5E5;
+  background: #F5F5F5;
   color: #252525;
   font-family: Mulish, sans-serif;
   font-size: 18px;
@@ -133,9 +133,9 @@ a {
       position: relative;
       display: inline;
       left: $logo-offset;
+      font-size: 30px;
       svg {
         color: black;
-        height: 30px;
         margin-right: 10px;
       }
     }
@@ -244,4 +244,8 @@ a {
   p, a {
     font-size: 21px;
   }
+}
+
+#geolocate {
+  margin-bottom: 16px;
 }

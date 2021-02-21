@@ -1,11 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import {config, dom} from '@fortawesome/fontawesome-svg-core';
 
-export default function SEO({ pageTitle }) {
+// Work around for ReactFontAwesome loading large images before resizing.
+// See https://github.com/FortAwesome/react-fontawesome/issues/134
+config.autoAddCss = false;
+
+export default function PageHead({pageTitle}) {
     return (
         <html lang="en">
             <Head>
+                {/* Tags for SEO */}
                 <title>{`${pageTitle} | Vaccinate MA`}</title>
                 <meta charSet="utf-8" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,11 +37,14 @@ export default function SEO({ pageTitle }) {
                             `,
                     }}
                 />
+                {/* Work around for ReactFontAwesome not respecting font size.
+                See https://github.com/FortAwesome/react-fontawesome/issues/284 */}
+                <style>{dom.css()}</style>
             </Head>
         </html>
     );
 }
 
-SEO.propTypes = {
+PageHead.propTypes = {
     pageTitle: PropTypes.string,
 };
