@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Seo from './Seo';
+import PageHead from './PageHead';
 import NavHeader from './NavHeader';
 import Footer from './Footer';
 
@@ -11,7 +11,7 @@ export default function Layout({
 }) {
     return (
         <div className="container">
-            <Seo pageTitle={pageTitle} />
+            <PageHead pageTitle={pageTitle} />
             <NavHeader />
             <div className="main-content">
                 {children}
