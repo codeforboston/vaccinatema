@@ -144,7 +144,7 @@ class Search extends React.Component {
                                 {this.state.geolocationError && <p>Cannot figure out your location.</p>}
                                 <div className="form-group">
                                     <label htmlFor="zipCode">or near</label>
-                                    <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="city or zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
+                                    <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="city and state, or zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
                                 </div>
                                 {this.state.zipCodeError && <p>City or zip code cannot be blank!</p>}
                                 <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search</button>

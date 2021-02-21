@@ -111,29 +111,24 @@ if (cluster.isMaster) {
             } else {
                 locations = sites;
             }
-            let coordinates = {};
             if (req.body.zipCode) {
                 const geo = geocoder({ key: process.env.GEOCODER_API_KEY});
                 geo.find(req.body.zipCode, function(geoErr, geoRes){
                     const { lat, lng } = geoRes[0].location;
-                    coordinates['latitude'] = lat;
-                    coordinates['longitude'] = lng;
                     const closest = distanceUtils.getClosestLocations(
                         locations,
                         5,
-                        coordinates?.latitude,
-                        coordinates?.longitude
+                        lat,
+                        lng
                     );
                     res.send(closest);
                 });
             } else {
-                coordinates['latitude'] = req.body.latitude;
-                coordinates['longitude'] = req.body.longitude;
                 const closest = distanceUtils.getClosestLocations(
                     locations,
                     5,
-                    coordinates?.latitude,
-                    coordinates?.longitude
+                    req.body.latitude,
+                    req.body.longitude
                 );
                 res.send(closest);
             }
