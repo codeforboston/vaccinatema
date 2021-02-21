@@ -1,8 +1,8 @@
 import React from 'react';
-import Layout from '../../components/Layout';
-import Site from '../../components/Site';
+import Layout from '../components/Layout';
+import Site from '../components/Site';
 import Geocode from 'react-geocode';
-import parseBookAppointmentString from '../../components/utilities/parseBookAppointmentString';
+import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
 
 class Search extends React.Component {
     constructor(props) {
