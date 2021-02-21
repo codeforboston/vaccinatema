@@ -1,6 +1,7 @@
 require('dotenv').config();
 require('newrelic');
 require('@newrelic/aws-sdk');
+const geocoder = require('google-geocoder');
 var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
@@ -110,14 +111,32 @@ if (cluster.isMaster) {
             } else {
                 locations = sites;
             }
-
-            var closest = distanceUtils.getClosestLocations(
-                locations,
-                5,
-                req.body.latitude,
-                req.body.longitude
-            );
-            res.send(closest);
+            let coordinates = {};
+            if (req.body.zipCode) {
+                const geo = geocoder({ key: process.env.GEOCODER_API_KEY});
+                geo.find(req.body.zipCode, function(geoErr, geoRes){
+                    const { lat, lng } = geoRes[0].location;
+                    coordinates['latitude'] = lat;
+                    coordinates['longitude'] = lng;
+                    const closest = distanceUtils.getClosestLocations(
+                        locations,
+                        5,
+                        coordinates?.latitude,
+                        coordinates?.longitude
+                    );
+                    res.send(closest);
+                });
+            } else {
+                coordinates['latitude'] = req.body.latitude;
+                coordinates['longitude'] = req.body.longitude;
+                const closest = distanceUtils.getClosestLocations(
+                    locations,
+                    5,
+                    coordinates?.latitude,
+                    coordinates?.longitude
+                );
+                res.send(closest);
+            }
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
