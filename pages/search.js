@@ -30,7 +30,7 @@ class Search extends React.Component {
     }
 
     getLatitudeAndLongitudeByZipcode = zipCode => {
-        Geocode.setApiKey('AIzaSyDxF3aT2MwmgzcAzFt5PtB-B3UNp4Js2h4');
+        Geocode.setApiKey('AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0');
         return Geocode.fromAddress(zipCode).then(
             (response) => {
                 const { lat, lng } = response.results[0].geometry.location;
@@ -135,7 +135,7 @@ class Search extends React.Component {
         
         return (
             <Layout pageTitle="Search">
-                <div className= "jumbotron">
+                <div className= "jumbotron bg-white">
                     <h2>Search Near Me</h2>
                     <p className="lead">
                         We check the availability of every provider found on the{' '}

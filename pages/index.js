@@ -6,7 +6,7 @@ import Map from '../components/Map';
 const Home = () => (
     <Layout pageTitle="Home">
         <div>
-            <div className="jumbotron">
+            <div className="jumbotron bg-white">
                 <h2>COVID-19 Vaccine Availability</h2>
                 <p className="lead">For <a href="/eligibility">eligible individuals</a>, find an appointment from the map below or</p>
                 <div className="btn-group" style={{width: '100%', display:'flex', alignItems: 'center', justifyContent: 'center'}}>
