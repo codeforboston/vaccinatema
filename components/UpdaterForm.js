@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import DatePicker from 'react-datepicker';
 
 import YesNoRadio from './subcomponents/YesNoRadio';
+import DateTile from './subcomponents/DateTile';
+import DatePicker from 'react-datepicker';
 
 const YES = 'yes', NO = 'no';
 
 const UpdaterForm = () => {
     const [sites, setSites] = useState([]);
+    const [dates, setDates] = useState([]);
     const [site, setSite] = useState(null);
+    const [contact, setContact] = useState('');
     const [website, setWebsite] = useState('');
     const [datesKnown, setDatesKnown] = useState(null);
     const [isAvailable, setIsAvailable] = useState(null);
+    const [nextAvailDate, setNextAvailDate] = useState(null);
     const [nextAvailKnown, setNextAvailKnown] = useState(null);
-    const [dates, setDates] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
-
 
     useEffect(() => {
         fetch('/locations', { credentials: 'same-origin' })
@@ -34,12 +35,13 @@ const UpdaterForm = () => {
             .then(body => {
                 const newOptions = body.map(obj => {
                     return {
-                        value: obj.name,
+                        ...obj,
+                        value: obj.id,
                         label: obj.name,
                     };
                 }).sort((a, b) => {
-                    if (a.value < b.value) { return -1; }
-                    if (a.value > b.value) { return 1; }
+                    if (a.label < b.label) { return -1; }
+                    if (a.label > b.label) { return 1; }
                     return 0;
                 });
                 setSites(newOptions);
@@ -56,63 +58,128 @@ const UpdaterForm = () => {
         }
     }, [isAvailable]);
 
+    useEffect(() => {
+        if (site) {
+            // TODO: set website and contact if present?
+        }
+    }, [site]);
+
     const config = {
         instanceId: 'site-updater-select',
         menuPlacement: 'auto',
         isSearchable: true,
-        placeholder: 'Select a site',
-        onChange: (obj) => setSite(obj.value),
+        placeholder: 'Select a site or start typing to search',
+        onChange: (obj) => setSite(obj),
         options: sites,
-        value: sites.find(op => op.value === site?.['name']),
+        value: sites.find(op => op.value === site?.id),
     };
 
     const handleSubmit = () => {
-
+        // TODO: package input and post to API
     };
 
-    const renderSubmitButton = () => (
-        <button className="submit-button" onClick={handleSubmit}>Submit</button>
-    );
+    const addToDates = (date, slots) => {
+        const newDates = [...dates];
+        const idx = newDates.findIndex(entry => entry.date === date);
+        if (idx === -1) {
+            newDates.push({date, slots});
+        } else {
+            newDates.splice(idx, 1, {date, slots});
+        }
+        setDates(newDates);
+    };
+
+    const removeFromDates = (date) => {
+        const newDates = [...dates];
+        const idx = newDates.findIndex(entry => entry.date === date);
+        newDates.splice(idx, 1);
+        setDates(newDates);
+    };
+
+    const renderSubmitButton = () => {
+        if (datesKnown !== null || nextAvailKnown !== null) {
+            return (
+                <span className="submit-container">
+                    <p>Everything look good?</p>
+                    <button className="submit-button" onClick={handleSubmit}>Submit Update</button>
+                </span>
+            );
+        }
+    };
 
     const renderAvailFields = () => {
         if (datesKnown === YES) {
+            const dateTiles = dates.map(entry => {
+                return (
+                    <DateTile key={entry.date}
+                        date={entry.date}
+                        slots={entry.slots}
+                        action={addToDates}
+                        remove={removeFromDates}
+                        dates={dates}
+                    />
+                );
+            });
+            dateTiles.push(
+                <DateTile key={1}
+                    date={null}
+                    slots={''}
+                    action={addToDates}
+                    remove={removeFromDates}
+                    dates={dates}
+                />
+            );
+
             return (
                 <div>
-                    <DatePicker
-                        selected={selectedDate}
-                        onSelect={(e) => setSelectedDate(e)}
-                        placeholderText="Choose Date"
-                        minDate={Date.now()}
-                    />
-                    {renderSubmitButton()}
+                    {dateTiles}
                 </div>
             );
         } else if (datesKnown === NO) {
             return (
-                <div>
-                    {renderSubmitButton()}
+                <div className="updater-form-fields">
+                    <label htmlFor="contact">Contact email</label>
+                    <input
+                        type="text"
+                        name="contact"
+                        value={contact}
+                        onChange={(e) => setContact(e.target.value)}
+                        placeholder="Email address to contact for dates and availability"
+                    />
                 </div>
             );
         }
     };
 
     const renderNoAvailFields = () => {
+        const websiteInput = (
+            <div>
+                <label htmlFor="website">Website</label>
+                <input type="text" name="website" id="website" value={website}
+                    placeholder="Website to check availability, if known"
+                    onChange={(e) => setWebsite(e.target.value)} />
+            </div>
+        );
+        
         if (nextAvailKnown === YES) {
             return (
-                <div>
-                    <h6>Enter the website where availability will be announced, if known, then hit submit.</h6>
-                    <input type="text" name="website" id="website" value={website}
-                        onChange={(e) => setWebsite(e.target.value)} />
-                    {renderSubmitButton()}
+                <div className="updater-form-fields date-input">
+                    <DatePicker
+                        name="date"
+                        selected={nextAvailDate}
+                        onChange={(e) => setNextAvailDate(e)}
+                        placeholderText="Choose date and time"
+                        minDate={Date.now()}
+                        showTimeSelect={true}
+                        dateFormat='MMM. d h:mm a'
+                    />
+                    {websiteInput}
                 </div>
             );
         } else if (nextAvailKnown === NO) {
             return (
-                <div>
-                    <h2>Enter date, time, and website if applicable</h2>
-                    <input type="text" name="website" id="website" value={website}
-                        onChange={(e) => setWebsite(e.target.value)} />
-                    {renderSubmitButton()}
+                <div className="updater-form-fields">
+                    {websiteInput}
                 </div>
             );
         }
@@ -137,14 +204,25 @@ const UpdaterForm = () => {
             );
         }
     };
+    
+    const renderQuestionOne = () => {
+        if (site) {
+            return (
+                <div>
+                    <YesNoRadio name="is-available" title="Do they have available appointments?"
+                        action={setIsAvailable} value={isAvailable}/>
+                    {renderAvailAnswered()}
+                </div>
+            );
+        }
+    };
 
     return (
         <div className="updater-form">
             <h2>Which site are you updating?</h2>
             <Select {...config} />
-            <YesNoRadio name="is-available" title="Do they have available appointments?"
-                action={setIsAvailable} value={isAvailable}/>
-            {renderAvailAnswered()}
+            {renderQuestionOne()}
+            {renderSubmitButton()}
         </div>
     );
 };

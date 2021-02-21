@@ -8,7 +8,7 @@ const Updater = () => (
     <Layout pageTitle="Site Availability Updater">
         <div id="updater-page">
             <h1>Site availability updater</h1>
-            <h6>Use this form to update the availability of one of the sites</h6>
+            <p>Choose a site from the list and follow the prompts to update availability.</p>
             <UpdaterForm />
         </div>
     </Layout>
