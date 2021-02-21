@@ -6,8 +6,8 @@ import Logo from './subcomponents/Logo';
 
 const NavHeader = () => {
     const router = useRouter();
-    // TODO: Change root to just '/' when we migrate over to the React site.
-    const root = '/dev';
+    // Allows defining a subfolder structure when testing a dev version
+    const root = '';
 
     const renderLinkClass = (nav) => {
         const path = nav === 'home' ? root : nav;

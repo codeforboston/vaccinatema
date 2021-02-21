@@ -1,8 +1,8 @@
 import React from 'react';
-import Layout from '../../components/Layout';
-import Site from '../../components/Site';
+import Layout from '../components/Layout';
+import Site from '../components/Site';
 import Geocode from 'react-geocode';
-import parseBookAppointmentString from '../../components/utilities/parseBookAppointmentString';
+import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
 
 class Search extends React.Component {
     constructor(props) {
@@ -135,7 +135,7 @@ class Search extends React.Component {
         
         return (
             <Layout pageTitle="Search">
-                <div className= "jumbotron">
+                <div className= "jumbotron bg-white">
                     <h2>Search Near Me</h2>
                     <p className="lead">
                         We check the availability of every provider found on the{' '}

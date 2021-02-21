@@ -89,8 +89,6 @@ if (cluster.isMaster) {
     app.prepare().then(() => {
         var server = express();
 
-        server.set('view engine', 'ejs');
-        server.set('views', __dirname + '/views');
         server.use(bodyParser.urlencoded({extended:false}));
         server.use(bodyParser.json());
 
@@ -99,70 +97,8 @@ if (cluster.isMaster) {
             res.send('User-agent: *\nAllow: /');
         });
 
-        server.get('/', function(req, res) {
-            res.render('index', {
-                static_path: '',
-                theme: process.env.THEME || 'flatly',
-                flask_debug: process.env.FLASK_DEBUG || 'false'
-            });
-        });
-
-        server.get('/search', function(req, res) {
-            res.render('search', {
-                static_path: '',
-                theme: process.env.THEME || 'flatly',
-                flask_debug: process.env.FLASK_DEBUG || 'false'
-            });
-        });
-
-        server.get('/eligibility', function(req, res) {
-            res.render('eligibility', {
-                static_path: '',
-                theme: process.env.THEME || 'flatly',
-                flask_debug: process.env.FLASK_DEBUG || 'false'
-            });
-        });
-
-        server.get('/FAQ', function(req, res) {
-            res.render('FAQ', {
-                static_path: '',
-                theme: process.env.THEME || 'flatly',
-                flask_debug: process.env.FLASK_DEBUG || 'false'
-            });
-        });
-
-        server.get('/sites', function(req, res) {
-            res.render('sites', {
-                static_path: '',
-                theme: process.env.THEME || 'flatly',
-                flask_debug: process.env.FLASK_DEBUG || 'false'
-            });
-        });
-
         server.get('/initmap', function(req, res) {
             res.send(sites);
-        });
-
-        // NOTE: These routes are for the development of the new react front end
-        // It will be moved off of dev to the root when complete
-        server.get('/dev', (req, res) => {
-            return app.render(req, res, '/dev', req.query);
-        });
-
-        server.get('/dev/eligibility', (req, res) => {
-            return app.render(req, res, '/dev/eligibility', req.query);
-        });
-
-        server.get('/dev/press', (req, res) => {
-            return app.render(req, res, '/dev/press', req.query);
-        });
-
-        server.get('/dev/FAQ', (req, res) => {
-            return app.render(req, res, '/dev/FAQ', req.query);
-        });
-
-        server.get('/dev/search', (req, res) => {
-            return app.render(req, res, '/dev/search', req.query);
         });
 
         server.use(express.static('static'));
@@ -188,6 +124,10 @@ if (cluster.isMaster) {
         const locationApi = require('./routes/locations');
         server.use('/locations', locationApi);
 
+        /**
+         * Next.js (React) pages defined in the /pages folder will automatically be routed
+         * without the need to define each route in this Nodejs file.
+         */
         server.all('*', handle);
 
         // Start the server.
