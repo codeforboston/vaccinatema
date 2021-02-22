@@ -1,9 +1,8 @@
 import React from 'react';
-import Geocode from 'react-geocode';
 
-import Layout from '../../components/Layout';
-import parseBookAppointmentString from '../../components/utilities/parseBookAppointmentString';
-import SearchResult from '../../components/SearchResult';
+import Layout from '../components/Layout';
+import SearchResult from '../components/SearchResult';
+import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
 
 class Search extends React.Component {
     constructor(props) {
@@ -22,35 +21,17 @@ class Search extends React.Component {
     searchByZipCode = () => {
         this.setState({zipCodeError: false, geolocationError: false});
         if (/^\d{5}$/.test(this.state.zipCode)) {
-            this.getLatitudeAndLongitudeByZipcode(this.state.zipCode)
-                .then(data => this.getLocationData(data.latitude, data.longitude, this.state.availability));
-            
+            this.getLocationData(null, null, this.state.availability, this.state.zipCode);
         } else {
             this.setState({zipCodeError: true});
         }
-    }
-
-    getLatitudeAndLongitudeByZipcode = zipCode => {
-        Geocode.setApiKey('AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0');
-        return Geocode.fromAddress(zipCode).then(
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
-                return {
-                    latitude: lat,
-                    longitude: lng
-                };
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
     }
 
     searchByGeolocation = () => {
         this.setState({zipCodeError: false, geolocationError: false});
         if ('geolocation' in navigator) {
             this.getLatitudeAndLongitudeByGeolocation()
-                .then(position => this.getLocationData(position.coords.latitude, position.coords.longitude, this.state.availability))
+                .then(position => this.getLocationData(position.coords.latitude, position.coords.longitude, this.state.availability, null))
                 .catch(error => {
                     console.error(error);
                 });
@@ -72,14 +53,15 @@ class Search extends React.Component {
         this.setState(newState);
     }
 
-    getLocationData = (latitude, longitude, availability) => {
+    getLocationData = (latitude, longitude, availability, zipCode) => {
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({
                 latitude,
                 longitude,
-                availability
+                availability,
+                zipCode
             })
         })
             .then(response => response.json())
@@ -141,7 +123,7 @@ class Search extends React.Component {
         
         return (
             <Layout pageTitle="Search">
-                <div className= "jumbotron">
+                <div className= "jumbotron bg-white">
                     <h1>Search Near Me</h1>
                     <p className="lead">
                         We check the availability of every provider found on the{' '}
@@ -165,12 +147,12 @@ class Search extends React.Component {
                                 </div>
                                 <p> near </p>
                                 <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
-                                {this.state.geolocationError && <p>Cannot figure out your location. Please enter your zip code instead.</p>}
+                                {this.state.geolocationError && <p>Cannot figure out your location.</p>}
                                 <div className="form-group">
                                     <label htmlFor="zipCode">or near</label>
                                     <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
                                 </div>
-                                {this.state.zipCodeError && <p>Zip code is not valid!</p>}
+                                {this.state.zipCodeError && <p>Please enter a valid zip code!</p>}
                                 <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Layout from '../../components/Layout';
-import EmailLink from '../../components/subcomponents/EmailLink';
+import Layout from '../components/Layout';
+import EmailLink from '../components/subcomponents/EmailLink';
 
 const FAQ = () => (
     <Layout pageTitle="FAQ">
