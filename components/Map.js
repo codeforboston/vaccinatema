@@ -153,7 +153,7 @@ const Map = ({height = '400px', width = '100%'}) => {
             .then(response => response.json())
             .then(siteData => parseLocationData(siteData))
             .then(siteData => setSiteData(siteData));
-    });
+    }, []); // empty array as 2nd param so that function runs only on initial page load
 
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
