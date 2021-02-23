@@ -6,7 +6,7 @@ import parseBookAppointmentString from '../components/utilities/parseBookAppoint
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.siteDataResultsRef = React.createRef();  
+        this.siteDataResultsRef = React.createRef();
     }
 
     state = {
@@ -44,7 +44,7 @@ class Search extends React.Component {
     }
 
     getLatitudeAndLongitudeByGeolocation = () => {
-        return new Promise((resolve, reject) => 
+        return new Promise((resolve, reject) =>
             navigator.geolocation.getCurrentPosition(resolve, reject)
         );
     }
@@ -87,7 +87,16 @@ class Search extends React.Component {
     parseDate = dateString => (
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
-    
+
+    handleEnter = (event) => {
+        const { searchByAddress } = this;
+
+        if (event.keyCode === 13) {
+            // If a user presses Enter, trigger search
+            searchByAddress();
+        }
+    };
+
     renderSiteData = () => {
         const { siteData } = this.state;
 
@@ -112,8 +121,8 @@ class Search extends React.Component {
     };
 
     render() {
-        const { renderSiteData } = this;
-        
+        const { renderSiteData, handleEnter } = this;
+
         return (
             <Layout pageTitle="Search">
                 <div className= "jumbotron bg-white">
@@ -143,7 +152,17 @@ class Search extends React.Component {
                                 {this.state.geolocationError && <p>Cannot figure out your location.</p>}
                                 <div className="form-group">
                                     <label htmlFor="address">or near</label>
-                                    <input type="text" className="form-control" id="address" name="address" placeholder="City, town, or zip code" required="" value={this.state.address} onChange={this.handleChange} />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="address"
+                                        name="address"
+                                        placeholder="City, town, or zip code"
+                                        required=""
+                                        value={this.state.address}
+                                        onChange={this.handleChange}
+                                        onKeyDown={handleEnter}
+                                    />
                                 </div>
                                 {this.state.addressError && <p>City or zip code cannot be blank</p>}
                                 <button onClick={this.searchByAddress} id="signup" className="btn btn-primary">Search</button>
