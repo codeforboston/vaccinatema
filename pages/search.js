@@ -1,6 +1,7 @@
 import React from 'react';
+
 import Layout from '../components/Layout';
-import Site from '../components/Site';
+import SearchResult from '../components/SearchResult';
 import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
 
 class Search extends React.Component {
@@ -72,19 +73,24 @@ class Search extends React.Component {
             });
     }
 
-    parseLocationData = data => {
-        return data.map( site => (
-            {
-                locationName: site.fields['Location Name'] ?? '',
-                address: site.fields['Full Address'] ?? '',
-                populationsServed: site.fields['Serves'] ?? '',
-                vaccineAvailability: site.fields['Availability'] ?? '',
-                lastUpdated: (site.fields['Last Updated'] && this.parseDate(site.fields['Last Updated'])) ?? '',
-                bookAppointmentInformation: (site.fields['Book an appointment'] && parseBookAppointmentString(site.fields['Book an appointment'])) ?? ''
-            }
-        ));
-    }
-
+    parseLocationData = (data) => {
+        return data.map((site) => ({
+            name: site.fields['Location Name'] ?? '',
+            address: site.fields['Full Address'] ?? '',
+            siteDetails: site.fields['Serves'] ?? '',
+            availability: site.fields['Availability'] ?? 'None',
+            lastChecked:
+                (site.fields['Last Updated'] &&
+                    this.parseDate(site.fields['Last Updated'])) ??
+                '',
+            bookAppointmentInfo:
+                (site.fields['Book an appointment'] &&
+                    parseBookAppointmentString(
+                        site.fields['Book an appointment']
+                    )) ??
+                '',
+        }));
+    };
     parseDate = dateString => (
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
@@ -96,14 +102,14 @@ class Search extends React.Component {
             const sites = siteData.map( (site, i) => {
                 return (
                     <div key={i}>
-                        <Site data={site}/>
+                        <SearchResult {...site} />
                     </div>
                 );
             });
 
             return (
                 <div>
-                    <h3>Results:</h3>
+                    <h2>Results:</h2>
                     <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
                         {sites}
                     </ul>
@@ -118,7 +124,7 @@ class Search extends React.Component {
         return (
             <Layout pageTitle="Search">
                 <div className= "jumbotron bg-white">
-                    <h2>Search Near Me</h2>
+                    <h1>Search Near Me</h1>
                     <p className="lead">
                         We check the availability of every provider found on the{' '}
                         <a
