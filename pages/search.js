@@ -14,13 +14,20 @@ class Search extends React.Component {
         zipCode: '',
         availability: 'Sites with reported doses',
         zipCodeError: false,
-        geolocationError: false
+        geolocationError: false,
+        showAllResults: false,
     }
 
     searchByZipCode = () => {
         this.setState({zipCodeError: false, geolocationError: false});
         if (/^\d{5}$/.test(this.state.zipCode)) {
-            this.getLocationData(null, null, this.state.availability, this.state.zipCode);
+            this.getLocationData(
+                null,
+                null,
+                this.state.availability,
+                this.state.zipCode,
+                this.state.showAllResults
+            );
         } else {
             this.setState({zipCodeError: true});
         }
@@ -30,7 +37,15 @@ class Search extends React.Component {
         this.setState({zipCodeError: false, geolocationError: false});
         if ('geolocation' in navigator) {
             this.getLatitudeAndLongitudeByGeolocation()
-                .then(position => this.getLocationData(position.coords.latitude, position.coords.longitude, this.state.availability, null))
+                .then((position) =>
+                    this.getLocationData(
+                        position.coords.latitude,
+                        position.coords.longitude,
+                        this.state.availability,
+                        null,
+                        this.state.showAllResults,
+                    )
+                )
                 .catch(error => {
                     console.error(error);
                 });
@@ -52,7 +67,7 @@ class Search extends React.Component {
         this.setState(newState);
     }
 
-    getLocationData = (latitude, longitude, availability, zipCode) => {
+    getLocationData = (latitude, longitude, availability, zipCode, showAllResults) => {
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
@@ -60,7 +75,8 @@ class Search extends React.Component {
                 latitude,
                 longitude,
                 availability,
-                zipCode
+                zipCode,
+                showAllResults,
             })
         })
             .then(response => response.json())
@@ -112,6 +128,12 @@ class Search extends React.Component {
         }
     };
 
+    numResultsChanged = (e) => {
+        this.setState({
+            showAllResults: e.currentTarget.value === 'all',
+        });
+    };
+
     render() {
         const { renderSiteData } = this;
         
@@ -148,6 +170,28 @@ class Search extends React.Component {
                                 </div>
                                 {this.state.zipCodeError && <p>Please enter a valid zip code!</p>}
                                 <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>
+                                
+                                {/* TODO(hannah): Make labels part of the clickable area. */}
+                                <div className="num-results">
+                                    <input
+                                        type="radio"
+                                        name="num-results"
+                                        value="top-5"
+                                        checked={!this.state.showAllResults}
+                                        onChange={this.numResultsChanged}
+                                    />
+                                    <label htmlFor="top-5">Closest 5 locations</label>
+                                    <br />
+                                    <input
+                                        type="radio"
+                                        name="num-results"
+                                        value="all"
+                                        checked={this.state.showAllResults}
+                                        onChange={this.numResultsChanged}
+                                    />
+                                    <label htmlFor="all">All locations</label>
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </div>

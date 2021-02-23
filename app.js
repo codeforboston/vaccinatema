@@ -111,24 +111,27 @@ if (cluster.isMaster) {
             } else {
                 locations = sites;
             }
+            // TODO(hannah): Once there are enough results, we should switch to
+            // pagination.
+            const showAllResults = req.body.showAllResults;
             if (req.body.zipCode) {
                 const geo = geocoder({ key: process.env.GEOCODER_API_KEY});
                 geo.find(req.body.zipCode, function(geoErr, geoRes){
                     const { lat, lng } = geoRes[0].location;
                     const closest = distanceUtils.getClosestLocations(
                         locations,
-                        5,
                         lat,
-                        lng
+                        lng,
+                        showAllResults
                     );
                     res.send(closest);
                 });
             } else {
                 const closest = distanceUtils.getClosestLocations(
                     locations,
-                    5,
                     req.body.latitude,
-                    req.body.longitude
+                    req.body.longitude,
+                    showAllResults,
                 );
                 res.send(closest);
             }
