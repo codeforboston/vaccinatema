@@ -1,3 +1,6 @@
+const zipCodes = require('../static/zip-codes.json');
+const geocoder = require('google-geocoder');
+
 function degreesToRadians(degrees) {
     var pi = Math.PI;
     return degrees * (pi / 180);
@@ -27,19 +30,50 @@ function calculateDistance(record, pos_lat, pos_long) {
  * Returns a list of the n closest locations to the given latitude and longitude.
  */
 function getClosestLocations(locations, n, latitude, longitude) {
-    var locationsWithDistances = locations.map(location => ({
+    var locationsWithDistances = locations.map((location) => ({
         location: location,
         distance: calculateDistance(location, latitude, longitude),
     }));
 
-    locationsWithDistances.sort((a, b) => (a.distance - b.distance));
+    locationsWithDistances.sort((a, b) => a.distance - b.distance);
 
     return locationsWithDistances
         .slice(0, n)
         .map((locationWithDistance) => locationWithDistance.location);
 }
 
+/**
+ * Returns an object with the requested latitude (lat) and longitude (lng).
+ */
+async function getLatLngFromRequest(req) {
+    if (req.body.address) {
+        // Whenever possible, use the static look up table to minimize Geocoder
+        // costs.
+        // TODO(hannah): Replace this static look up with a caching layer.
+        if (zipCodes[req.body.address]) {
+            return zipCodes[req.body.address];
+        }
+
+        // If we can't find the zip code, fall back to the Geocoder API call.
+        const geo = geocoder({key: process.env.GEOCODER_API_KEY});
+        const geoRes = await new Promise((resolve, reject) => {
+            geo.find(req.body.address + ' Massachusetts', (err, res) => {
+                // TODO(hannah): Add better error handling.
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(res);
+                }
+            });
+        });
+        return geoRes[0].location;
+    }
+
+    return {lat: req.body.latitude, lng: req.body.longitude};
+}
+
 module.exports = {
     calculateDistance: calculateDistance,
     getClosestLocations: getClosestLocations,
+    getLatLngFromRequest: getLatLngFromRequest,
 };
