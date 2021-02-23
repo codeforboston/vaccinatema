@@ -17,7 +17,7 @@ class Search extends React.Component {
         geolocationError: false
     }
 
-    searchByZipCode = () => {
+    searchByAddress = () => {
         this.setState({addressError: false, geolocationError: false});
         if (this.state.address) {
             this.getLocationData({ availability: this.state.availability, address: this.state.address });
@@ -143,10 +143,10 @@ class Search extends React.Component {
                                 {this.state.geolocationError && <p>Cannot figure out your location.</p>}
                                 <div className="form-group">
                                     <label htmlFor="address">or near</label>
-                                    <input type="text" className="form-control" id="address" name="address" placeholder="city, town, or zip code" required="" value={this.state.address} onChange={this.handleChange} />
+                                    <input type="text" className="form-control" id="address" name="address" placeholder="City, town, or zip code" required="" value={this.state.address} onChange={this.handleChange} />
                                 </div>
                                 {this.state.addressError && <p>City or zip code cannot be blank</p>}
-                                <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search</button>
+                                <button onClick={this.searchByAddress} id="signup" className="btn btn-primary">Search</button>
                             </div>
                         </div>
                     </div>
