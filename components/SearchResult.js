@@ -26,7 +26,7 @@ const SearchResult = (props) => {
                     <div className="site-name">
                         <h3>{props.name}</h3>
                         <p>
-                            {props.address}
+                            <span className="address">{props.address}</span>
                             <a
                                 href={googleMapsLink}
                                 target="_blank"
@@ -82,7 +82,7 @@ SearchResult.propTypes = {
     name: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     siteDetails: PropTypes.string.isRequired,
-    availability: PropTypes.string.isRequired,
+    availability: PropTypes.arrayOf(PropTypes.string).isRequired,
     lastChecked: PropTypes.string.isRequired,
     bookAppointmentInfo: PropTypes.array.isRequired,
 };

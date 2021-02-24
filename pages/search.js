@@ -77,7 +77,10 @@ class Search extends React.Component {
             name: site.fields['Location Name'] ?? '',
             address: site.fields['Full Address'] ?? '',
             siteDetails: site.fields['Serves'] ?? '',
-            availability: site.fields['Availability'] ?? 'None',
+            availability:
+                (site.fields['Availability'] &&
+                    parseBookAppointmentString(site.fields['Availability'])) ??
+                'None',
             lastChecked:
                 (site.fields['Last Updated'] &&
                     this.parseDate(site.fields['Last Updated'])) ??
@@ -117,7 +120,7 @@ class Search extends React.Component {
 
             return (
                 <div>
-                    <h2>Results:</h2>
+                    <h2>Results</h2>
                     <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
                         {sites}
                     </ul>
