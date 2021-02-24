@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../components/Layout';
-import Site from '../components/Site';
+import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
 
 class Search extends React.Component {
