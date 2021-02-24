@@ -117,7 +117,6 @@ if (cluster.isMaster) {
                     const { lat, lng } = geoRes[0].location;
                     const closest = distanceUtils.getClosestLocations(
                         locations,
-                        5,
                         lat,
                         lng
                     );
@@ -126,7 +125,6 @@ if (cluster.isMaster) {
             } else {
                 const closest = distanceUtils.getClosestLocations(
                     locations,
-                    5,
                     req.body.latitude,
                     req.body.longitude
                 );

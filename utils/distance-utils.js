@@ -24,9 +24,10 @@ function calculateDistance(record, pos_lat, pos_long) {
 }
 
 /**
- * Returns a list of the n closest locations to the given latitude and longitude.
+ * Returns a list of locations, sorted by increasing distance from the given
+ * latitude and longitude.
  */
-function getClosestLocations(locations, n, latitude, longitude) {
+function getClosestLocations(locations, latitude, longitude) {
     var locationsWithDistances = locations.map(location => ({
         location: location,
         distance: calculateDistance(location, latitude, longitude),
@@ -35,7 +36,6 @@ function getClosestLocations(locations, n, latitude, longitude) {
     locationsWithDistances.sort((a, b) => (a.distance - b.distance));
 
     return locationsWithDistances
-        .slice(0, n)
         .map((locationWithDistance) => locationWithDistance.location);
 }
 
