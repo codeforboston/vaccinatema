@@ -21,7 +21,7 @@ const secondParser = (key, result) => (
  * 
  * @return array
  */
-const parseBookAppointmentString = text => {
+const parseURLsInStrings = text => {
     let config = [{
         regex: /(http|https):\/\/(\S+)\.([a-z]{2,}?)(.*?)( |,|$|\.)/gim,
         fn: firstParser
@@ -32,4 +32,4 @@ const parseBookAppointmentString = text => {
     return processString(config)(text);
 };
 
-export default parseBookAppointmentString;
+export default parseURLsInStrings;
