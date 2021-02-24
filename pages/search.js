@@ -72,7 +72,6 @@ class Search extends React.Component {
             });
     }
 
-<<<<<<< HEAD
     parseLocationData = (data) => {
         return data.map((site) => ({
             name: site.fields['Location Name'] ?? '',
