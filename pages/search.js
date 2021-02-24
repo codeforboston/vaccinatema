@@ -6,31 +6,35 @@ import parseBookAppointmentString from '../components/utilities/parseBookAppoint
 class Search extends React.Component {
     constructor(props) {
         super(props);
-        this.siteDataResultsRef = React.createRef();  
+        this.siteDataResultsRef = React.createRef();
     }
 
     state = {
         siteData: [],
-        zipCode: '',
+        address: '',
         availability: 'Sites with reported doses',
-        zipCodeError: false,
+        addressError: false,
         geolocationError: false
     }
 
-    searchByZipCode = () => {
-        this.setState({zipCodeError: false, geolocationError: false});
-        if (/^\d{5}$/.test(this.state.zipCode)) {
-            this.getLocationData(null, null, this.state.availability, this.state.zipCode);
+    searchByAddress = () => {
+        this.setState({addressError: false, geolocationError: false});
+        if (this.state.address) {
+            this.getLocationData({ availability: this.state.availability, address: this.state.address });
         } else {
-            this.setState({zipCodeError: true});
+            this.setState({addressError: true});
         }
     }
 
     searchByGeolocation = () => {
-        this.setState({zipCodeError: false, geolocationError: false});
+        this.setState({addressError: false, geolocationError: false});
         if ('geolocation' in navigator) {
             this.getLatitudeAndLongitudeByGeolocation()
-                .then(position => this.getLocationData(position.coords.latitude, position.coords.longitude, this.state.availability, null))
+                .then(position => this.getLocationData({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    availability: this.state.availability
+                }))
                 .catch(error => {
                     console.error(error);
                 });
@@ -40,7 +44,7 @@ class Search extends React.Component {
     }
 
     getLatitudeAndLongitudeByGeolocation = () => {
-        return new Promise((resolve, reject) => 
+        return new Promise((resolve, reject) =>
             navigator.geolocation.getCurrentPosition(resolve, reject)
         );
     }
@@ -52,16 +56,11 @@ class Search extends React.Component {
         this.setState(newState);
     }
 
-    getLocationData = (latitude, longitude, availability, zipCode) => {
+    getLocationData = (args) => {
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
-            body: JSON.stringify({
-                latitude,
-                longitude,
-                availability,
-                zipCode
-            })
+            body: JSON.stringify({ ...args })
         })
             .then(response => response.json())
             .then(data => this.parseLocationData(data))
@@ -88,7 +87,16 @@ class Search extends React.Component {
     parseDate = dateString => (
         new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
     )
-    
+
+    handleEnter = (event) => {
+        const { searchByAddress } = this;
+
+        if (event.keyCode === 13) {
+            // If a user presses Enter, trigger search
+            searchByAddress();
+        }
+    };
+
     renderSiteData = () => {
         const { siteData } = this.state;
 
@@ -113,8 +121,8 @@ class Search extends React.Component {
     };
 
     render() {
-        const { renderSiteData } = this;
-        
+        const { renderSiteData, handleEnter } = this;
+
         return (
             <Layout pageTitle="Search">
                 <div className= "jumbotron bg-white">
@@ -143,11 +151,21 @@ class Search extends React.Component {
                                 <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
                                 {this.state.geolocationError && <p>Cannot figure out your location.</p>}
                                 <div className="form-group">
-                                    <label htmlFor="zipCode">or near</label>
-                                    <input type="text" className="form-control" id="zipCode" name="zipCode" placeholder="5-digit zip code" required="" value={this.state.zipCode} onChange={this.handleChange} />
+                                    <label htmlFor="address">or near</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="address"
+                                        name="address"
+                                        placeholder="City, town, or zip code"
+                                        required=""
+                                        value={this.state.address}
+                                        onChange={this.handleChange}
+                                        onKeyDown={handleEnter}
+                                    />
                                 </div>
-                                {this.state.zipCodeError && <p>Please enter a valid zip code!</p>}
-                                <button onClick={this.searchByZipCode} id="signup" className="btn btn-primary">Search By Zip Code</button>
+                                {this.state.addressError && <p>City or zip code cannot be blank</p>}
+                                <button onClick={this.searchByAddress} id="signup" className="btn btn-primary">Search</button>
                             </div>
                         </div>
                     </div>

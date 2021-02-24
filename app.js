@@ -111,9 +111,9 @@ if (cluster.isMaster) {
             } else {
                 locations = sites;
             }
-            if (req.body.zipCode) {
-                const geo = geocoder({ key: process.env.GEOCODER_API_KEY});
-                geo.find(req.body.zipCode, function(geoErr, geoRes){
+            if (req.body.address) {
+                const geo = geocoder({ key: process.env.GEOCODER_API_KEY });
+                geo.find(req.body.address + ' Massachusetts', function(geoErr, geoRes){
                     const { lat, lng } = geoRes[0].location;
                     const closest = distanceUtils.getClosestLocations(
                         locations,
