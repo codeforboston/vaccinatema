@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../components/Layout';
 import Site from '../components/Site';
-import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
+import parseURLsinStrings from '../components/utilities/parseURLsinStrings';
 
 class Search extends React.Component {
     constructor(props) {
@@ -77,10 +77,10 @@ class Search extends React.Component {
             {
                 locationName: site.fields['Location Name'] ?? '',
                 address: site.fields['Full Address'] ?? '',
-                populationsServed: site.fields['Serves'] ?? '',
-                vaccineAvailability: site.fields['Availability'] ?? '',
+                populationsServed: (site.fields['Serves'] && parseURLsInStrings(site.fields['Serves'])) ?? '',
+                vaccineAvailability: (site.fields['Availability'] && parseURLsInStrings(site.fields['Availability'])) ?? '',
                 lastUpdated: (site.fields['Last Updated'] && this.parseDate(site.fields['Last Updated'])) ?? '',
-                bookAppointmentInformation: (site.fields['Book an appointment'] && parseBookAppointmentString(site.fields['Book an appointment'])) ?? ''
+                bookAppointmentInformation: (site.fields['Book an appointment'] && parseURLsInStrings(site.fields['Book an appointment'])) ?? ''
             }
         ));
     }
