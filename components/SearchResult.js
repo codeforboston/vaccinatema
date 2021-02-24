@@ -82,7 +82,7 @@ SearchResult.propTypes = {
     name: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     siteDetails: PropTypes.string.isRequired,
-    availability: PropTypes.arrayOf(PropTypes.string).isRequired,
+    availability: PropTypes.array.isRequired,
     lastChecked: PropTypes.string.isRequired,
     bookAppointmentInfo: PropTypes.array.isRequired,
 };
