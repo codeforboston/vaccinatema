@@ -15,8 +15,8 @@ const FAQ = () => (
             </p>
             <h2>Why are you doing this? Isn’t there a state site?</h2>
             <p>
-                Massachusetts is ~40th out of 50 states in percentage of doses
-                administered,{' '}
+                Although Massachusetts is ~10th out of 50 states in percentage
+                of doses administered{' '}
                 <a
                     href="https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html"
                     target="_blank"
@@ -24,7 +24,8 @@ const FAQ = () => (
                 >
                     according to the CDC
                 </a>
-                . We&apos;ve found that the{' '}
+                , the state is still lagging behind in terms of distributing the
+                doses we have been allocated. We&apos;ve found that the{' '}
                 <a
                     href="https://vaxfinder.mass.gov/"
                     target="_blank"
@@ -35,6 +36,37 @@ const FAQ = () => (
                 has availability for mass vaccination sites, but our website
                 covers 100+ additional local and retail sites. We use a
                 combination of automation and manual checking by volunteers.
+            </p>
+            <h2>
+                Why do you have vaccination locations not on other websites?
+            </h2>
+            <p>
+                We regularly research where the vaccine is being administered
+                across the state, which sometimes results in our website having
+                locations not listed elsewhere.
+            </p>
+            <h2>Why is your data out of date?</h2>
+            <p>
+                Most of our availability information is gathered by hand by a
+                group of dedicated volunteers. Some sites only get updated once
+                a day -- the time at which the data was last updated can be
+                found under &quot;last updated.&quot; We encourage you to check{' '}
+                <a
+                    href="https://macovidvaccines.com"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    macovidvaccines.com
+                </a>{' '}
+                or{' '}
+                <a
+                    href="https://twitter.com/vaccinetime"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    twitter.com/vaccinetime
+                </a>{' '}
+                for other updated sources of availability.
             </p>
             <h2>What if I want to help?</h2>
             <p>
