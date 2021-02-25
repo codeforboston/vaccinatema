@@ -11,12 +11,12 @@ const pool = new Pool({
 /**
 * Create volunteer
 **/
-const createVolunteer = async (email, firstName, lastName) => {
+const createVolunteer = async (volunteer) => {
     try {
-        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName) VALUES ($1, $2, $3)', [email, firstName, lastName]);
-        return rows.length > 0;
+        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName) VALUES ($1, $2, $3)', [volunteer.email, volunteer.firstName, volunteer.lastName]);
+        return rows;
     } catch (error) {
-        console.error(`an error occurred when creating a new volunteer ${email}`, email);
+        console.error(`an error occurred when creating a new volunteer ${volunteer}`, volunteer);
         throw new Error(`An unexpected error occurred creating a new volunteer error: ${error}`);
     }
 };
@@ -24,12 +24,12 @@ const createVolunteer = async (email, firstName, lastName) => {
 /**
 * Upate volunteer email
 **/
-const updatedEmail = async (email, newEmail) => {
+const updatedEmail = async (id, newEmail) => {
     try {
-        const { rows } = await pool.query('UPDATE volunteers (email) VALUES ($2) WHERE email = $1)', [email, newEmail]);
-        return rows.length > 0;
+        const { rows } = await pool.query('UPDATE volunteers SET email = $2 WHERE id = $1', [id, newEmail]);
+        return rows;
     } catch (error) {
-        console.error(`an error occurred when updating a volunteer's email ${email}`, email);
+        console.error(`an error occurred when updating a volunteer's email ${id}, ${newEmail}`);
         throw new Error(`An unexpected error occurred updating a volunteer's email error: ${error}`);
     }
 };
@@ -42,13 +42,28 @@ const getAllVolunteers = async () => {
         const { rows } = await pool.query('SELECT * FROM volunteers');
         return rows;
     } catch (error) {
-        console.error(`an error occurred when updating a volunteer's email ${email}`, email);
+        console.error('an error occurred when getting all volunteers');
         throw new Error(`An unexpected error occurred updating a volunteer's email error: ${error}`);
+    }
+};
+
+/**
+* Delete volunteers
+**/
+const deleteVolunteer = async (volunteerId) => {
+    try {
+        const { rows } = await pool.query('DELETE FROM volunteers WHERE id = $1', [volunteerId]);
+        return rows;
+        // todo delete associated volunteer locations
+    } catch (error) {
+        console.error(`an error occurred when updating a volunteer ${volunteerId}`, volunteerId);
+        throw new Error(`An unexpected error occurred updating a volunteerId error: ${error}`);
     }
 };
 
 module.exports = {
     createVolunteer,
     updatedEmail,
-    getAllVolunteers
+    getAllVolunteers,
+    deleteVolunteer
 };

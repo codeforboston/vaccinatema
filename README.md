@@ -13,11 +13,13 @@ open .env
 Then run the server locally.
 ```sh
 npm install
+npm run build
 npm run local
 open http://127.0.0.1:3002/
 ```
 
 ## Deployment
+Run `npm run lint` and fix any linting issues before pushing your branch
 The `main` branch is automatically deployed to Code for Boston's AWS Elastic Beanstalk instance.
 
 ## Issue Tracking
