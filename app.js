@@ -1,7 +1,17 @@
 require('dotenv').config();
+<<<<<<< HEAD
 require('newrelic');
 require('@newrelic/aws-sdk');
+=======
+
+const geocoder = require('google-geocoder');
+>>>>>>> 3efe38a (create volunteers table)
 var cluster = require('cluster');
+
+if (process.env.NODE_ENV === 'production') {
+    require('newrelic');
+    require('@newrelic/aws-sdk');
+}
 
 var distanceUtils = require('./utils/distance-utils');
 var siteUtils = require('./utils/site-utils');
@@ -117,6 +127,9 @@ if (cluster.isMaster) {
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
         const locationApi = require('./routes/locations');
         server.use('/locations', locationApi);
+
+        const volunteersApi = require('./routes/volunteers');
+        server.use('/volunteers', volunteersApi);
 
         /**
          * Next.js (React) pages defined in the /pages folder will automatically be routed

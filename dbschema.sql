@@ -65,3 +65,14 @@ ALTER TABLE locations
 ADD COLUMN phone VARCHAR(15),
 ADD COLUMN accessibility VARCHAR(100),
 ADD COLUMN email VARCHAR(100);
+
+CREATE TABLE volunteers (
+  id               INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  email             VARCHAR
+                   (1000) UNIQUE NOT NULL,
+  firstName       VARCHAR
+                   (1000)       NOT NULL,
+  lastName        VARCHAR
+                   (1000)       NOT NULL,
+  lastupdated      TIMESTAMP    NOT NULL DEFAULT NOW()
+);
