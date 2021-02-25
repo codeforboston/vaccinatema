@@ -76,17 +76,21 @@ class Search extends React.Component {
         return data.map((site) => ({
             name: site.fields['Location Name'] ?? '',
             address: site.fields['Full Address'] ?? '',
-            siteDetails: (site.fields['Serves'] && parseURLsInStrings(site.fields['Serves'])) ?? '',
-            availability: (site.fields['Availability'] && parseURLsInStrings(site.fields['Availability'])) ?? 'None',
+            siteDetails:
+            (site.fields['Serves'] &&
+                parseURLsInStrings(site.fields['Serves'])) ??
+            '',
+            availability:
+                (site.fields['Availability'] &&
+                    parseURLsInStrings(site.fields['Availability'])) ??
+                'None',
             lastChecked:
                 (site.fields['Last Updated'] &&
                     this.parseDate(site.fields['Last Updated'])) ??
                 '',
             bookAppointmentInfo:
                 (site.fields['Book an appointment'] &&
-                    parseURLsInStrings(
-                        site.fields['Book an appointment']
-                    )) ??
+                    parseURLsInStrings(site.fields['Book an appointment'])) ??
                 '',
         }));
     };
@@ -117,7 +121,7 @@ class Search extends React.Component {
 
             return (
                 <div>
-                    <h2>Results:</h2>
+                    <h2>Results</h2>
                     <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
                         {sites}
                     </ul>
