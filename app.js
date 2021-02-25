@@ -18,12 +18,13 @@ function saveState() {
             sites.push(record);
             sites_longitude.push(record.get('Longitude'));
             sites_latitude.push(record.get('Latitude'));
-            if(!(record.get('Availability') === 'None')) {
+
+            const availability = record.get('Availability');
+            if(availability && availability.trim() !== 'None') {
                 available.push(record);
                 available_longitude.push(record.get('Longitude'));
                 available_latitude.push(record.get('Latitude'));
             }
-
         });
 
         // To fetch the next page of records, call `fetchNextPage`.

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import parseBookAppointmentString from './utilities/parseBookAppointmentString';
+import parseURLsInStrings from './utilities/parseURLsInStrings';
 
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
@@ -33,10 +33,10 @@ const parseLocationData = data => {
             id: site.id,
             locationName: site.fields['Location Name'] ?? '',
             address: site.fields['Full Address'] ?? '',
-            populationsServed: site.fields['Serves'] ?? '',
-            vaccineAvailability: site.fields['Availability'] ?? '',
+            populationsServed: (site.fields['Serves'] && parseURLsInStrings(site.fields['Serves'])) ?? '',
+            vaccineAvailability: (site.fields['Availability'] && parseURLsInStrings(site.fields['Availability'])) ?? '',
             lastUpdated: (site.fields['Last Updated'] && parseDate(site.fields['Last Updated'])) ?? '',
-            bookAppointmentInformation: (site.fields['Book an appointment'] && parseBookAppointmentString(site.fields['Book an appointment'])) ?? '',
+            bookAppointmentInformation: (site.fields['Book an appointment'] && parseURLsInStrings(site.fields['Book an appointment'])) ?? '',
             latitude: site.fields['Latitude'] ?? 0,
             longitude: site.fields['Longitude'] ?? 0,
             sitePinShape: determineSitePinShape(

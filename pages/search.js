@@ -2,7 +2,7 @@ import React from 'react';
 
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
-import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
+import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
 
 class Search extends React.Component {
     constructor(props) {
@@ -76,10 +76,13 @@ class Search extends React.Component {
         return data.map((site) => ({
             name: site.fields['Location Name'] ?? '',
             address: site.fields['Full Address'] ?? '',
-            siteDetails: site.fields['Serves'] ?? '',
+            siteDetails:
+            (site.fields['Serves'] &&
+                parseURLsInStrings(site.fields['Serves'])) ??
+            '',
             availability:
                 (site.fields['Availability'] &&
-                    parseBookAppointmentString(site.fields['Availability'])) ??
+                    parseURLsInStrings(site.fields['Availability'])) ??
                 'None',
             lastChecked:
                 (site.fields['Last Updated'] &&
@@ -87,9 +90,7 @@ class Search extends React.Component {
                 '',
             bookAppointmentInfo:
                 (site.fields['Book an appointment'] &&
-                    parseBookAppointmentString(
-                        site.fields['Book an appointment']
-                    )) ??
+                    parseURLsInStrings(site.fields['Book an appointment'])) ??
                 '',
         }));
     };
