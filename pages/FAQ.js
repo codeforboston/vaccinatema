@@ -15,17 +15,19 @@ const FAQ = () => (
             </p>
             <h2>Why are you doing this? Isn’t there a state site?</h2>
             <p>
-                Although Massachusetts is ~10th out of 50 states in percentage
-                of doses administered{' '}
+                For many weeks, Massachusetts lagged behind in distributing the
+                doses it had been shipped. In late January 2021, we were ranked{' '}
                 <a
-                    href="https://www.nytimes.com/interactive/2020/us/covid-19-vaccine-doses.html"
+                    href="https://www.wbur.org/cognoscenti/2021/01/25/covid-vaccine-rollout-slow-mass-miles-howard"
                     target="_blank"
                     rel="noreferrer"
                 >
-                    according to the CDC
-                </a>
-                , the state is still lagging behind in terms of distributing the
-                doses we have been allocated. We&apos;ve found that the{' '}
+                    43rd
+                </a>{' '}
+                out of 50 states in terms of percentage doses administered from
+                the ones we had received. Recently, our statistics have much
+                improved, but there is still confusion about where to get a
+                COVID-19 vaccine and how. We&apos;ve also found that the{' '}
                 <a
                     href="https://vaxfinder.mass.gov/"
                     target="_blank"
@@ -42,15 +44,20 @@ const FAQ = () => (
             </h2>
             <p>
                 We regularly research where the vaccine is being administered
-                across the state, which sometimes results in our website having
+                across the state, which sometimes results in our website showing
                 locations not listed elsewhere.
             </p>
-            <h2>Why is your data out of date?</h2>
+            <h2>
+                Your website said there was an appointment, but there
+                wasn&apos;t one when I tried to register. Why?
+            </h2>
             <p>
                 Most of our availability information is gathered by hand by a
                 group of dedicated volunteers. Some sites only get updated once
-                a day -- the time at which the data was last updated can be
-                found under &quot;last updated.&quot; We encourage you to check{' '}
+                a day — the time at which the data was entered can be found
+                under &quot;last updated.&quot; Also, appointments get booked
+                very quickly and sometimes a spot gets filled by someone else in
+                the time it takes to register. We encourage you to check{' '}
                 <a
                     href="https://macovidvaccines.com"
                     target="_blank"
@@ -66,7 +73,7 @@ const FAQ = () => (
                 >
                     twitter.com/vaccinetime
                 </a>{' '}
-                for other updated sources of availability.
+                for other sources of availability.
             </p>
             <h2>What if I want to help?</h2>
             <p>
