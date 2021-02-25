@@ -51,10 +51,10 @@ const parseLocationData = data => {
 const determineSitePinShape = (availability, serves, locationName) => {
     if (!availability || availability?.trim() === 'None') {
         return 'dot';
-    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
-        return 'star star-green';
     } else if (isSiteAMassVaccinationSite(locationName)) {
         return 'star star-red';
+    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
+        return 'star star-green';
     } else {
         return 'star star-blue';
     }
