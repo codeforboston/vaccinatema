@@ -2,6 +2,7 @@
     border-radius: 4px;
     border: none;
     color: $white;
+    display: inline-block;
     font-size: 21px;
     font-weight: 800;
     padding: 16px;
@@ -9,6 +10,11 @@
     // Add a shadow that animates out on hover / click.
     box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s ease-out;
+
+    a {
+        color: $white;
+        text-decoration: none;
+    }
 
     svg {
         margin-right: 12px;
