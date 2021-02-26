@@ -1,36 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 
 const SearchResult = (props) => {
+    const hasAvailability =
+        props.availability !== '' && props.availability !== 'None';
+    const googleMapsLink = 'https://maps.google.com/?q=' + props.address;
+
     return (
         <div className="search-result">
-            <div className="bar" />
-            <div>
-                <div className="header">
-                    <div style={{flex: 2}}>
+            <div
+                className={`bar ${
+                    hasAvailability ? 'bar-available' : 'bar-unavailable'
+                }`}
+            />
+            <div className="contents">
+                <div
+                    className={`header ${
+                        hasAvailability
+                            ? 'header-available'
+                            : 'header-unavailable'
+                    }`}
+                >
+                    <div className="site-name">
                         <h3>{props.name}</h3>
-                        <p>{props.address}</p>
+                        <p>
+                            <span className="address">{props.address}</span>
+                            <a
+                                href={googleMapsLink}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <FontAwesomeIcon
+                                    icon={faMapMarkerAlt}
+                                    className="icon"
+                                />
+                                {'Get directions'}
+                            </a>
+                        </p>
                     </div>
-                    <div style={{flex: 1}}>
-                        <h4>{'Appointments may be available'}</h4>
-                        <p>{`Last checked ${props.lastChecked}`}</p>
+                    <div className="availability">
+                        <h4>
+                            {hasAvailability
+                                ? 'Appointments may be available'
+                                : 'No appointments available'}
+                        </h4>
+                        <p>
+                            <b>{'Last checked '}</b>
+                            {props.lastChecked}
+                        </p>
                     </div>
                 </div>
-                <div className="contents">
-                    <div style={{flex: 1}}>
+                <div className="result-body">
+                    <div>
                         <h4>{'Vaccine availability'}</h4>
                         <p>{props.availability}</p>
                     </div>
-                    <div style={{flex: 1}}>
+                    <div>
                         <h4>{'Site details'}</h4>
                         <p>{props.siteDetails}</p>
                     </div>
-                    <div style={{flex: 1}} className="button-container">
-                        <a href={props.appointmentURL} target="_blank" rel="noreferrer">
-                            <button>
-                                {'Make an appointment'}
-                            </button>
-                        </a>
+                    <div>
+                        {/* TODO(hannah): Change this to a button. */}
+                        <h4>
+                            {hasAvailability
+                                ? 'Make an appointment'
+                                : 'About this location'}
+                        </h4>
+                        <p>{props.bookAppointmentInfo}</p>
                     </div>
                 </div>
             </div>
@@ -41,12 +79,10 @@ const SearchResult = (props) => {
 export default SearchResult;
 
 SearchResult.propTypes = {
-    name: PropTypes.string,
-    address: PropTypes.string,
-    siteDetails: PropTypes.string,
-    // TODO(hannah): Adjust style / content when there is no availability.
-    hasAvailability: PropTypes.bool,
-    availability: PropTypes.string,
-    lastChecked: PropTypes.string,
-    appointmentURL: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    siteDetails: PropTypes.string.isRequired,
+    availability: PropTypes.array.isRequired,
+    lastChecked: PropTypes.string.isRequired,
+    bookAppointmentInfo: PropTypes.array.isRequired,
 };
