@@ -23,33 +23,31 @@ const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEW
 
 const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
 
-const parseDate = dateString => (
-    new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
+const parseDate = date => (
+    date ? date.toLocaleString('en-US', {timeZone: 'America/New_York'}) : ''
 );
 
-const parseLocationData = data => {
-    return data.map( site => (
-        {
-            id: site.id,
-            locationName: site.fields['Location Name'] ?? '',
-            address: site.fields['Full Address'] ?? '',
-            populationsServed: (site.fields['Serves'] && parseURLsInStrings(site.fields['Serves'])) ?? '',
-            vaccineAvailability: (site.fields['Availability'] && parseURLsInStrings(site.fields['Availability'])) ?? '',
-            lastUpdated: (site.fields['Last Updated'] && parseDate(site.fields['Last Updated'])) ?? '',
-            bookAppointmentInformation: (site.fields['Book an appointment'] && parseURLsInStrings(site.fields['Book an appointment'])) ?? '',
-            latitude: site.fields['Latitude'] ?? 0,
-            longitude: site.fields['Longitude'] ?? 0,
-            sitePinShape: determineSitePinShape(
-                site.fields['Availability'] ?? '',
-                site.fields['Serves'] ?? '',
-                site.fields['Location Name'] ?? ''
-            )
-        }
-    ));
+const parseLocationData = (data) => {
+    return data.map((site) => ({
+        id: site.id,
+        locationName: site.name,
+        address: site.address,
+        populationsServed: parseURLsInStrings(site.serves),
+        vaccineAvailability: parseURLsInStrings(site.availability),
+        lastUpdated: parseDate(site.lastUpdated),
+        bookAppointmentInformation: parseURLsInStrings(
+            site.bookAppointmentInfo,
+        ),
+        latitude: site.latitude,
+        longitude: site.longitude,
+        sitePinShape: determineSitePinShape(
+            site.availability, site.serves, site.name,
+        ),
+    }));
 };
 
 const determineSitePinShape = (availability, serves, locationName) => {
-    if (!availability || availability?.trim() === 'None') {
+    if (!availability) {
         return 'dot';
     } else if (isSiteAMassVaccinationSite(locationName)) {
         return 'star star-red';
