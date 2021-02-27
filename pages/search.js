@@ -83,9 +83,12 @@ class Search extends React.Component {
         }));
     };
 
-    parseDate = date => (
-        date ? date.toLocaleString('en-US', {timeZone: 'America/New_York'}) : ''
-    );
+    parseDate = (date) =>
+        date
+            ? new Date(date).toLocaleString('en-US', {
+                timeZone: 'America/New_York',
+            })
+            : '';
 
     handleEnter = (event) => {
         const { searchByAddress } = this;

@@ -23,9 +23,10 @@ const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEW
 
 const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
 
-const parseDate = date => (
-    date ? date.toLocaleString('en-US', {timeZone: 'America/New_York'}) : ''
-);
+const parseDate = (date) =>
+    date
+        ? new Date(date).toLocaleString('en-US', {timeZone: 'America/New_York'})
+        : '';
 
 const parseLocationData = (data) => {
     return data.map((site) => ({
