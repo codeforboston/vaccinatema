@@ -49,12 +49,12 @@ async function getLatLngFromRequest(req) {
     if (req.body.address) {
         // Whenever possible, use the static look up table to minimize Geocoder
         // costs.
-        // TODO(hannah): Replace this static look up with a caching layer.
         if (zipCodes[req.body.address]) {
             return zipCodes[req.body.address];
         }
 
         // If we can't find the zip code, fall back to the Geocoder API call.
+        // TODO(hannah): Fallback to Pelias instead.
         const geo = geocoder({key: process.env.GEOCODER_API_KEY});
         const geoRes = await new Promise((resolve, reject) => {
             geo.find(req.body.address + ' Massachusetts', (err, res) => {
