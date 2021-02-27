@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('newrelic');
 require('@newrelic/aws-sdk');
-const geocoder = require('google-geocoder');
 var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
@@ -98,34 +97,22 @@ if (cluster.isMaster) {
 
         server.use(express.static('static'));
 
-        server.post('/search_query_location', function (req, res) {
+        server.post('/search_query_location', async function (req, res) {
             var locations = [];
             if (req.body.availability === 'Sites with reported doses') {
                 locations = available;
             } else {
                 locations = sites;
             }
-            if (req.body.address) {
-                const geo = geocoder({ key: process.env.GEOCODER_API_KEY });
-                geo.find(req.body.address + ' Massachusetts', function(geoErr, geoRes){
-                    const { lat, lng } = geoRes[0].location;
-                    const closest = distanceUtils.getClosestLocations(
-                        locations,
-                        5,
-                        lat,
-                        lng
-                    );
-                    res.send(closest);
-                });
-            } else {
-                const closest = distanceUtils.getClosestLocations(
-                    locations,
-                    5,
-                    req.body.latitude,
-                    req.body.longitude
-                );
-                res.send(closest);
-            }
+
+            const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
+            const closest = distanceUtils.getClosestLocations(
+                locations,
+                5,
+                lat,
+                lng
+            );
+            res.send(closest);
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
