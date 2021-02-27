@@ -4,9 +4,9 @@ function degreesToRadians(degrees) {
 }
 
 function calculateDistance(record, pos_lat, pos_long) {
-    var lat1 = parseFloat(record.get('Latitude'));
+    var lat1 = parseFloat(record.latitude);
     var lat2 = parseFloat(pos_lat);
-    var lon1 = parseFloat(record.get('Longitude'));
+    var lon1 = parseFloat(record.longitude);
     var lon2 = parseFloat(pos_long);
     var R = 6371000; // metres
     var φ1 = degreesToRadians(lat1);

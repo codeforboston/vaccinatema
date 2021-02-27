@@ -5,6 +5,7 @@ const geocoder = require('google-geocoder');
 var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
+var siteUtils = require('./utils/site-utils');
 
 function saveState() {
     sites = [];
@@ -15,15 +16,11 @@ function saveState() {
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
         records.forEach(function(record) {
-            sites.push(record);
-            sites_longitude.push(record.get('Longitude'));
-            sites_latitude.push(record.get('Latitude'));
+            const data = siteUtils.getDataFromRecord(record);
 
-            const availability = record.get('Availability');
-            if(availability && availability.trim() !== 'None') {
-                available.push(record);
-                available_longitude.push(record.get('Longitude'));
-                available_latitude.push(record.get('Latitude'));
+            sites.push(data);
+            if (data.availability) {
+                available.push(data);
             }
         });
 
@@ -68,11 +65,7 @@ if (cluster.isMaster) {
         console.error('AIRTABLE_API_KEY should be set in .env');
     }
     var sites = [];
-    var sites_latitude = [];
-    var sites_longitude = [];
     var available = [];
-    var available_latitude = [];
-    var available_longitude = [];
     if (process.env.AIRTABLE_API_KEY) {
         saveState();
     }

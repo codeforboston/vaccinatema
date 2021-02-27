@@ -4,10 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 
 const SearchResult = (props) => {
-    const hasAvailability =
-        props.availability.length > 0 &&
-        props.availability[0] &&
-        props.availability[0][0] !== 'None';
+    const hasAvailability = !!props.availability;
     const googleMapsLink = 'https://maps.google.com/?q=' + props.address;
 
     return (
@@ -57,7 +54,7 @@ const SearchResult = (props) => {
                 <div className="result-body">
                     <div>
                         <h4>{'Vaccine availability'}</h4>
-                        <p>{props.availability}</p>
+                        <p>{props.availability || 'None'}</p>
                     </div>
                     <div>
                         <h4>{'Site details'}</h4>
