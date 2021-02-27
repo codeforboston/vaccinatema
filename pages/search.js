@@ -83,7 +83,7 @@ class Search extends React.Component {
             availability:
                 (site.fields['Availability'] &&
                     parseURLsInStrings(site.fields['Availability'])) ??
-                'None',
+                [],
             lastChecked:
                 (site.fields['Last Updated'] &&
                     this.parseDate(site.fields['Last Updated'])) ??
@@ -91,7 +91,7 @@ class Search extends React.Component {
             bookAppointmentInfo:
                 (site.fields['Book an appointment'] &&
                     parseURLsInStrings(site.fields['Book an appointment'])) ??
-                '',
+                [],
         }));
     };
     parseDate = dateString => (
