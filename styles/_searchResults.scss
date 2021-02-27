@@ -13,6 +13,7 @@
 
     p {
         font-size: 16px;
+        overflow-wrap: break-word;
     }
 
     .header-available {
@@ -31,28 +32,38 @@
             flex-direction: column;
         }
 
-        h4 {
-            font-size: 21px;
-            font-weight: 700;
+        h3 {
+            align-items: flex-end;
+            display: flex;
+            min-height: 50%;
         }
 
-        p {
-            font-size: 14px;
+        h4 {
+            align-items: flex-end;
+            display: flex;
+            font-size: 21px;
+            font-weight: 700;
+            min-height: 50%;
         }
 
         a {
             color: black;
             font-weight: 800;
-            margin-left: 8px;
             text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .address {
+            margin-right: 8px;
         }
 
         @media screen and (min-width: 768px) {
             .site-name {
-                width: 66%;
+                width: 60%;
+                margin-right: 6%;
             }
             .availability {
-                width: 33%;
+                width: 30%;
             }
         }
     }
@@ -75,7 +86,7 @@
 
     .contents {
         flex: 1;
-        width: 100%;
+        width: calc(100% - 8px);
     }
 
     .result-body {
@@ -89,7 +100,8 @@
 
         @media screen and (min-width: 768px) {
             div {
-                width: 33%;
+                width: 30%;
+                margin-right: 3%;
             }
         }
     }

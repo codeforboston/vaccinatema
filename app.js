@@ -1,10 +1,10 @@
 require('dotenv').config();
 require('newrelic');
 require('@newrelic/aws-sdk');
-const geocoder = require('google-geocoder');
 var cluster = require('cluster');
 
 var distanceUtils = require('./utils/distance-utils');
+var siteUtils = require('./utils/site-utils');
 
 function saveState() {
     sites = [];
@@ -15,15 +15,12 @@ function saveState() {
     }).eachPage(function page(records, fetchNextPage) {
         // This function (`page`) will get called for each page of records.
         records.forEach(function(record) {
-            sites.push(record);
-            sites_longitude.push(record.get('Longitude'));
-            sites_latitude.push(record.get('Latitude'));
-            if(!(record.get('Availability') === 'None')) {
-                available.push(record);
-                available_longitude.push(record.get('Longitude'));
-                available_latitude.push(record.get('Latitude'));
-            }
+            const data = siteUtils.getDataFromRecord(record);
 
+            sites.push(data);
+            if (data.availability) {
+                available.push(data);
+            }
         });
 
         // To fetch the next page of records, call `fetchNextPage`.
@@ -67,11 +64,7 @@ if (cluster.isMaster) {
         console.error('AIRTABLE_API_KEY should be set in .env');
     }
     var sites = [];
-    var sites_latitude = [];
-    var sites_longitude = [];
     var available = [];
-    var available_latitude = [];
-    var available_longitude = [];
     if (process.env.AIRTABLE_API_KEY) {
         saveState();
     }
@@ -104,32 +97,21 @@ if (cluster.isMaster) {
 
         server.use(express.static('static'));
 
-        server.post('/search_query_location', function (req, res) {
+        server.post('/search_query_location', async function (req, res) {
             var locations = [];
             if (req.body.availability === 'Sites with reported doses') {
                 locations = available;
             } else {
                 locations = sites;
             }
-            if (req.body.address) {
-                const geo = geocoder({ key: process.env.GEOCODER_API_KEY });
-                geo.find(req.body.address + ' Massachusetts', function(geoErr, geoRes){
-                    const { lat, lng } = geoRes[0].location;
-                    const closest = distanceUtils.getClosestLocations(
-                        locations,
-                        lat,
-                        lng
-                    );
-                    res.send(closest);
-                });
-            } else {
-                const closest = distanceUtils.getClosestLocations(
-                    locations,
-                    req.body.latitude,
-                    req.body.longitude
-                );
-                res.send(closest);
-            }
+
+            const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
+            const closest = distanceUtils.getClosestLocations(
+                locations,
+                lat,
+                lng
+            );
+            res.send(closest);
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:

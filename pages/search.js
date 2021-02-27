@@ -2,7 +2,7 @@ import React from 'react';
 
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
-import parseBookAppointmentString from '../components/utilities/parseBookAppointmentString';
+import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
 
 class Search extends React.Component {
     constructor(props) {
@@ -74,25 +74,21 @@ class Search extends React.Component {
 
     parseLocationData = (data) => {
         return data.map((site) => ({
-            name: site.fields['Location Name'] ?? '',
-            address: site.fields['Full Address'] ?? '',
-            siteDetails: site.fields['Serves'] ?? '',
-            availability: site.fields['Availability'] ?? 'None',
-            lastChecked:
-                (site.fields['Last Updated'] &&
-                    this.parseDate(site.fields['Last Updated'])) ??
-                '',
-            bookAppointmentInfo:
-                (site.fields['Book an appointment'] &&
-                    parseBookAppointmentString(
-                        site.fields['Book an appointment']
-                    )) ??
-                '',
+            name: site.name,
+            address: site.address,
+            siteDetails: parseURLsInStrings(site.serves),
+            availability: site.availability && parseURLsInStrings(site.availability),
+            lastChecked: this.parseDate(site.lastUpdated),
+            bookAppointmentInfo: parseURLsInStrings(site.bookAppointmentInfo),
         }));
     };
-    parseDate = dateString => (
-        new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
-    )
+
+    parseDate = (date) =>
+        date
+            ? new Date(date).toLocaleString('en-US', {
+                timeZone: 'America/New_York',
+            })
+            : '';
 
     handleEnter = (event) => {
         const { searchByAddress } = this;
@@ -117,7 +113,7 @@ class Search extends React.Component {
 
             return (
                 <div>
-                    <h2>Results:</h2>
+                    <h2>Results</h2>
                     <ul id="sites" className="list-group" ref={this.siteDataResultsRef}>
                         {sites}
                     </ul>

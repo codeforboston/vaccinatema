@@ -3,7 +3,6 @@ import App from 'next/app';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/index.scss';
-import {appWithTranslation} from '../i18n';
 
 class VaccinateMAApp extends App {
     render() {
@@ -15,4 +14,6 @@ class VaccinateMAApp extends App {
     }
 }
 
-export default appWithTranslation(VaccinateMAApp);
+// TODO(hannah): Restore appWithTranslation once we actually have translations.
+// export default appWithTranslation(VaccinateMAApp);
+export default VaccinateMAApp;

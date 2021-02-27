@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
-import parseBookAppointmentString from './utilities/parseBookAppointmentString';
+import parseURLsInStrings from './utilities/parseURLsInStrings';
 
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
@@ -23,38 +23,38 @@ const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEW
 
 const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
 
-const parseDate = dateString => (
-    new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
-);
+const parseDate = (date) =>
+    date
+        ? new Date(date).toLocaleString('en-US', {timeZone: 'America/New_York'})
+        : '';
 
-const parseLocationData = data => {
-    return data.map( site => (
-        {
-            id: site.id,
-            locationName: site.fields['Location Name'] ?? '',
-            address: site.fields['Full Address'] ?? '',
-            populationsServed: site.fields['Serves'] ?? '',
-            vaccineAvailability: site.fields['Availability'] ?? '',
-            lastUpdated: (site.fields['Last Updated'] && parseDate(site.fields['Last Updated'])) ?? '',
-            bookAppointmentInformation: (site.fields['Book an appointment'] && parseBookAppointmentString(site.fields['Book an appointment'])) ?? '',
-            latitude: site.fields['Latitude'] ?? 0,
-            longitude: site.fields['Longitude'] ?? 0,
-            sitePinShape: determineSitePinShape(
-                site.fields['Availability'] ?? '',
-                site.fields['Serves'] ?? '',
-                site.fields['Location Name'] ?? ''
-            )
-        }
-    ));
+const parseLocationData = (data) => {
+    return data.map((site) => ({
+        id: site.id,
+        locationName: site.name,
+        address: site.address,
+        populationsServed: parseURLsInStrings(site.serves),
+        vaccineAvailability:
+            site.availability && parseURLsInStrings(site.availability),
+        lastUpdated: parseDate(site.lastUpdated),
+        bookAppointmentInformation: parseURLsInStrings(
+            site.bookAppointmentInfo,
+        ),
+        latitude: site.latitude,
+        longitude: site.longitude,
+        sitePinShape: determineSitePinShape(
+            site.availability, site.serves, site.name,
+        ),
+    }));
 };
 
 const determineSitePinShape = (availability, serves, locationName) => {
-    if (!availability || availability?.trim() === 'None') {
+    if (!availability) {
         return 'dot';
-    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
-        return 'star star-green';
     } else if (isSiteAMassVaccinationSite(locationName)) {
         return 'star star-red';
+    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
+        return 'star star-green';
     } else {
         return 'star star-blue';
     }
@@ -110,7 +110,7 @@ const Popup = ({data, setPopupData}) => (
             <div id="bodyContent">
                 <p><b>Details</b> {data.populationsServed}</p>
                 <p><b>Address</b> {data.address}</p>
-                <p><b>Availability</b> {data.vaccineAvailability}</p>
+                <p><b>Availability</b> {data.vaccineAvailability || 'None'}</p>
                 <p>(Availability last updated {data.lastUpdated})</p>
                 <p><b>Book now</b> {data.bookAppointmentInformation}</p>
                 <button onClick={() => setPopupData({})}>Close</button>

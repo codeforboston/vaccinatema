@@ -4,8 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 
 const SearchResult = (props) => {
-    const hasAvailability =
-        props.availability !== '' && props.availability !== 'None';
+    const hasAvailability = !!props.availability;
     const googleMapsLink = 'https://maps.google.com/?q=' + props.address;
 
     return (
@@ -26,7 +25,7 @@ const SearchResult = (props) => {
                     <div className="site-name">
                         <h3>{props.name}</h3>
                         <p>
-                            {props.address}
+                            <span className="address">{props.address}</span>
                             <a
                                 href={googleMapsLink}
                                 target="_blank"
@@ -55,7 +54,7 @@ const SearchResult = (props) => {
                 <div className="result-body">
                     <div>
                         <h4>{'Vaccine availability'}</h4>
-                        <p>{props.availability}</p>
+                        <p>{props.availability || 'None'}</p>
                     </div>
                     <div>
                         <h4>{'Site details'}</h4>
@@ -82,7 +81,7 @@ SearchResult.propTypes = {
     name: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
     siteDetails: PropTypes.string.isRequired,
-    availability: PropTypes.string.isRequired,
+    availability: PropTypes.array.isRequired,
     lastChecked: PropTypes.string.isRequired,
     bookAppointmentInfo: PropTypes.array.isRequired,
 };
