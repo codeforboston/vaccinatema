@@ -34,7 +34,8 @@ const parseLocationData = (data) => {
         locationName: site.name,
         address: site.address,
         populationsServed: parseURLsInStrings(site.serves),
-        vaccineAvailability: parseURLsInStrings(site.availability),
+        vaccineAvailability:
+            site.availability && parseURLsInStrings(site.availability),
         lastUpdated: parseDate(site.lastUpdated),
         bookAppointmentInformation: parseURLsInStrings(
             site.bookAppointmentInfo,
@@ -109,7 +110,7 @@ const Popup = ({data, setPopupData}) => (
             <div id="bodyContent">
                 <p><b>Details</b> {data.populationsServed}</p>
                 <p><b>Address</b> {data.address}</p>
-                <p><b>Availability</b> {data.vaccineAvailability}</p>
+                <p><b>Availability</b> {data.vaccineAvailability || 'None'}</p>
                 <p>(Availability last updated {data.lastUpdated})</p>
                 <p><b>Book now</b> {data.bookAppointmentInformation}</p>
                 <button onClick={() => setPopupData({})}>Close</button>
