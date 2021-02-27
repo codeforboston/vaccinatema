@@ -5,7 +5,9 @@ import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 
 const SearchResult = (props) => {
     const hasAvailability =
-        props.availability !== '' && props.availability !== 'None';
+        props.availability.length > 0 &&
+        props.availability[0] &&
+        props.availability[0][0] !== 'None';
     const googleMapsLink = 'https://maps.google.com/?q=' + props.address;
 
     return (
