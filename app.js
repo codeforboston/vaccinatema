@@ -108,7 +108,6 @@ if (cluster.isMaster) {
             const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
             const closest = distanceUtils.getClosestLocations(
                 locations,
-                5,
                 lat,
                 lng
             );
