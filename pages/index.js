@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../components/Layout';
-import Map from '../components/Map';
+import MapWithData from '../components/MapWithData';
 
 const Home = () => (
     <Layout pageTitle="Home">
@@ -14,7 +14,7 @@ const Home = () => (
                 </div>
         
             </div>
-            <Map />
+            <MapWithData />
             <br />
             <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
             <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
