@@ -6,6 +6,8 @@ import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import {dateToString} from '../utilities/date-utils';
 
 const ListView = (props) => {
+    // TODO(hannah): Currently, the sites are just listed alphabetically. Per
+    // discussions with Harlan, we should be sorting them some more useful way.
     return (
         <div>
             {props.rawSiteData.map((site, i) => {
