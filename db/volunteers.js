@@ -13,7 +13,7 @@ const pool = new Pool({
 **/
 const createVolunteer = async (volunteer) => {
     try {
-        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName) VALUES ($1, $2, $3)', [volunteer.email, volunteer.firstName, volunteer.lastName]);
+        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName, role) VALUES ($1, $2, $3, $4)', [volunteer.email, volunteer.firstName, volunteer.lastName, volunteer.role]);
         return rows;
     } catch (error) {
         console.error(`an error occurred when creating a new volunteer ${volunteer}`, volunteer);

@@ -8,6 +8,7 @@ router.post('/',
     body('email').isLength({ min: 2 }),
     body('firstName').isLength({ min: 1 }),
     body('lastName').isLength({ min: 1 }),
+    body('role').isLength({ min: 1 }),
     async function(req, res) {
         // Finds the validation errors in this request and wraps them in an object 
         const errors = validationResult(req);

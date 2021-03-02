@@ -76,3 +76,6 @@ CREATE TABLE volunteers (
                    (1000)       NOT NULL,
   lastupdated      TIMESTAMP    NOT NULL DEFAULT NOW()
 );
+
+ALTER TABLE volunteers
+ADD COLUMN role VARCHAR(100);
