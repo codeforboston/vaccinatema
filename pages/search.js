@@ -3,6 +3,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
+import {dateToString} from '../../components/utilities/date-utils';
 
 class Search extends React.Component {
     constructor(props) {
@@ -78,17 +79,10 @@ class Search extends React.Component {
             address: site.address,
             siteDetails: parseURLsInStrings(site.serves),
             availability: site.availability && parseURLsInStrings(site.availability),
-            lastChecked: this.parseDate(site.lastUpdated),
+            lastChecked: dateToString(site.lastUpdated),
             bookAppointmentInfo: parseURLsInStrings(site.bookAppointmentInfo),
         }));
     };
-
-    parseDate = (date) =>
-        date
-            ? new Date(date).toLocaleString('en-US', {
-                timeZone: 'America/New_York',
-            })
-            : '';
 
     handleEnter = (event) => {
         const { searchByAddress } = this;

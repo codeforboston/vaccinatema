@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
+
 import parseURLsInStrings from './utilities/parseURLsInStrings';
+import {dateToString} from './utilities/date-utils';
 
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
@@ -23,11 +25,6 @@ const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEW
 
 const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
 
-const parseDate = (date) =>
-    date
-        ? new Date(date).toLocaleString('en-US', {timeZone: 'America/New_York'})
-        : '';
-
 const parseLocationData = (data) => {
     return data.map((site) => ({
         id: site.id,
@@ -36,7 +33,7 @@ const parseLocationData = (data) => {
         populationsServed: parseURLsInStrings(site.serves),
         vaccineAvailability:
             site.availability && parseURLsInStrings(site.availability),
-        lastUpdated: parseDate(site.lastUpdated),
+        lastUpdated: dateToString(site.lastUpdated),
         bookAppointmentInformation: parseURLsInStrings(
             site.bookAppointmentInfo,
         ),
