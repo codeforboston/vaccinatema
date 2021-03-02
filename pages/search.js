@@ -3,7 +3,7 @@ import React from 'react';
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
-import {dateToString} from '../../components/utilities/date-utils';
+import {dateToString} from '../components/utilities/date-utils';
 
 class Search extends React.Component {
     constructor(props) {

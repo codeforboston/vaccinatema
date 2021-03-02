@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from 'google-map-react';
 
-import parseURLsInStrings from './utilities/parseURLsInStrings';
-import {dateToString} from './utilities/date-utils';
+import parseURLsInStrings from '../utilities/parseURLsInStrings';
+import {dateToString} from '../utilities/date-utils';
 
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
@@ -130,7 +130,7 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const Map = ({height = '400px', width = '100%'}) => {
+const Map = ({height = '400px', width = '100%', rawSiteData}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
 
@@ -145,12 +145,10 @@ const Map = ({height = '400px', width = '100%'}) => {
         return key === site.id;
     });
 
+    // Update the site data whenever the rawSiteData props change.
     useEffect(() => {
-        fetch('/initmap')
-            .then(response => response.json())
-            .then(siteData => parseLocationData(siteData))
-            .then(siteData => setSiteData(siteData));
-    }, []); // empty array as 2nd param so that function runs only on initial page load
+        setSiteData(parseLocationData(rawSiteData));
+    }, [rawSiteData]);
 
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
@@ -186,6 +184,8 @@ const Map = ({height = '400px', width = '100%'}) => {
 Map.propTypes = {
     height: PropTypes.string,
     width: PropTypes.string,
+    // The raw site data should be JSON. Improve the type checking here!
+    rawSiteData: PropTypes.any.isRequired,
 };
 
 export default Map;
