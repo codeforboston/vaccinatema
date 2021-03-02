@@ -1,7 +1,6 @@
 require('dotenv').config();
 require('newrelic');
 require('@newrelic/aws-sdk');
-const geocoder = require('google-geocoder');
 var cluster = require('cluster');
 
 if (process.env.NODE_ENV === 'production') {
