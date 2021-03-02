@@ -22,7 +22,7 @@ const createVolunteer = async (volunteer) => {
 };
 
 /**
-* Upate volunteer email
+* Update volunteer email
 **/
 const updatedEmail = async (id, newEmail) => {
     try {
