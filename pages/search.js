@@ -4,6 +4,7 @@ import Button from '../components/subcomponents/Button';
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
+import {dateToString} from '../components/utilities/date-utils';
 
 const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
@@ -78,29 +79,14 @@ class Search extends React.Component {
 
     parseLocationData = (data) => {
         return data.map((site) => ({
-            name: site.fields['Location Name'] ?? '',
-            address: site.fields['Full Address'] ?? '',
-            siteDetails:
-            (site.fields['Serves'] &&
-                parseURLsInStrings(site.fields['Serves'])) ??
-            '',
-            availability:
-                (site.fields['Availability'] &&
-                    parseURLsInStrings(site.fields['Availability'])) ??
-                'None',
-            lastChecked:
-                (site.fields['Last Updated'] &&
-                    this.parseDate(site.fields['Last Updated'])) ??
-                '',
-            bookAppointmentInfo:
-                (site.fields['Book an appointment'] &&
-                    parseURLsInStrings(site.fields['Book an appointment'])) ??
-                '',
+            name: site.name,
+            address: site.address,
+            siteDetails: parseURLsInStrings(site.serves),
+            availability: site.availability && parseURLsInStrings(site.availability),
+            lastChecked: dateToString(site.lastUpdated),
+            bookAppointmentInfo: parseURLsInStrings(site.bookAppointmentInfo),
         }));
     };
-    parseDate = dateString => (
-        new Date(Date.parse(dateString)).toLocaleString('en-US', {timeZone: 'America/New_York'})
-    )
 
     handleEnter = (event) => {
         const { searchByAddress } = this;
