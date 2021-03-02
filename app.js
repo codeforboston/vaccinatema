@@ -1,11 +1,7 @@
 require('dotenv').config();
-<<<<<<< HEAD
 require('newrelic');
 require('@newrelic/aws-sdk');
-=======
-
 const geocoder = require('google-geocoder');
->>>>>>> 3efe38a (create volunteers table)
 var cluster = require('cluster');
 
 if (process.env.NODE_ENV === 'production') {
