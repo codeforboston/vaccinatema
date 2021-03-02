@@ -112,7 +112,7 @@ const Popup = ({data, setPopupData}) => (
                 <p><b>Address</b> {data.address}</p>
                 <p><b>Availability</b> {data.vaccineAvailability || 'None'}</p>
                 <p>(Availability last updated {data.lastUpdated})</p>
-                <p><b>Book now</b> {data.bookAppointmentInformation}</p>
+                <p><b>Make an appointment</b> {data.bookAppointmentInformation}</p>
                 <button onClick={() => setPopupData({})}>Close</button>
             </div>
         </div>
