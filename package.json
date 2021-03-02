@@ -41,8 +41,8 @@
     "migration": "node jobs/migration.js"
   },
   "devDependencies": {
+    "babel-eslint": "10.1.0",
     "eslint": "^7.19.0",
-    "eslint-plugin-react": "^7.22.0",
-    "babel-eslint": "10.1.0"
+    "eslint-plugin-react": "^7.22.0"
   }
 }
