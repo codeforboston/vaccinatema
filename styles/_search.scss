@@ -9,8 +9,17 @@
 
     .search-header-contents {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
+        
+        @media screen and (min-width: 480px) {
+            flex-direction: row;
+        }
+
+        .search-header-section {
+            @media screen and (min-width: 480px) {
+                flex-direction: row;
+            }
+        }
 
         .search-header-col {
             display: inline-block;

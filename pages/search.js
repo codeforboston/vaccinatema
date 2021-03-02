@@ -137,7 +137,9 @@ class Search extends React.Component {
             <Layout pageTitle="Search">
                 <div className="search-header">
                     <div className="search-header-contents">
-                        <span>
+                        {/* The "sections" help to ensure the buttons stay on
+                        the same line while resizing.*/}
+                        <div className="search-header-section">
                             <div className="search-header-col">
                                 <p>City, Town, or ZIP</p>
                                 <input
@@ -164,8 +166,8 @@ class Search extends React.Component {
                                     Show sites that don&apos;t have availability
                                 </label>
                             </div>
-                        </span>
-                        <span>
+                        </div>
+                        <div className="search-header-section">
                             <div className="search-header-col">
                                 <Button
                                     title="Search"
@@ -182,7 +184,7 @@ class Search extends React.Component {
                                     onClick={this.searchByGeolocation}
                                 />
                             </div>
-                        </span>
+                        </div>
                     </div>
                     <div className="error">
                         {this.state.addressError && (
