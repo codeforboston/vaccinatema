@@ -16,6 +16,7 @@
     "dotenv": "^8.2.0",
     "ejs": "latest",
     "express": "latest",
+    "express-rate-limit": "^5.2.6",
     "express-validator": "^6.9.2",
     "google-geocoder": "^0.2.1",
     "google-map-react": "^2.1.9",
