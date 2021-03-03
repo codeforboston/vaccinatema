@@ -1,9 +1,13 @@
 import React from 'react';
 
+import Button from '../components/subcomponents/Button';
 import Layout from '../components/Layout';
 import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
 import {dateToString} from '../components/utilities/date-utils';
+
+const ALL_AVAILABIITY = 'All known vaccination sites';
+const AVAILABLE_ONLY = 'Sites with reported doses';
 
 class Search extends React.Component {
     constructor(props) {
@@ -14,7 +18,7 @@ class Search extends React.Component {
     state = {
         siteData: [],
         address: '',
-        availability: 'Sites with reported doses',
+        availability: AVAILABLE_ONLY,
         addressError: false,
         geolocationError: false
     }
@@ -116,54 +120,79 @@ class Search extends React.Component {
         }
     };
 
+    onAvailabilityChange = () => {
+        this.setState({
+            availability:
+                this.state.availability === AVAILABLE_ONLY
+                    ? ALL_AVAILABIITY
+                    : AVAILABLE_ONLY,
+        });
+    };
+
+
     render() {
         const { renderSiteData, handleEnter } = this;
 
         return (
             <Layout pageTitle="Search">
-                <div className= "jumbotron bg-white">
-                    <h1>Search Near Me</h1>
-                    <p className="lead">
-                        We check the availability of every provider found on the{' '}
-                        <a
-                            href="https://vaxfinder.mass.gov"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            state website
-                        </a>.
-                    </p>
-                    <div className= "container">
-                        <div className= "row">
-                            <div className="relative max-w-xs">
-                                <div className="form-group">
-                                    <label htmlFor="availability">Find</label>
-                                    <select value={this.state.availability} onChange={this.handleChange} className="form-control" name="availability" id="availability" >
-                                        <option value="Sites with reported doses">Sites with reported doses</option>
-                                        <option value="All known vaccination sites">All known vaccination sites</option>
-                                    </select>
-                                </div>
-                                <p> near </p>
-                                <button id="geolocate" onClick={this.searchByGeolocation} className="btn btn-primary">My Location</button>
-                                {this.state.geolocationError && <p>Cannot figure out your location.</p>}
-                                <div className="form-group">
-                                    <label htmlFor="address">or near</label>
+                <div className="search-header">
+                    <div className="search-header-contents">
+                        {/* The "sections" help to ensure the buttons stay on
+                        the same line while resizing.*/}
+                        <div className="search-header-section">
+                            <div className="search-header-col">
+                                <p>City, Town, or ZIP</p>
+                                <input
+                                    type="text"
+                                    id="address"
+                                    name="address"
+                                    value={this.state.address}
+                                    onChange={this.handleChange}
+                                    onKeyDown={handleEnter}
+                                />
+                            </div>
+                            <div className="search-header-col options">
+                                <p>Other options</p>
+                                <label htmlFor="no-availability">
                                     <input
-                                        type="text"
-                                        className="form-control"
-                                        id="address"
-                                        name="address"
-                                        placeholder="City, town, or zip code"
-                                        required=""
-                                        value={this.state.address}
-                                        onChange={this.handleChange}
-                                        onKeyDown={handleEnter}
+                                        type="checkbox"
+                                        id="no-availability"
+                                        value={
+                                            this.state.availability ===
+                                            AVAILABLE_ONLY
+                                        }
+                                        onChange={this.onAvailabilityChange}
                                     />
-                                </div>
-                                {this.state.addressError && <p>City or zip code cannot be blank</p>}
-                                <button onClick={this.searchByAddress} id="signup" className="btn btn-primary">Search</button>
+                                    Show sites that don&apos;t have availability
+                                </label>
                             </div>
                         </div>
+                        <div className="search-header-section">
+                            <div className="search-header-col">
+                                <Button
+                                    title="Search"
+                                    color="blue"
+                                    icon="search"
+                                    onClick={this.searchByAddress}
+                                />
+                            </div>
+                            <div className="search-header-col">
+                                <Button
+                                    title="Use my location"
+                                    color="blue"
+                                    icon="location"
+                                    onClick={this.searchByGeolocation}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="error">
+                        {this.state.addressError && (
+                            <p>City or ZIP code cannot be blank.</p>
+                        )}
+                        {this.state.geolocationError && (
+                            <p>Cannot figure out your location.</p>
+                        )}
                     </div>
                 </div>
                 {renderSiteData()}
