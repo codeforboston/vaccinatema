@@ -38,7 +38,7 @@ router.put('/:volunteerId',
         }
         try {
             const volunteer = await volunteersDb.updatedEmail(req.params.volunteerId, req.body.email);
-            res.status(201).json(volunteer);
+            res.status(200).json(volunteer);
         } catch (error) {
             let errorString = `ERROR OCCURRED CREATING Volunteer! body: ${req.body} error: ${error}`;
             console.log(errorString);
@@ -52,7 +52,7 @@ router.get('/',
     async function(req, res) {
         try {  
             const volunteers = await volunteersDb.getAllVolunteers();
-            res.status(201).json(volunteers);
+            res.status(200).json(volunteers);
         } catch (error) {
             let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
             console.log(errorString);
@@ -72,9 +72,9 @@ router.get('/by-email',
         }
         try {  
             const volunteers = await volunteersDb.getVolunteerByEmail(req.query.volunteerEmail);
-            res.status(201).json(volunteers);
+            res.status(200).json(volunteers);
         } catch (error) {
-            let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
+            let errorString = `ERROR OCCURRED LOOKING UP VOLUNTEER! error: ${error}`;
             console.log(errorString);
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
@@ -90,7 +90,7 @@ router.delete('/:volunteerId', param('volunteerId').isNumeric(),
         }
         try {  
             const volunteers = await volunteersDb.deleteVolunteer(req.params.volunteerId);
-            res.status(201).json(volunteers);
+            res.status(200).json(volunteers);
         } catch (error) {
             let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
             console.log(errorString);

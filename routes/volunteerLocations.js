@@ -32,9 +32,9 @@ router.get('/',
         }
         try {  
             const volunteerLocations = await volunteersDb.getVolunteerLocations(req.query.volunteerId);
-            res.status(201).json(volunteerLocations);
+            res.status(200).json(volunteerLocations);
         } catch (error) {
-            let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
+            let errorString = `ERROR OCCURRED LOOKING UP VOLUNTEER! error: ${error}`;
             console.log(errorString);
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
@@ -52,7 +52,7 @@ router.delete('/',
         }
         try {  
             const volunteers = await volunteersDb.deleteVolunteerLocationMapping(req.query.volunteerId, req.query.locationId);
-            res.status(201).json(volunteers);
+            res.status(200).json(volunteers);
         } catch (error) {
             let errorString = `ERROR OCCURRED DELETING UP MAPPING! error: ${error}`;
             console.log(errorString);
