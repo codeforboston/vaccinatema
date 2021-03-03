@@ -1,13 +1,10 @@
 import React from 'react';
 
-import Button from '../components/subcomponents/Button';
 import Layout from '../components/Layout';
-import SearchResult from '../components/SearchResult';
 import parseURLsInStrings from '../components/utilities/parseURLsInStrings';
+import SearchBar from '../components/SearchBar';
+import SearchResult from '../components/SearchResult';
 import {dateToString} from '../components/utilities/date-utils';
-
-const ALL_AVAILABIITY = 'All known vaccination sites';
-const AVAILABLE_ONLY = 'Sites with reported doses';
 
 class Search extends React.Component {
     constructor(props) {
@@ -17,49 +14,6 @@ class Search extends React.Component {
 
     state = {
         siteData: [],
-        address: '',
-        availability: AVAILABLE_ONLY,
-        addressError: false,
-        geolocationError: false
-    }
-
-    searchByAddress = () => {
-        this.setState({addressError: false, geolocationError: false});
-        if (this.state.address) {
-            this.getLocationData({ availability: this.state.availability, address: this.state.address });
-        } else {
-            this.setState({addressError: true});
-        }
-    }
-
-    searchByGeolocation = () => {
-        this.setState({addressError: false, geolocationError: false});
-        if ('geolocation' in navigator) {
-            this.getLatitudeAndLongitudeByGeolocation()
-                .then(position => this.getLocationData({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    availability: this.state.availability
-                }))
-                .catch(error => {
-                    console.error(error);
-                });
-        } else {
-            this.setState({geolocationError: true});
-        }
-    }
-
-    getLatitudeAndLongitudeByGeolocation = () => {
-        return new Promise((resolve, reject) =>
-            navigator.geolocation.getCurrentPosition(resolve, reject)
-        );
-    }
-
-    handleChange = e => {
-        const target = e.target;
-        const newState = {};
-        newState[target.name] = target.value;
-        this.setState(newState);
     }
 
     getLocationData = (args) => {
@@ -88,15 +42,6 @@ class Search extends React.Component {
         }));
     };
 
-    handleEnter = (event) => {
-        const { searchByAddress } = this;
-
-        if (event.keyCode === 13) {
-            // If a user presses Enter, trigger search
-            searchByAddress();
-        }
-    };
-
     renderSiteData = () => {
         const { siteData } = this.state;
 
@@ -120,81 +65,11 @@ class Search extends React.Component {
         }
     };
 
-    onAvailabilityChange = () => {
-        this.setState({
-            availability:
-                this.state.availability === AVAILABLE_ONLY
-                    ? ALL_AVAILABIITY
-                    : AVAILABLE_ONLY,
-        });
-    };
-
-
     render() {
-        const { renderSiteData, handleEnter } = this;
-
+        const {getLocationData, renderSiteData} = this;
         return (
             <Layout pageTitle="Search">
-                <div className="search-header">
-                    <div className="search-header-contents">
-                        {/* The "sections" help to ensure the buttons stay on
-                        the same line while resizing.*/}
-                        <div className="search-header-section">
-                            <div className="search-header-col">
-                                <p>City, Town, or ZIP</p>
-                                <input
-                                    type="text"
-                                    id="address"
-                                    name="address"
-                                    value={this.state.address}
-                                    onChange={this.handleChange}
-                                    onKeyDown={handleEnter}
-                                />
-                            </div>
-                            <div className="search-header-col options">
-                                <p>Other options</p>
-                                <label htmlFor="no-availability">
-                                    <input
-                                        type="checkbox"
-                                        id="no-availability"
-                                        value={
-                                            this.state.availability ===
-                                            AVAILABLE_ONLY
-                                        }
-                                        onChange={this.onAvailabilityChange}
-                                    />
-                                    Show sites that don&apos;t have availability
-                                </label>
-                            </div>
-                        </div>
-                        <div className="search-header-section">
-                            <div className="search-header-col">
-                                <Button
-                                    title="Search"
-                                    color="blue"
-                                    icon="search"
-                                    onClick={this.searchByAddress}
-                                />
-                            </div>
-                            <div className="search-header-col">
-                                <Button
-                                    title="Use my location"
-                                    color="blue"
-                                    icon="location"
-                                    onClick={this.searchByGeolocation}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="error">
-                        {this.state.addressError && (
-                            <p>City or ZIP code cannot be blank.</p>
-                        )}
-                        {this.state.geolocationError && (
-                            <p>Cannot figure out your location.</p>
-                        )}
-                    </div>
-                </div>
+                <SearchBar onSearch={getLocationData} />
                 {renderSiteData()}
             </Layout>
         );
