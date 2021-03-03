@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from '../../components/Layout';
+import VolunteerAuth from '../../components/subcomponents/VolunteerAuth';
 
-const Updater = () => (
-    <Layout pageTitle="Volunteer Home">
-        <div id="volunteer-home">
-            <h1>Volunteer Home</h1>
-        </div>
-    </Layout>
-);
+const Volunteer = () => {
+    const [user, setUser] = useState(null);
 
-export default Updater;
+    const renderContent = () => {
+        if (user) {
+            return (
+                <div>
+                    <h1>{`Welcome ${user?.firstName}!`}</h1>
+                </div>
+            );
+        }
+    };
+
+    return (
+        <Layout pageTitle="Volunteer Home">
+            <div id="volunteer-home">
+                <VolunteerAuth sendUser={setUser}/>
+                {renderContent()}
+            </div>
+        </Layout>
+    );
+};
+
+export default Volunteer;

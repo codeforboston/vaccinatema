@@ -1,3 +1,19 @@
+#volunteer-home,
+#updater-page {
+  position: relative;
+  .spinner-border {
+    height: 2em;
+    width: 2em;
+    position: absolute;
+    left: calc(50% - 1em);
+    top: calc(50vh - 120px);
+  }
+  #logout {
+    position: absolute;
+    right: 0;
+  }
+}
+
 #updater-page {
   .updater-image {
     width: 100%;
@@ -84,6 +100,29 @@
         &:hover {
           background: $green;
         }
+      }
+    }
+  }
+}
+
+.volunteer-auth-modal {
+  .modal-dialog {
+    max-width: none; // override existing width
+    width: 50vw;
+    .cache-checkbox {
+      display: inline-flex;
+      position: relative;
+      .info-icon {
+        position: relative;
+        color: $dark-blue;
+        top: 5px;
+        margin-left: 10px;
+      }
+    }
+    .modal-footer {
+      .btn {
+        width: 200px;
+        margin-left: 30px;
       }
     }
   }
