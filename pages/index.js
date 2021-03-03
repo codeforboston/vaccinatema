@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Layout from '../components/Layout';
-import MapWithData from '../components/MapWithData';
+import MapAndListView from '../components/MapAndListView';
 
 const Home = () => (
     <Layout pageTitle="Home">
@@ -14,12 +14,7 @@ const Home = () => (
                 </div>
         
             </div>
-            <MapWithData />
-            <br />
-            <p> <b> Red star: </b> Mass Vaccination Sites (high volume, large venue sites) </p>
-            <p> <b> Green star: </b> General Vaccination Sites (healthcare locations) </p>
-            <p> <b> Blue star: </b> Local Vaccination Site (open to select cities/towns) </p>
-            <p> <b> Gray dot: </b> No availability currently </p>
+            <MapAndListView />
         </div>
     </Layout>
 );

@@ -1,19 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSearch, faLocationArrow} from '@fortawesome/free-solid-svg-icons';
+import {faSearch, faLocationArrow, faMap, faList} from '@fortawesome/free-solid-svg-icons';
+
+const getIcon = (icon) => {
+    if (!icon) {
+        return null;
+    }
+    switch (icon) {
+        case 'search':
+            return <FontAwesomeIcon icon={faSearch} />;
+        case 'location':
+            return <FontAwesomeIcon icon={faLocationArrow} />;
+        case 'map':
+            return <FontAwesomeIcon icon={faMap} />;
+        case 'list':
+            return <FontAwesomeIcon icon={faList} />;
+    }
+    return null;
+};
 
 const Button = (props) => (
     <button
         className={`button-custom button-custom-${props.color}`}
         onClick={props.onClick}
+        style={{borderRadius: props.borderRadius || '4px'}}
     >
-        {props.icon && props.icon == 'search' && (
-            <FontAwesomeIcon icon={faSearch} />
-        )}
-        {props.icon && props.icon == 'location' && (
-            <FontAwesomeIcon icon={faLocationArrow} />
-        )}
+        {getIcon(props.icon)}
         {props.title}
     </button>
 );
@@ -22,7 +35,8 @@ export default Button;
 
 Button.propTypes = {
     title: PropTypes.string.isRequired,
-    icon: PropTypes.oneOf(['search', 'location']),
+    icon: PropTypes.oneOf(['search', 'location', 'map', 'list']),
     color: PropTypes.oneOf(['gray', 'blue', 'green']).isRequired,
     onClick: PropTypes.func.isRequired,
+    borderRadius: PropTypes.string,
 };
