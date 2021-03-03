@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const volunteersDb = require('../db/volunteers');
-const { body, param, validationResult } = require('express-validator');
+const { body, param, validationResult, query } = require('express-validator');
 
 
 // Create locations
@@ -47,7 +47,7 @@ router.put('/:volunteerId',
         }
     });
 
-// Create volunteer
+// Get all volunteer
 router.get('/',
     async function(req, res) {
         try {  
@@ -61,9 +61,33 @@ router.get('/',
         }
     });
 
+
+// Get all volunteer
+router.get('/by-email',
+    query('volunteerEmail').isEmail(),
+    async function(req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        try {  
+            const volunteers = await volunteersDb.getVolunteerByEmail(req.query.volunteerEmail);
+            res.status(201).json(volunteers);
+        } catch (error) {
+            let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
+            console.log(errorString);
+            let errorObj = {error: errorString};
+            res.status(500).send(errorObj);
+        }
+    });
+
 // Delete volunteer
 router.delete('/:volunteerId', param('volunteerId').isNumeric(),
     async function(req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
         try {  
             const volunteers = await volunteersDb.deleteVolunteer(req.params.volunteerId);
             res.status(201).json(volunteers);

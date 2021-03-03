@@ -1,6 +1,4 @@
 require('dotenv').config();
-require('newrelic');
-require('@newrelic/aws-sdk');
 var cluster = require('cluster');
 
 if (process.env.NODE_ENV === 'production') {
@@ -125,6 +123,9 @@ if (cluster.isMaster) {
 
         const volunteersApi = require('./routes/volunteers');
         server.use('/volunteers', volunteersApi);
+
+        const volunteersLocationsApi = require('./routes/volunteerLocations');
+        server.use('/volunteers-locations', volunteersLocationsApi);
 
         /**
          * Next.js (React) pages defined in the /pages folder will automatically be routed

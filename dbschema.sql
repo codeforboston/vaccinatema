@@ -79,3 +79,19 @@ CREATE TABLE volunteers (
 
 ALTER TABLE volunteers
 ADD COLUMN role VARCHAR(100);
+
+CREATE TABLE volunteerLocations (
+  id               INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  location_id      INT NOT NULL,
+  volunteer_id     INT NOT NULL,
+  lastupdated      TIMESTAMP NOT NULL DEFAULT NOW(),
+  CONSTRAINT fk_location
+  FOREIGN KEY
+    (location_id)
+  REFERENCES locations,
+  CONSTRAINT fk_volunteer
+  FOREIGN KEY
+    (volunteer_id)
+  REFERENCES volunteers
+  (id) ON DELETE CASCADE
+);
