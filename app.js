@@ -114,7 +114,8 @@ if (cluster.isMaster) {
             const closest = distanceUtils.getClosestLocations(
                 locations,
                 lat,
-                lng
+                lng,
+                req.body.maxMiles,
             );
             res.send(closest);
         });
