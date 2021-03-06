@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import AvailabilityBanner from './subcomponents/AvailabilityBanner';
 import Button from './subcomponents/Button';
 import Map from './subcomponents/Map';
 import ListView from './subcomponents/ListView';
@@ -8,8 +9,16 @@ import ListView from './subcomponents/ListView';
 const MapAndListView = (props) => {
     const [showMap, setShowMap] = useState(true);
 
+    const numAvailable = props.rawSiteData.filter(
+        (site) => site.availability.length > 0
+    ).length;
+
     return (
         <div className="map-and-list">
+            <AvailabilityBanner
+                numSites={numAvailable}
+                hasAvailability={true}
+            />
             <div className="button-container">
                 <Button
                     title="Map View"

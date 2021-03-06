@@ -249,3 +249,16 @@ a {
 #geolocate {
   margin-bottom: 16px;
 }
+
+.availability-banner {
+  display: flex;
+  flex-direction: row;
+  font-size: 27px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+
+  p {
+    margin-bottom: 0px;
+    margin-left: 16px;
+  }
+}
