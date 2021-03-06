@@ -14,14 +14,14 @@ const MapAndListView = (props) => {
                 <Button
                     title="Map View"
                     icon="map"
-                    color={showMap ? 'blue' : 'gray'}
+                    color={showMap ? 'blue' : 'lightGray'}
                     onClick={() => setShowMap(true)}
                     borderRadius={'4px 0px 0px 4px'}
                 />
                 <Button
                     title="List View"
                     icon="list"
-                    color={showMap ? 'gray' : 'blue'}
+                    color={showMap ? 'lightGray' : 'blue'}
                     onClick={() => setShowMap(false)}
                     borderRadius={'0px 4px 4px 0px'}
                 />
