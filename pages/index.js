@@ -14,6 +14,8 @@ const Home = () => {
                 .then((rawSiteData) => {
                     // Before the user makes any searches, default to showing
                     // all available sites.
+                    // TODO(hannah): Create new endpoint (or modify initmap) to
+                    // only return available sites.
                     // TODO(hannah): Currently, in list view, the sites are
                     // just listed alphabetically. Per discussions with Harlan,
                     // we should be sorting them some more useful way.
