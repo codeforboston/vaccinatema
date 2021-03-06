@@ -184,8 +184,19 @@ const Map = ({height = '400px', width = '100%', rawSiteData}) => {
 Map.propTypes = {
     height: PropTypes.string,
     width: PropTypes.string,
-    // The raw site data should be JSON. Improve the type checking here!
-    rawSiteData: PropTypes.any.isRequired,
+    rawSiteData: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            name: PropTypes.string,
+            address: PropTypes.string,
+            serves: PropTypes.string,
+            availability: PropTypes.string,
+            lastUpdated: PropTypes.number,
+            bookAppointmentInfo: PropTypes.string,
+            latitude: PropTypes.number,
+            longitude: PropTypes.number
+        })
+    )
 };
 
 export default Map;

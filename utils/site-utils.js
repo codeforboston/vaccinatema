@@ -8,14 +8,15 @@
  *     // May contain a URL
  *     serves: string,
  * 
- *     latitude: string,
- *     longitude: string,
+ *     latitude: number,
+ *     longitude: number,
  *
  *     // An empty string indicates that there is no availability
  *     // May contain a URL
  *     availability: string,
  *
- *     lastUpdated: ?Date,
+ *     // Number of milliseconds since January 1, 1970
+ *     lastUpdated: number or null,
  *
  *     // May contain a URL
  *     bookAppointmentInfo: string,
