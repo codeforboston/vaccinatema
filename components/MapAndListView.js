@@ -1,23 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import Button from './subcomponents/Button';
 import Map from './subcomponents/Map';
 import ListView from './subcomponents/ListView';
 
-const MapAndListView = () => {
+const MapAndListView = (props) => {
     const [showMap, setShowMap] = useState(true);
-    const [rawSiteData, setRawSiteData] = useState([]);
-
-    useEffect(
-        () => {
-            fetch('/initmap')
-                .then((response) => response.json())
-                .then((rawSiteData) => setRawSiteData(rawSiteData))
-                .catch((err) => console.error(err));
-        },
-        // Empty array as 2nd param so function runs only on initial page load.
-        []
-    );
 
     return (
         <div className="map-and-list">
@@ -40,11 +29,11 @@ const MapAndListView = () => {
             <div className="map-and-list-contents">
                 {showMap ? (
                     <div>
-                        <Map rawSiteData={rawSiteData} />
+                        <Map rawSiteData={props.rawSiteData} />
                         <MapKey />
                     </div>
                 ) : (
-                    <ListView rawSiteData={rawSiteData} />
+                    <ListView rawSiteData={props.rawSiteData} />
                 )}
             </div>
         </div>
@@ -73,3 +62,8 @@ const MapKey = () => (
 );
 
 export default MapAndListView;
+
+MapAndListView.propTypes = {
+    // The raw site data should be JSON. Improve the type checking here!
+    rawSiteData: PropTypes.any.isRequired,
+};
