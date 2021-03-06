@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import AvailabilityBanner from './subcomponents/AvailabilityBanner';
@@ -8,15 +8,10 @@ import ListView from './subcomponents/ListView';
 
 const MapAndListView = (props) => {
     const [showMap, setShowMap] = useState(true);
-    const [numAvailable, setNumAvailable] = useState(0);
 
-    // Update numAvailable whenever props.rawSiteData changes.
-    useEffect(() => {
-        setNumAvailable(
-            props.rawSiteData.filter((site) => site.availability.length > 0)
-                .length
-        );
-    }, [props.rawSiteData]);
+    const numAvailable = props.rawSiteData.filter(
+        (site) => site.availability.length > 0
+    ).length;
 
     return (
         <div className="map-and-list">
