@@ -36,7 +36,7 @@ export default Button;
 Button.propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.oneOf(['search', 'location', 'map', 'list']),
-    color: PropTypes.oneOf(['gray', 'blue', 'green']).isRequired,
+    color: PropTypes.oneOf(['gray', 'blue', 'green', 'lightGray']).isRequired,
     onClick: PropTypes.func.isRequired,
     borderRadius: PropTypes.string,
 };
