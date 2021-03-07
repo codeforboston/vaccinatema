@@ -13,7 +13,9 @@ import EmailLink from './EmailLink';
 const VolunteerAuth = ({ sendUser }) => {
     const [token, setToken] = useState('');
     const [user, setUser] = useState(null);
+    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showToken, setShowToken] = useState(false);
     const [cacheToken, setCacheToken] = useState(false);
 
     useEffect(() => {
@@ -27,15 +29,37 @@ const VolunteerAuth = ({ sendUser }) => {
         }
     }, [user]);
 
-    const validateToken = (token, cacheToken) => {
-        setLoading(true);
-        // TODO: get volunteer with token
-        const response = { firstName: 'Joe', lastName: 'Volunteer', token: token, admin: true };
-        if (cacheToken) {
-            Auth.setSession(response);
+    const validateToken = () => {
+        if (token  === '') {
+            setError('Token can\'t be blank');
+            return;
         }
-        setUser(response);
-        setLoading(false);
+        setLoading(true);
+        setError(null);
+        fetch(`/volunteers/by-email?volunteerEmail=${token}`, {
+            method: 'get',
+            headers: new Headers({'content-type': 'application/json'}),
+        })
+            .then(response => response.json())
+            .then(result => {
+                const user = result[0];
+                if (user) {
+                    if (cacheToken) {
+                        Auth.setSession(user);
+                    }
+                    setUser(user);
+                    setLoading(false);
+                    setToken('');
+                } else {
+                    setLoading(false);
+                    setError('Invalid token');
+                }
+            })
+            .catch(error => {
+                setError('An internal error occurred');
+                setLoading(false);
+                console.log(error);
+            });
     };
 
     const logout = () => {
@@ -70,10 +94,19 @@ const VolunteerAuth = ({ sendUser }) => {
                         placeholder="Token"
                         type="password"
                     />
-                    <div className="cache-checkbox" onClick={() => setCacheToken(!cacheToken)}>
+                    <div className="checkbox-label show-token" onClick={() => setShowToken(!showToken)}>
+                        <Form.Check
+                            label="Show Token"
+                            checked={showToken}
+                            onChange={() => null}
+                        />
+                        {showToken && <p>{token}</p>}
+                    </div>
+                    <div className="checkbox-label" onClick={() => setCacheToken(!cacheToken)}>
                         <Form.Check
                             label="Remember me on this computer"
                             checked={cacheToken}
+                            onChange={() => null}
                         />
                         <OverlayTrigger
                             placement="bottom"
@@ -89,8 +122,9 @@ const VolunteerAuth = ({ sendUser }) => {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
+                    {error && <p className="error">{error}</p>}
                     <Link href="/">Return to the homepage</Link>
-                    <Button onClick={() => validateToken(token, cacheToken)}>Submit</Button>
+                    <Button onClick={validateToken}>Submit</Button>
                 </Modal.Footer>
             </Modal>
         );

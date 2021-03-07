@@ -109,7 +109,7 @@
   .modal-dialog {
     max-width: none; // override existing width
     width: 50vw;
-    .cache-checkbox {
+    .checkbox-label {
       display: inline-flex;
       position: relative;
       .info-icon {
@@ -118,12 +118,32 @@
         top: 5px;
         margin-left: 10px;
       }
+      &.show-token {
+        width: 100%;
+        p {
+          width: 75%;
+          padding-left: 15px;
+          word-break: break-word;
+        }
+      }
     }
     .modal-footer {
+      .error {
+        color: darkred;
+        position: relative;
+        top: -15px;
+      }
       .btn {
         width: 200px;
         margin-left: 30px;
       }
     }
+  }
+}
+
+#site-table,
+#volunteer-table {
+  td {
+    word-break: break-word;
   }
 }
