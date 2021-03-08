@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import PropType from 'prop-types';
 
+import ConfirmModal from './ConfirmModal';
+
 const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
-    const [siteinstructions, setSiteinstructions] = useState(editing?.siteinstructions || '');
-    const [vaccinesOffered, serVaccinesOffered] = useState(editing?.vaccinesoffered || '');
-    const [accessibility, setAccessibility] = useState(editing?.accessibility || '');
-    const [bookinglink, setBookinglink] = useState(editing?.bookinglink || '');
-    const [address, setAddress] = useState(editing?.address || '');
-    const [serves, setServes] = useState(editing?.serves || '');
-    const [county, setCounty] = useState(editing?.county || '');
-    const [phone, setPhone] = useState(editing?.phone || '');
-    const [email, setEmail] = useState(editing?.email || '');
-    const [name, setName] = useState(editing?.name || '');
+    const [siteinstructions, setSiteinstructions] = useState('');
+    const [vaccinesoffered, setVaccinesoffered] = useState('');
+    const [accessibility, setAccessibility] = useState('');
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [bookinglink, setBookinglink] = useState('');
+    const [address, setAddress] = useState('');
     const [error, setError] = useState(null);
-    
+    const [serves, setServes] = useState('');
+    const [county, setCounty] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        setError(null);
+        if (editing) {
+            setSiteinstructions(editing.siteinstructions);
+            setVaccinesoffered(editing.vaccinesoffered);
+            setAccessibility(editing.accessibility);
+            setBookinglink(editing.bookinglink);
+            setAddress(editing.address);
+            setServes(editing.serves);
+            setCounty(editing.county);
+            setPhone(editing.phone);
+            setEmail(editing.email);
+            setName(editing.name);
+        } else {
+            setSiteinstructions('');
+            setVaccinesoffered('');
+            setAccessibility('');
+            setBookinglink('');
+            setAddress('');
+            setServes('');
+            setCounty('');
+            setPhone('');
+            setEmail('');
+            setName('');
+        }
+    }, [editing]);
+
     const fieldConfig = [
         {
             field: 'name',
@@ -53,9 +83,9 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             label: 'County',
             required: true
         }, {
-            field: 'vaccinesOffered',
-            value: vaccinesOffered,
-            action: serVaccinesOffered,
+            field: 'vaccinesoffered',
+            value: vaccinesoffered,
+            action: setVaccinesoffered,
             label: 'Vaccines Offered',
         }, {
             field: 'phone',
@@ -84,7 +114,7 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
         const body = {
             daysopen: {},
             siteinstructions,
-            vaccinesOffered,
+            vaccinesoffered,
             accessibility,
             bookinglink,
             address,
@@ -95,14 +125,16 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             name
         };
 
-        fetch('/locations', {
-            method: editing ? 'put' : 'post',
+        const id = editing?.id;
+
+        fetch(`/locations${id ? `/${id}` : ''}`, {
+            method: id ? 'put' : 'post',
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({ ...body })
         })
             .then(response => response.json())
             .then(data => {
-                addSite(data);
+                addSite(data, id);
                 onClose();
             })
             .catch(error => {
@@ -110,10 +142,26 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             });
     };
     
+    const handleDelete = () => {
+        fetch(`/locations/${editing.id}`, {
+            method: 'delete',
+            headers: new Headers({'content-type': 'application/json'}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                addSite(data, editing.id, true);
+                onClose();
+            })
+            .catch(error => {
+                setShowConfirm(false);
+                setError(error.message);
+            });
+    };
+    
     const formFields = fieldConfig.map(field => {
         return (
             <div key={field.field}>
-                <Form.Label htmlFor={field.field}>{field.label + (field.required && ' (required)') }</Form.Label>
+                <Form.Label htmlFor={field.field}>{field.label + (field.required ? ' (required)' : '') }</Form.Label>
                 <Form.Control
                     name={field.field}
                     onChange={(e) => field.action(e.target.value)}
@@ -135,9 +183,16 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             </Modal.Body>
             <Modal.Footer>
                 {error && <p className="error">{error}</p>}
+                {editing && <Button className="delete-danger" onClick={() => setShowConfirm(true)}>Delete</Button>}
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={handleSubmit}>Add</Button>
+                <Button onClick={handleSubmit}>{editing ? 'Edit' : 'Add'}</Button>
             </Modal.Footer>
+            <ConfirmModal
+                isOpen={showConfirm}
+                onClose={() => setShowConfirm(false)}
+                action={handleDelete}
+                type="site"
+            />
         </Modal>
     );
 };

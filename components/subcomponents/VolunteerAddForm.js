@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import PropType from 'prop-types';
 
+import ConfirmModal from './ConfirmModal';
+
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-const VolunteerAddForm = ({ isOpen, onClose, addVolunteer }) => {
-    const [role, setRole] = useState('volunteer');
+const VolunteerAddForm = ({ isOpen, onClose, addVolunteer, editing }) => {
+    const [showConfirm, setShowConfirm] = useState(false);
     const [firstName, setFirstname] = useState('');
+    const [role, setRole] = useState('volunteer');
     const [lastName, setLastname] = useState('');
-    const [email, setEmail] = useState('');
     const [error, setError] = useState(null);
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        setError(null);
+        if (editing) {
+            setFirstname(editing.firstname);
+            setLastname(editing.lastname);
+            setEmail(editing.email);
+            setRole(editing.role);
+        } else {
+            setRole('volunteer');
+            setFirstname('');
+            setLastname('');
+            setEmail('');
+        }
+    }, [editing]);
 
     const handleSubmit = () => {
         if ([firstName, lastName, email].includes('')) {
@@ -24,14 +42,16 @@ const VolunteerAddForm = ({ isOpen, onClose, addVolunteer }) => {
 
         const body = { firstName, lastName, email, role };
 
-        fetch('/volunteers', {
-            method: 'post',
+        const id = editing?.id;
+
+        fetch(`/volunteers${id ? `/${id}` : ''}`, {
+            method: id ? 'put' : 'post',
             headers: new Headers({'content-type': 'application/json'}),
             body: JSON.stringify({ ...body })
         })
             .then(response => response.json())
             .then(data => {
-                addVolunteer(data);
+                addVolunteer(data, id);
                 onClose();
             })
             .catch(error => {
@@ -39,10 +59,26 @@ const VolunteerAddForm = ({ isOpen, onClose, addVolunteer }) => {
             });
     };
 
+    const handleDelete = () => {
+        fetch(`/volunteers/${editing.id}`, {
+            method: 'delete',
+            headers: new Headers({'content-type': 'application/json'}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                addVolunteer(data, editing.id, true);
+                onClose();
+            })
+            .catch(error => {
+                setShowConfirm(false);
+                setError(error.message);
+            });
+    };
+
     return(
         <Modal className="volunteer-add-form" show={isOpen} onHide={onClose}>
             <Modal.Header>
-                <Modal.Title>Add Volunteer</Modal.Title>
+                <Modal.Title>{editing ? 'Edit Volunteer' : 'Add Volunteer'}r</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form.Label htmlFor="firstName">First Name</Form.Label>
@@ -90,9 +126,16 @@ const VolunteerAddForm = ({ isOpen, onClose, addVolunteer }) => {
             </Modal.Body>
             <Modal.Footer>
                 {error && <p className="error">{error}</p>}
+                {editing && <Button className="delete-danger" onClick={() => setShowConfirm(true)}>Delete</Button>}
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={handleSubmit}>Add</Button>
+                <Button onClick={handleSubmit}>{editing ? 'Edit' : 'Add'}</Button>
             </Modal.Footer>
+            <ConfirmModal
+                isOpen={showConfirm}
+                onClose={() => setShowConfirm(false)}
+                action={handleDelete}
+                type="volunteer"
+            />
         </Modal>
     );
 };
@@ -103,4 +146,5 @@ VolunteerAddForm.propTypes = {
     isOpen: PropType.bool,
     onClose: PropType.func,
     addVolunteer: PropType.func,
+    editing: PropType.object,
 };

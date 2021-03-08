@@ -198,6 +198,7 @@ const deleteLocation = async (locationId) => {
         let query = 'DELETE FROM locations where id = $1';
         await pool.query(query, [locationId]);
         console.log(`DELETED LOCATION ${locationId} `);
+        return { result: 'deleted', id: locationId };
     } catch (error) {
         console.error(`an error occurred deleting location ${locationId}`, error);
         throw new Error('An unexpected error occurred deleting location');

@@ -26,7 +26,7 @@ router.post('/',
         }
     });
 
-// Update volunteer email
+// Update volunteer
 // Create locations
 router.put('/:volunteerId',
     body('email').isLength({ min: 2 }),
@@ -37,7 +37,7 @@ router.put('/:volunteerId',
             return res.status(400).json({ errors: errors.array() });
         }
         try {
-            const volunteer = await volunteersDb.updatedEmail(req.params.volunteerId, req.body.email);
+            const volunteer = await volunteersDb.updateVolunteer(req.params.volunteerId, req.body);
             res.status(200).json(volunteer);
         } catch (error) {
             let errorString = `ERROR OCCURRED CREATING Volunteer! body: ${req.body} error: ${error}`;
@@ -89,8 +89,8 @@ router.delete('/:volunteerId', param('volunteerId').isNumeric(),
             return res.status(400).json({ errors: errors.array() });
         }
         try {  
-            const volunteers = await volunteersDb.deleteVolunteer(req.params.volunteerId);
-            res.status(200).json(volunteers);
+            const result = await volunteersDb.deleteVolunteer(req.params.volunteerId);
+            res.status(200).json(result);
         } catch (error) {
             let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
             console.log(errorString);

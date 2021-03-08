@@ -175,8 +175,8 @@ router.delete('/:locationId',
     param('locationId').isNumeric(),
     async function(req, res) {
         try {
-            await locationsDb.deleteLocation(req.params.locationId);
-            res.status(200).send('deleted');
+            const result = await locationsDb.deleteLocation(req.params.locationId);
+            res.status(200).json(result);
         } catch (error) {
             console.log(`ERROR OCCURRED DELETING LOCATION! locationId: ${req.params.locationId} error: ${error}`);
             let errorObj = {error};

@@ -105,7 +105,10 @@
   }
 }
 
-.volunteer-auth-modal {
+.volunteer-auth-modal,
+.site-add-form,
+.volunteer-add-form,
+.confirm-modal {
   .modal-dialog {
     max-width: none; // override existing width
     width: 50vw;
@@ -131,19 +134,32 @@
       .error {
         color: darkred;
         position: relative;
-        top: -15px;
+        //top: -15px;
       }
       .btn {
         width: 200px;
         margin-left: 30px;
       }
     }
+    .delete-danger {
+      background-color: darkred;
+    }
   }
 }
 
 #site-table,
 #volunteer-table {
+  padding-top: 15px;
+  .table-add-button {
+    margin-right: 15px;
+  }
   td {
     word-break: break-word;
+  }
+  h3 {
+    svg {
+      width: 15px;
+      margin-left: 10px;
+    }
   }
 }
