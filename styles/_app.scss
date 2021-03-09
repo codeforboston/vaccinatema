@@ -113,6 +113,9 @@ a {
     width: 30%;
     min-width: 300px;
     padding: 0 5px 15px 5px;
+    p {
+      font-size: 16px;
+    }
     .footer-heading {
       // This matches the vertical padding built into the Vaccinate MA logo.
       padding-top: 15px;
@@ -120,7 +123,7 @@ a {
     .logo-sub-text {
       position: relative;
       left: $logo-offset;
-      top: -25px;
+      top: -20px;
       span {
         color: darkred;
       }

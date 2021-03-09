@@ -48,6 +48,19 @@ const getAllVolunteers = async () => {
 };
 
 /**
+* Get all volunteers
+**/
+const getVolunteerByEmail = async (email) => {
+    try {
+        const { rows } = await pool.query('SELECT * FROM volunteers WHERE email = $1', [email]);
+        return rows;
+    } catch (error) {
+        console.error('an error occurred when getting volunteers by email');
+        throw new Error(`An unexpected error fetching by a volunteer's email error: ${error}`);
+    }
+};
+
+/**
 * Delete volunteers
 **/
 const deleteVolunteer = async (volunteerId) => {
@@ -61,9 +74,61 @@ const deleteVolunteer = async (volunteerId) => {
     }
 };
 
+/**
+* Create volunteer to location mapping
+**/
+const createVolunteerMapping = async (volunteerId, locationId) => {
+    try {
+        const { rows } = await pool.query('INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2)', [volunteerId, locationId]);
+        return rows;
+    } catch (error) {
+        console.error(`an error occurred when creating a new volunteer mapping ${volunteerId} - ${locationId}`, volunteerId, locationId);
+        throw new Error(`An unexpected error occurred creating a new volunteer: ${error}`);
+    }
+};
+
+/**
+* Get all locations a volunteer is responsible for
+**/
+const getVolunteerLocations = async (volunteerId) => {
+    try {
+        const query = 'SELECT l.*, ' +
+    ' COALESCE(json_agg(la) FILTER (WHERE la.id IS NOT NULL), \'{}\') as availability' +
+    ' FROM volunteers v ' +
+    ' INNER JOIN volunteerLocations vL ON vL.volunteer_id = v.id ' +
+    ' INNER JOIN locations l ON l.id = vL.location_id ' +
+    ' LEFT JOIN location_availability la ON la.location_id = l.id ' +
+    ' WHERE v.id = $1 ' +
+    ' GROUP BY l.id ' +
+    ' ORDER BY l.name desc ';
+        const { rows } = await pool.query(query, [volunteerId]);
+        return rows;
+    } catch (error) {
+        console.error('an error occurred fetching locations ', error);
+        throw new Error('an unexpected error occurred reading from locations DB');
+    }
+};
+
+/**
+* Delete a volunteer to location mapping
+**/
+const deleteVolunteerLocationMapping = async (volunteerId, locationId) => {
+    try {
+        const { rows } = await pool.query('DELETE FROM volunteerLocations WHERE volunteer_id = $1 AND location_id = $2', [volunteerId, locationId]);
+        return rows;
+    } catch (error) {
+        console.error(`an error occurred when updating a volunteer mapping ${volunteerId}`, volunteerId);
+        throw new Error(`An unexpected error occurred updating a volunteer mapping error: ${error}`);
+    }
+};
+
 module.exports = {
     createVolunteer,
     updatedEmail,
     getAllVolunteers,
-    deleteVolunteer
+    getVolunteerByEmail,
+    deleteVolunteer,
+    createVolunteerMapping,
+    getVolunteerLocations,
+    deleteVolunteerLocationMapping
 };
