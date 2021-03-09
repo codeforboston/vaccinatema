@@ -6,12 +6,13 @@ function degreesToRadians(degrees) {
     return degrees * (pi / 180);
 }
 
-function calculateDistance(record, pos_lat, pos_long) {
+function calculateDistanceInMiles(record, pos_lat, pos_long) {
+    // https://www.movable-type.co.uk/scripts/latlong.html
     var lat1 = parseFloat(record.latitude);
     var lat2 = parseFloat(pos_lat);
     var lon1 = parseFloat(record.longitude);
     var lon2 = parseFloat(pos_long);
-    var R = 6371000; // metres
+    var R = 3958.899; // earth's mean radius in miles
     var φ1 = degreesToRadians(lat1);
     var φ2 = degreesToRadians(lat2);
     var Δφ = degreesToRadians(lat2 - lat1);
@@ -30,16 +31,24 @@ function calculateDistance(record, pos_lat, pos_long) {
  * Returns a list of locations, sorted by increasing distance from the given
  * latitude and longitude.
  */
-function getClosestLocations(locations, latitude, longitude) {
+function getClosestLocations(locations, latitude, longitude, maxMiles = null) {
     var locationsWithDistances = locations.map((location) => ({
         location: location,
-        distance: calculateDistance(location, latitude, longitude),
+        distance: calculateDistanceInMiles(location, latitude, longitude),
     }));
+
+    const maxMilesNum = Number.parseFloat(maxMiles);
+    if (!Number.isNaN(maxMilesNum)) {
+        locationsWithDistances = locationsWithDistances.filter(
+            (site) => site.distance <= maxMilesNum
+        );
+    }
 
     locationsWithDistances.sort((a, b) => a.distance - b.distance);
 
-    return locationsWithDistances
-        .map((locationWithDistance) => locationWithDistance.location);
+    return locationsWithDistances.map(
+        (locationWithDistance) => locationWithDistance.location
+    );
 }
 
 /**
@@ -73,7 +82,6 @@ async function getLatLngFromRequest(req) {
 }
 
 module.exports = {
-    calculateDistance: calculateDistance,
     getClosestLocations: getClosestLocations,
     getLatLngFromRequest: getLatLngFromRequest,
 };
