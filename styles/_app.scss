@@ -101,8 +101,9 @@ a {
   background: #D0DDE9;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 15px 15px 0 15px;
+  overflow: hidden;
   h2 {
     font-size: 21px;
     line-height: 26px;
@@ -110,9 +111,10 @@ a {
   }
   .footer-box {
     display: block;
-    width: 30%;
-    min-width: 300px;
-    padding: 0 5px 15px 5px;
+    @media screen and (min-width: 768px) {
+      width: 30%;
+      min-width: 300px;
+    }
     p {
       font-size: 16px;
     }
@@ -141,6 +143,13 @@ a {
         color: black;
         margin-right: 10px;
       }
+    }
+  }
+  .disclaimer {
+    // 1000px is the width at which the disclaimer goes on to its own line
+    // (each of the 3 columns has a width of 30% and a min-width of 300px).
+    @media screen and (max-width: 1000px) {
+      flex: 1;
     }
   }
 }
