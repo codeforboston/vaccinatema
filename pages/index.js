@@ -65,10 +65,10 @@ const Home = () => {
     };
 
     return (
-        <Layout pageTitle="Home">
+        <Layout pageTitle="Home" containerClassName="home-page">
             <div>
-                <PreregisterBanner />
                 <SearchBar onSearch={onSearch} />
+                <PreregisterBanner />
                 <MapAndListView
                     mapCoordinates={mapCoordinates}
                     rawSiteData={rawSiteData}
