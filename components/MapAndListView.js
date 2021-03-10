@@ -15,10 +15,6 @@ const MapAndListView = (props) => {
 
     return (
         <div className="map-and-list">
-            <AvailabilityBanner
-                numSites={numAvailable}
-                hasAvailability={true}
-            />
             <div className="button-container">
                 <Button
                     title="Map View"
@@ -35,6 +31,10 @@ const MapAndListView = (props) => {
                     borderRadius={'0px 4px 4px 0px'}
                 />
             </div>
+            <AvailabilityBanner
+                numSites={numAvailable}
+                hasAvailability={true}
+            />
             <div className="map-and-list-contents">
                 {showMap ? (
                     <div>
