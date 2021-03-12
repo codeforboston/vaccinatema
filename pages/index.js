@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar';
 
 const Home = () => {
     const [rawSiteData, setRawSiteData] = useState([]);
+    const [mapCoordinates, setMapCoordinates] = useState(null);
 
     useEffect(
         () => {
@@ -37,7 +38,11 @@ const Home = () => {
             body: JSON.stringify({...args}),
         })
             .then((response) => response.json())
-            .then((siteData) => setRawSiteData(siteData))
+            .then((response) => {
+                const {lat, lng, siteData} = response;
+                setRawSiteData(siteData);
+                setMapCoordinates({lat, lng});
+            })
             .catch((error) => {
                 // TODO(hannah): Add better error handling.
                 console.log(error);
@@ -48,7 +53,10 @@ const Home = () => {
         <Layout pageTitle="Home">
             <div>
                 <SearchBar onSearch={getLocationData} />
-                <MapAndListView rawSiteData={rawSiteData} />
+                <MapAndListView
+                    mapCoordinates={mapCoordinates}
+                    rawSiteData={rawSiteData}
+                />
             </div>
         </Layout>
     );

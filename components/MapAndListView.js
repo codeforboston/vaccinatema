@@ -13,6 +13,10 @@ const MapAndListView = (props) => {
         (site) => site.availability.length > 0
     ).length;
 
+    const mapProps = props.mapCoordinates
+        ? {coordinates: props.mapCoordinates, zoom: 4}
+        : {};
+
     return (
         <div className="map-and-list">
             <div className="button-container">
@@ -38,7 +42,7 @@ const MapAndListView = (props) => {
             <div className="map-and-list-contents">
                 {showMap ? (
                     <div>
-                        <Map rawSiteData={props.rawSiteData} />
+                        <Map {...mapProps} rawSiteData={props.rawSiteData} />
                         <MapKey />
                     </div>
                 ) : (
@@ -75,4 +79,8 @@ export default MapAndListView;
 MapAndListView.propTypes = {
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
+    mapCoordinates: PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number,
+    }),
 };
