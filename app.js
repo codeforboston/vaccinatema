@@ -109,13 +109,13 @@ if (cluster.isMaster) {
             }
 
             const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
-            const closest = distanceUtils.getClosestLocations(
+            const siteData = distanceUtils.getClosestLocations(
                 locations,
                 lat,
                 lng,
                 req.body.maxMiles,
             );
-            res.send(closest);
+            res.send({siteData, lat, lng});
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
