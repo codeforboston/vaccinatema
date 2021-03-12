@@ -14,7 +14,7 @@ const MapAndListView = (props) => {
     ).length;
 
     const mapProps = props.mapCoordinates
-        ? {coordinates: props.mapCoordinates, zoom: 4}
+        ? {coordinates: props.mapCoordinates}
         : {};
 
     return (

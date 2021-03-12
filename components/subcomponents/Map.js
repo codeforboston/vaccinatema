@@ -130,16 +130,18 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
+const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
+
 const Map = ({
     height = '400px',
     width = '100%',
     rawSiteData,
-    // The default coordinates are those of Boston.
-    coordinates = {lat: 42.360081, lng: -71.058884},
-    zoom = 8,
+    coordinates = BOSTON_COORDINATES,
 }) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
+    const [center, setCenter] = useState(BOSTON_COORDINATES);
+    const [zoom, setZoom] = useState(8);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -150,14 +152,26 @@ const Map = ({
         setSiteData(parseLocationData(rawSiteData));
     }, [rawSiteData]);
 
+    // Update the center and zoom whenever the given coordinates change.
+    useEffect(() => {
+        setCenter(coordinates);
+        setZoom(12);
+    }, [coordinates]);
+
+    const handleChange = ({center, zoom}) => {
+        setCenter(center);
+        setZoom(zoom);
+    };
+
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
         <div style={{ height, width }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
-                center={coordinates}
+                center={center}
                 zoom={zoom}
                 draggableCursor="crosshair"
+                onChange={handleChange}
             >
                 {siteData && siteData.map((site) => (
                     <Marker
@@ -190,7 +204,6 @@ Map.propTypes = {
         lat: PropTypes.number,
         lng: PropTypes.number,
     }),
-    zoom: PropTypes.number,
 };
 
 export default Map;
