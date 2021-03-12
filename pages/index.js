@@ -10,12 +10,12 @@ const Home = () => {
     useEffect(
         // Before the user makes any searches, default to showing
         // all available sites.
-        () => fetchAllSites(false),
+        () => fetchSitesWithoutLocation({includeUnavailable: false}),
         // Empty array as 2nd param so function runs only on initial page load.
         []
     );
 
-    const fetchAllSites = (includeUnavailable) => {
+    const fetchSitesWithoutLocation = ({includeUnavailable}) => {
         fetch('/initmap')
             .then((response) => response.json())
             .then((rawSiteData) => {
@@ -37,7 +37,9 @@ const Home = () => {
 
     const getLocationData = (args) => {
         if (!args.address && !args.latitude && !args.longitude) {
-            return fetchAllSites(args.availability === ALL_AVAILABIITY);
+            return fetchSitesWithoutLocation({
+                includeUnavailable: args.availability === ALL_AVAILABIITY,
+            });
         }
 
         return fetch('/search_query_location', {
