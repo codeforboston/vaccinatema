@@ -3,29 +3,22 @@ import PropTypes from 'prop-types';
 
 import Button from '../components/subcomponents/Button';
 
-const ALL_AVAILABIITY = 'All known vaccination sites';
+export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
 
 const SearchBar = (props) => {
     const [address, setAddress] = useState('');
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
 
-    const [hasAddressError, setHasAddressError] = useState(false);
     const [hasGeolocationError, setHasGeolocationError] = useState(false);
 
     const clearErrors = () => {
-        setHasAddressError(false);
         setHasGeolocationError(false);
     };
 
     const searchByAddress = () => {
         clearErrors();
-
-        if (address) {
-            props.onSearch({address, availability});
-        } else {
-            setHasAddressError(true);
-        }
+        props.onSearch({address, availability});
     };
 
     const searchByGeolocation = async () => {
@@ -118,7 +111,6 @@ const SearchBar = (props) => {
                 </div>
             </div>
             <div className="error">
-                {hasAddressError && <p>City or ZIP code cannot be blank.</p>}
                 {hasGeolocationError && <p>Cannot figure out your location.</p>}
             </div>
         </div>

@@ -2,35 +2,44 @@ import React, {useEffect, useState} from 'react';
 
 import Layout from '../components/Layout';
 import MapAndListView from '../components/MapAndListView';
-import SearchBar from '../components/SearchBar';
+import SearchBar, {ALL_AVAILABIITY} from '../components/SearchBar';
 
 const Home = () => {
     const [rawSiteData, setRawSiteData] = useState([]);
 
     useEffect(
-        () => {
-            fetch('/initmap')
-                .then((response) => response.json())
-                .then((rawSiteData) => {
-                    // Before the user makes any searches, default to showing
-                    // all available sites.
-                    // TODO(hannah): Create new endpoint (or modify initmap) to
-                    // only return available sites.
-                    // TODO(hannah): Currently, in list view, the sites are
-                    // just listed alphabetically. Per discussions with Harlan,
-                    // we should be sorting them some more useful way.
-                    return rawSiteData.filter(
-                        (site) => site.availability.length > 0
-                    );
-                })
-                .then((rawSiteData) => setRawSiteData(rawSiteData))
-                .catch((err) => console.error(err));
-        },
+        // Before the user makes any searches, default to showing
+        // all available sites.
+        () => fetchAllSites(false),
         // Empty array as 2nd param so function runs only on initial page load.
         []
     );
 
+    const fetchAllSites = (includeUnavailable) => {
+        fetch('/initmap')
+            .then((response) => response.json())
+            .then((rawSiteData) => {
+                // TODO(hannah): Currently, in list view, the sites are
+                // just listed alphabetically. Per discussions with Harlan,
+                // we should be sorting them some more useful way.
+                if (includeUnavailable) {
+                    return rawSiteData;
+                }
+                // TODO(hannah): Create new endpoint to only return available
+                // sites.
+                return rawSiteData.filter(
+                    (site) => site.availability.length > 0
+                );
+            })
+            .then((rawSiteData) => setRawSiteData(rawSiteData))
+            .catch((err) => console.error(err));
+    };
+
     const getLocationData = (args) => {
+        if (!args.address && !args.latitude && !args.longitude) {
+            return fetchAllSites(args.availability === ALL_AVAILABIITY);
+        }
+
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
