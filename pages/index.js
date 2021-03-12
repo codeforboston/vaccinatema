@@ -17,6 +17,9 @@ const Home = () => {
     );
 
     const fetchSitesWithoutLocation = ({includeUnavailable}) => {
+        // Clear coordinates.
+        setMapCoordinates(null);
+
         fetch('/initmap')
             .then((response) => response.json())
             .then((rawSiteData) => {
