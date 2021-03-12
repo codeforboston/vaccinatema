@@ -130,16 +130,16 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const Map = ({height = '400px', width = '100%', rawSiteData}) => {
+const Map = ({
+    height = '400px',
+    width = '100%',
+    rawSiteData,
+    // The default coordinates are those of Boston.
+    coordinates = {lat: 42.360081, lng: -71.058884},
+    zoom = 8,
+}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
-
-    const bostonCoordinates = {
-        lat: 42.360081,
-        lng: -71.058884
-    };
-
-    const defaultMassachusettsZoom = 8;
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -155,8 +155,8 @@ const Map = ({height = '400px', width = '100%', rawSiteData}) => {
         <div style={{ height, width }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
-                defaultCenter={bostonCoordinates}
-                defaultZoom={defaultMassachusettsZoom}
+                center={coordinates}
+                zoom={zoom}
                 draggableCursor="crosshair"
             >
                 {siteData && siteData.map((site) => (
@@ -186,6 +186,11 @@ Map.propTypes = {
     width: PropTypes.string,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
+    coordinates: PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number,
+    }),
+    zoom: PropTypes.number,
 };
 
 export default Map;
