@@ -12,8 +12,8 @@ const MASS_VACCINATION_SITES = [
     'Danvers: Doubletree Hotel',
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
-    'Lowell: Lowell General Hospital at Cross River Center',
-    'Natick: Natick Mall'
+    'Natick: Natick Mall',
+    'Boston: Reggie Lewis Center (Roxbury Community College)'
 ];
 
 const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
