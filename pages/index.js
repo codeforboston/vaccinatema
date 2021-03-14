@@ -11,12 +11,12 @@ const Home = () => {
     useEffect(
         // Before the user makes any searches, default to showing
         // all available sites.
-        () => fetchSitesWithoutLocation({includeUnavailable: false}),
+        () => fetchSites({includeUnavailable: false}),
         // Empty array as 2nd param so function runs only on initial page load.
         []
     );
 
-    const fetchSitesWithoutLocation = ({includeUnavailable}) => {
+    const fetchSites = ({includeUnavailable}) => {
         // Clear coordinates.
         setMapCoordinates(null);
 
@@ -39,9 +39,9 @@ const Home = () => {
             .catch((err) => console.error(err));
     };
 
-    const getLocationData = (args) => {
+    const onSearch = (args) => {
         if (!args.address && !args.latitude && !args.longitude) {
-            return fetchSitesWithoutLocation({
+            return fetchSites({
                 includeUnavailable: args.availability === ALL_AVAILABIITY,
             });
         }
@@ -66,7 +66,7 @@ const Home = () => {
     return (
         <Layout pageTitle="Home">
             <div>
-                <SearchBar onSearch={getLocationData} />
+                <SearchBar onSearch={onSearch} />
                 <MapAndListView
                     mapCoordinates={mapCoordinates}
                     rawSiteData={rawSiteData}
