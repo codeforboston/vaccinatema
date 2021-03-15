@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+import PreregisterBanner from '../components/PreregisterBanner';
 import Layout from '../components/Layout';
 import MapAndListView from '../components/MapAndListView';
 import SearchBar, {ALL_AVAILABIITY} from '../components/SearchBar';
@@ -9,8 +10,8 @@ const Home = () => {
     const [mapCoordinates, setMapCoordinates] = useState(null);
 
     useEffect(
-        // Before the user makes any searches, default to showing
-        // all available sites.
+        // Before the user makes any searches, default to showing all available
+        // sites.
         () => fetchSites({includeUnavailable: false}),
         // Empty array as 2nd param so function runs only on initial page load.
         []
@@ -66,6 +67,7 @@ const Home = () => {
     return (
         <Layout pageTitle="Home">
             <div>
+                <PreregisterBanner />
                 <SearchBar onSearch={onSearch} />
                 <MapAndListView
                     mapCoordinates={mapCoordinates}
