@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
+import PreregisterBanner from '../components/PreregisterBanner';
 import Layout from '../components/Layout';
 import MapAndListView from '../components/MapAndListView';
 import SearchBar from '../components/SearchBar';
@@ -52,6 +53,7 @@ const Home = () => {
     return (
         <Layout pageTitle="Home">
             <div>
+                <PreregisterBanner />
                 <SearchBar onSearch={getLocationData} />
                 <MapAndListView
                     mapCoordinates={mapCoordinates}
