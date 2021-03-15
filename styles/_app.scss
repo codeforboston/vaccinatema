@@ -274,3 +274,17 @@ a {
     margin-left: 16px;
   }
 }
+
+.info-banner {
+  background-color: $white;
+  border-radius: 4px;
+  margin-bottom: 32px;
+  margin-top: 16px;
+  padding: 16px;
+
+  p {
+    font-size: 26px;
+    line-height: 32px;
+    margin: 0px;
+  }
+}
