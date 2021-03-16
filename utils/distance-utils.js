@@ -57,7 +57,7 @@ function getClosestLocations(locations, latitude, longitude, maxMiles = null) {
  */
 async function getLatLngFromRequest(req) {
     if (req.body.address) {
-        query = req.body.address;
+        let query = req.body.address;
         // Whenever possible, use the static look up table to minimize Geocoder
         // costs.
         if (zipCodes[query]) {
@@ -65,25 +65,25 @@ async function getLatLngFromRequest(req) {
         }
         // If not a zipcode, the query should be a town so add the state
         // to make this a relatively simple query to geocode.
-        query = query + " Massachusetts"
+        query = query + ' Massachusetts';
 
         // First try Pelias
         return getLatLngPelias(query).then(coords => {
             return coords;
         }).catch(exception => {
             // Failed with Pelias
-            console.error(`Failed geocoding with Pelias: `, exception);
+            console.error('Failed geocoding with Pelias: ', exception);
             // Fall back to Google geocoding
-            return getLatLngGoogle(query)
+            return getLatLngGoogle(query);
         });
     }
     return {lat: req.body.latitude, lng: req.body.longitude};
 }
 
 async function getLatLngPelias(query) {
-    url = `http://pelias.mapc.org/v1/search?text=${query}MA&boundary.gid=whosonfirst:region:85688645&size=1`
+    const url = `http://pelias.mapc.org/v1/search?text=${query}MA&boundary.gid=whosonfirst:region:85688645&size=1`;
     return axios.get(url).then(response => {
-        return parsePeliasGeoJson(response.data)
+        return parsePeliasGeoJson(response.data);
     });
 }
 
@@ -93,12 +93,12 @@ async function getLatLngPelias(query) {
  * caller should handle catching exceptions (likely index/key errors).
  */
 function parsePeliasGeoJson(geojson) {
-    feature = geojson["features"][0]
-    if (feature["geometry"]["type"] == "Point") {
-        coords = feature["geometry"]["coordinates"]
-        return {lat: coords[1], lng: coords[0]}
+    const feature = geojson['features'][0];
+    if (feature['geometry']['type'] == 'Point') {
+        const coords = feature['geometry']['coordinates'];
+        return {lat: coords[1], lng: coords[0]};
     } else {
-        throw "Unexpected returned geojson feature from Pelias"
+        throw 'Unexpected returned geojson feature from Pelias';
     }
 }
 

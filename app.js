@@ -117,8 +117,8 @@ if (cluster.isMaster) {
                 );
                 res.send({siteData, lat, lng});
             }).catch(exception => {
-                console.error("Failed to geocode", exception)
-                res.status(500).send("Failed geocoding request.")
+                console.error('Failed to geocode', exception);
+                res.status(500).send('Failed geocoding request.');
             });
         });
 
