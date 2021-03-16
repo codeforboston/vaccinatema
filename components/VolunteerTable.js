@@ -4,6 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import PropType from 'prop-types';
 import _ from 'lodash';
 
 import VolunteerAddForm from './subcomponents/VolunteerAddForm';
@@ -30,9 +31,8 @@ const COLUMNS = [
     }
 ];
 
-const VolunteerTable = () => {
+const VolunteerTable = ({ volunteers, setVolunteers, sites }) => {
     const [editing, setEditing] = useState(null);
-    const [volunteers, setVolunteers] = useState([]);
     const [showVolForm, setShowVolForm] = useState(false);
     const [showVolunteers, setShowVolunteers] = useState(false);
 
@@ -83,7 +83,8 @@ const VolunteerTable = () => {
         columns: COLUMNS,
         rowEvents: {
             onClick: openEditor
-        }
+        },
+        striped: true,
     };
 
     // ToolkitProvider allows the table to use search functionality
@@ -125,9 +126,15 @@ const VolunteerTable = () => {
                 onClose={closeForm}
                 addVolunteer={handleVolunteerAdd}
                 editing={editing}
+                sites={sites}
             />
         </div>
     );
 };
 
 export default VolunteerTable;
+VolunteerTable.propTypes = {
+    sites: PropType.array,
+    volunteers: PropType.array,
+    setVolunteers: PropType.func,
+};

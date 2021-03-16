@@ -4,6 +4,7 @@ import Select from 'react-select';
 import YesNoRadio from './subcomponents/YesNoRadio';
 import DateTile from './subcomponents/DateTile';
 import DatePicker from 'react-datepicker';
+import { addSelectFields, alphabetize } from './utilities/utils';
 
 const YES = 'yes', NO = 'no';
 
@@ -33,17 +34,7 @@ const UpdaterForm = () => {
                 return response.json();
             })
             .then(body => {
-                const newOptions = body.map(obj => {
-                    return {
-                        ...obj,
-                        value: obj.id,
-                        label: obj.name,
-                    };
-                }).sort((a, b) => {
-                    if (a.label < b.label) { return -1; }
-                    if (a.label > b.label) { return 1; }
-                    return 0;
-                });
+                const newOptions = alphabetize(addSelectFields(body), 'name');
                 setSites(newOptions);
             })
             .catch(error => console.error(`Error in fetch: ${error.message}`));

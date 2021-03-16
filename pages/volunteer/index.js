@@ -6,8 +6,15 @@ import Link from 'next/link';
 import VolunteerTable from '../../components/VolunteerTable';
 import SitesTable from '../../components/SitesTable';
 
+/*
+    Data for volunteers and sites are stored in this top level component,
+    but fetched and managed within each table component
+ */
+
 const Volunteer = () => {
     const [user, setUser] = useState(null);
+    const [sites, setSites] = useState([]);
+    const [volunteers, setVolunteers] = useState([]);
 
     const renderContent = () => {
         if (user) {
@@ -18,8 +25,15 @@ const Volunteer = () => {
                     <p>{`Welcome ${user.firstname}!`}</p>
                     <h2>Resources</h2>
                     <Link href="/volunteer/updater">Site Availability Form</Link>
-                    {isAdmin && <VolunteerTable />}
-                    {isAdmin && <SitesTable />}
+                    {
+                        isAdmin &&
+                        <VolunteerTable
+                            sites={sites}
+                            volunteers={volunteers}
+                            setVolunteers={setVolunteers}
+                        />
+                    }
+                    {isAdmin && <SitesTable sites={sites} setSites={setSites}/>}
                 </div>
             );
         }

@@ -111,8 +111,8 @@ const deleteVolunteer = async (volunteerId) => {
 **/
 const createVolunteerMapping = async (volunteerId, locationId) => {
     try {
-        const { rows } = await pool.query('INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2)', [volunteerId, locationId]);
-        return rows;
+        const { rows } = await pool.query('INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2) RETURNING *', [volunteerId, locationId]);
+        return rows[0];
     } catch (error) {
         console.error(`an error occurred when creating a new volunteer mapping ${volunteerId} - ${locationId}`, volunteerId, locationId);
         throw new Error(`An unexpected error occurred creating a new volunteer: ${error}`);

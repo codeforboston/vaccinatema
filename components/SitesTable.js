@@ -4,9 +4,11 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import PropType from 'prop-types';
 import _ from 'lodash';
 
 import SiteAddForm from './subcomponents/SiteAddForm';
+
 const { SearchBar, ClearSearchButton } = Search;
 
 const COLUMNS = [
@@ -31,19 +33,31 @@ const COLUMNS = [
         text: 'County',
         sort: true,
     }, {
-        dataField: 'vaccinesoffered',
-        text: 'Vaccines Offered',
+        dataField: 'methodology',
+        text: 'Methodology',
         sort: true,
-        hidden: true,
+    }, {
+        dataField: 'independent',
+        text: 'Independent?',
+        sort: true,
+    }, {
+        dataField: 'hiatus',
+        text: 'Hiatus?',
+        sort: true,
     }, {
         dataField: 'lastupdated',
         text: 'Last Updated',
         sort: true,
+        formatter: (cell) => new Date(cell)?.toString()?.match(/(.+)\sG/)?.[1]
+    }, {
+        dataField: 'volunteer',
+        text: 'Site Checker',
+        sort: true,
     }
 ];
 
-const SitesTable = () => {
-    const [sites, setSites] = useState([]);
+const SitesTable = ({ sites, setSites }) => {
+    // const [sites, setSites] = useState([]);
     const [editing, setEditing] = useState(null);
     const [showSites, setShowSites] = useState(false);
     const [showSiteForm, setShowSiteForm] = useState(false);
@@ -95,34 +109,37 @@ const SitesTable = () => {
         columns: COLUMNS,
         rowEvents: {
             onClick: openEditor
-        }
+        },
+        striped: true,
     };
 
     // ToolkitProvider allows the table to use search functionality
     // It sends the relevant data to the table in params.baseProps.
     // The original gridConfig is required in the table properties for sorting and row events.
     const renderTable = () => (
-        <ToolkitProvider
-            {...gridConfig}
-            search
-            bootstrap4
-        >
-            {
-                params => (
-                    <div>
-                        <Button className="table-add-button" onClick={() => setShowSiteForm(true)}>
-                        Add a new site
-                        </Button>
-                        <SearchBar { ...params.searchProps } />
-                        <ClearSearchButton { ...params.searchProps } />
-                        <hr />
-                        <BootstrapTable
-                            { ...Object.assign({}, gridConfig, params.baseProps) }
-                        />
-                    </div>
-                )
-            }
-        </ToolkitProvider>
+        <div className="site-table-container">
+            <ToolkitProvider
+                {...gridConfig}
+                search
+                bootstrap4
+            >
+                {
+                    params => (
+                        <div>
+                            <Button className="table-add-button" onClick={() => setShowSiteForm(true)}>
+                            Add a new site
+                            </Button>
+                            <SearchBar { ...params.searchProps } />
+                            <ClearSearchButton { ...params.searchProps } />
+                            <hr />
+                            <BootstrapTable
+                                { ...Object.assign({}, gridConfig, params.baseProps) }
+                            />
+                        </div>
+                    )
+                }
+            </ToolkitProvider>
+        </div>
     );
 
     return (
@@ -143,3 +160,7 @@ const SitesTable = () => {
 };
 
 export default SitesTable;
+SitesTable.propTypes = {
+    sites: PropType.array,
+    setSites: PropType.func,
+};

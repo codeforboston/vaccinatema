@@ -10,6 +10,9 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
     const [accessibility, setAccessibility] = useState('');
     const [showConfirm, setShowConfirm] = useState(false);
     const [bookinglink, setBookinglink] = useState('');
+    const [methodology, setMethodology] = useState('');
+    const [independent, setIndependent] = useState('');
+    const [hiatus, setHiatus] = useState(null);
     const [address, setAddress] = useState('');
     const [error, setError] = useState(null);
     const [serves, setServes] = useState('');
@@ -71,17 +74,16 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             label: 'Serves',
             required: true
         }, {
-            field: 'siteinstructions',
-            value: siteinstructions,
-            action: setSiteinstructions,
-            label: 'Site Instructions',
-            required: true
-        }, {
             field: 'county',
             value: county,
             action: setCounty,
             label: 'County',
             required: true
+        }, {
+            field: 'siteinstructions',
+            value: siteinstructions,
+            action: setSiteinstructions,
+            label: 'Site Instructions',
         }, {
             field: 'vaccinesoffered',
             value: vaccinesoffered,
@@ -102,6 +104,23 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
             value: accessibility,
             action: setAccessibility,
             label: 'Accessibility',
+        }, {
+            field: 'methodology',
+            value: methodology,
+            action: setMethodology,
+            label: 'Methodology',
+        }, {
+            field: 'independent',
+            value: independent,
+            action: setIndependent,
+            label: 'Independent?',
+            radioOptions: [{ label: 'Independent', value: true }, { label: 'State', value: false } ]
+        }, {
+            field: 'hiatus',
+            value: hiatus,
+            action: setHiatus,
+            label: 'Hiatus?',
+            radioOptions: [{ label: 'Yes', value: true }, { label: 'No', value: false } ]
         }
     ];
 
@@ -159,6 +178,7 @@ const VolunteerAddForm = ({ isOpen, onClose, addSite, editing }) => {
     };
     
     const formFields = fieldConfig.map(field => {
+        // TODO: add radio buttons
         return (
             <div key={field.field}>
                 <Form.Label htmlFor={field.field}>{field.label + (field.required ? ' (required)' : '') }</Form.Label>

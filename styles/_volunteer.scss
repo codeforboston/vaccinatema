@@ -112,6 +112,11 @@
   .modal-dialog {
     max-width: none; // override existing width
     width: 50vw;
+    .modal-body {
+      input {
+        margin-bottom: 15px;
+      }
+    }
     .checkbox-label {
       display: inline-flex;
       position: relative;
@@ -142,7 +147,22 @@
       }
     }
     .delete-danger {
+      color: darkred;
+      background-color: initial;
+      border: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      &.btn {
+        width: auto;
+        height: auto;
+      }
+    }
+    .delete-confirm {
       background-color: darkred;
+      &:hover {
+        background-color: firebrick;
+      }
     }
   }
 }
@@ -161,5 +181,9 @@
       width: 15px;
       margin-left: 10px;
     }
+  }
+  .site-table-container {
+    width: 2000px;
+    overflow-x: scroll;
   }
 }
