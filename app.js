@@ -88,8 +88,8 @@ if (cluster.isMaster) {
     app.prepare().then(() => {
         var server = express();
 
-        // Set rate limiting for all features as a first cut.
-        // This will most probably need some refinement for specific endpoints and multi-server scaling.
+        // Set rate limiting for all features.
+        server.set('trust proxy', 1);
         const rateLimit = require('express-rate-limit');
         const limiter = rateLimit({  // The rate limit is 100 requests per 15 minutes.  This will easily clear our heartbeat synths for now.
             windowMs: 15 * 60 * 1000,
