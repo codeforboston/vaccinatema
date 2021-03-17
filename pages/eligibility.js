@@ -29,8 +29,8 @@ const Eligibility = () => (
             </p>
             <img
                 className="eligibility-image"
-                src={'../static/updated_eligibility_3_12.png'} 
-                alt="COVID-19 Vaccination in MA: Phase 1 and 2 Eligibility Status"
+                src={'../static/updated_eligibility_3_17.png'} 
+                alt="COVID-19 Vaccination in MA: Phase 1, 2, and 3 Eligibility Status"
             />
         </div>
     </Layout>
