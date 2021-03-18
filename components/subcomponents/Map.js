@@ -155,7 +155,7 @@ const Map = ({
     // Update the center and zoom whenever the given coordinates change.
     useEffect(() => {
         setCenter(coordinates);
-        setZoom(12);
+        setZoom(coordinates == BOSTON_COORDINATES ? 8 : 12);
     }, [coordinates]);
 
     const handleChange = ({center, zoom}) => {
