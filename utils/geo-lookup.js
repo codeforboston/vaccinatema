@@ -1,7 +1,7 @@
 var geocoder = require('google-geocoder');
 
 var geo = geocoder({
-    key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0'
+    key: process.env.GEOCODER_API_KEY
 });
 
 /**

@@ -98,6 +98,10 @@ if (cluster.isMaster) {
             res.send(sites);
         });
 
+        server.get('/volunteer:/volunteer/updater', (req, res) => {
+            return app.render(req, res, '/volunteer', req.query);
+        });
+
         server.use(express.static('static'));
 
         server.post('/search_query_location', async function (req, res) {

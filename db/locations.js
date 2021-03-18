@@ -96,7 +96,7 @@ const getLocationsCloseToGeo = async (homeLat, homeLong, rangeInMiles) => {
 const createLocation = async (newLocation) => {
     try {
         const query = 'INSERT INTO locations ' +
-    ' (name, bookinglink, serves, siteInstructions, daysOpen, county, latitude, longitude, address, vaccinesoffered ) ' +
+    ' (name, bookinglink, serves, siteinstructions, daysopen, county, latitude, longitude, address, vaccinesoffered ) ' +
     ' VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)  RETURNING *';
 
         const { rows }  = await pool.query(query, [newLocation.name, newLocation.bookinglink, newLocation.serves, newLocation.siteinstructions, newLocation.daysopen, newLocation.county, newLocation.latitude, newLocation.longitude, newLocation.address, newLocation.vaccinesoffered]);
@@ -198,6 +198,7 @@ const deleteLocation = async (locationId) => {
         let query = 'DELETE FROM locations where id = $1';
         await pool.query(query, [locationId]);
         console.log(`DELETED LOCATION ${locationId} `);
+        return { result: 'deleted', id: locationId };
     } catch (error) {
         console.error(`an error occurred deleting location ${locationId}`, error);
         throw new Error('An unexpected error occurred deleting location');
