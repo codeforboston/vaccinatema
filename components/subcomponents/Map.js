@@ -21,6 +21,13 @@ const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
     'Eligible populations statewide'
 ];
 
+const BOSTON_COORDINATES = {
+    lat: 42.360081,
+    lng: -71.058884
+};
+
+const DEFAULT_STATEWIDE_ZOOM_LEVEL = 8;
+
 const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEWIDE_TEXT.includes(serves?.trim());
 
 const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
@@ -130,16 +137,9 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const Map = ({height = '400px', width = '100%', rawSiteData}) => {
+const Map = ({height = '400px', width = '100%', lat = BOSTON_COORDINATES.lat, lng = BOSTON_COORDINATES.lng, zoom = DEFAULT_STATEWIDE_ZOOM_LEVEL, rawSiteData}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
-
-    const bostonCoordinates = {
-        lat: 42.360081,
-        lng: -71.058884
-    };
-
-    const defaultMassachusettsZoom = 8;
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -154,9 +154,9 @@ const Map = ({height = '400px', width = '100%', rawSiteData}) => {
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
         <div style={{ height, width }}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
-                defaultCenter={bostonCoordinates}
-                defaultZoom={defaultMassachusettsZoom}
+                bootstrapURLKeys={{ key: '' }}
+                defaultCenter={{lat, lng}}
+                defaultZoom={zoom}
                 draggableCursor="crosshair"
             >
                 {siteData && siteData.map((site) => (
@@ -184,6 +184,9 @@ const Map = ({height = '400px', width = '100%', rawSiteData}) => {
 Map.propTypes = {
     height: PropTypes.string,
     width: PropTypes.string,
+    lat: PropTypes.number,
+    lng: PropTypes.number,
+    zoom: PropTypes.number,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
 };
