@@ -98,6 +98,10 @@ if (cluster.isMaster) {
             res.send(sites);
         });
 
+        server.get('/volunteer:/volunteer/updater', (req, res) => {
+            return app.render(req, res, '/volunteer', req.query);
+        });
+
         server.use(express.static('static'));
 
         server.post('/search_query_location', async function (req, res) {
@@ -109,12 +113,13 @@ if (cluster.isMaster) {
             }
 
             const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
-            const closest = distanceUtils.getClosestLocations(
+            const siteData = distanceUtils.getClosestLocations(
                 locations,
                 lat,
-                lng
+                lng,
+                req.body.maxMiles,
             );
-            res.send(closest);
+            res.send({siteData, lat, lng});
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:

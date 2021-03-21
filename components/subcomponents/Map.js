@@ -21,10 +21,7 @@ const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
     'Eligible populations statewide'
 ];
 
-const BOSTON_COORDINATES = {
-    lat: 42.360081,
-    lng: -71.058884
-};
+const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
 
 const DEFAULT_STATEWIDE_ZOOM_LEVEL = 8;
 
@@ -137,9 +134,18 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const Map = ({height = '400px', width = '100%', lat = BOSTON_COORDINATES.lat, lng = BOSTON_COORDINATES.lng, zoom = DEFAULT_STATEWIDE_ZOOM_LEVEL, rawSiteData}) => {
+
+const Map = ({
+    height = '400px',
+    width = '100%',
+    rawSiteData,
+    coordinates = BOSTON_COORDINATES,
+    zoom = DEFAULT_STATEWIDE_ZOOM_LEVEL,
+}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
+    const [center, setCenter] = useState(coordinates);
+    const [zoom, setZoom] = useState(zoom);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -150,14 +156,26 @@ const Map = ({height = '400px', width = '100%', lat = BOSTON_COORDINATES.lat, ln
         setSiteData(parseLocationData(rawSiteData));
     }, [rawSiteData]);
 
+    // Update the center and zoom whenever the given coordinates change.
+    useEffect(() => {
+        setCenter(coordinates);
+        setZoom(coordinates == BOSTON_COORDINATES ? 8 : 12);
+    }, [coordinates]);
+
+    const handleChange = ({center, zoom}) => {
+        setCenter(center);
+        setZoom(zoom);
+    };
+
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
         <div style={{ height, width }}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: '' }}
-                defaultCenter={{lat, lng}}
-                defaultZoom={zoom}
+                bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
+                center={center}
+                zoom={zoom}
                 draggableCursor="crosshair"
+                onChange={handleChange}
             >
                 {siteData && siteData.map((site) => (
                     <Marker
@@ -189,6 +207,10 @@ Map.propTypes = {
     zoom: PropTypes.number,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
+    coordinates: PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number,
+    }),
 };
 
 export default Map;
