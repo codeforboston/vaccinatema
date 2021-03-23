@@ -9,8 +9,8 @@ const Eligibility = () => (
         <div id="eligibility-page">
             <h1>Eligibility</h1>
             <p>
-                Massachusetts is now in vaccine eligibility Phase 2, Group 3,
-                which started on March 11, 2021. Please check all eligibility
+                Massachusetts is now in vaccine eligibility Phase 2, Group 4,
+                which started on March 22, 2021. Please check all eligibility
                 requirements below and sign up for your appointment in advance
                 using the link or phone number included in the site location’s
                 details. Note that minors (16-17 years old) are only eligible to
@@ -29,7 +29,7 @@ const Eligibility = () => (
             </p>
             <img
                 className="eligibility-image"
-                src={'../static/updated_eligibility_3_17.png'} 
+                src={'../static/updated_eligibility_3_22.png'} 
                 alt="COVID-19 Vaccination in MA: Phase 1, 2, and 3 Eligibility Status"
             />
         </div>
