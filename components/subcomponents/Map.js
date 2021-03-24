@@ -13,7 +13,8 @@ const MASS_VACCINATION_SITES = [
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
     'Natick: Natick Mall',
-    'Boston: Reggie Lewis Center (Roxbury Community College)'
+    'Boston: Reggie Lewis Center (Roxbury Community College)',
+    'Boston: Hynes Convention Center'
 ];
 
 const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
