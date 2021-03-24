@@ -1,16 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import {faChevronDown, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import Button from '../components/subcomponents/Button';
 
 export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
+const MOBILE_WIDTH = 640;
 
 const SearchBar = (props) => {
     const [address, setAddress] = useState('');
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
     const [maxMiles, setMaxMiles] = useState(null);
     const [hasGeolocationError, setHasGeolocationError] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const handleWindowSizeChange = () => {
+        const wasMobile = isMobile;
+        const isMobile = window.innerWidth <= MOBILE_WIDTH;
+        if (wasMobile != isMobile) {
+            setIsMobile(isMobile);
+            setIsCollapsed(isMobile);
+        }
+    };
+
+    // Update isMobile and isCollapsed when the window is resized.
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
 
     const clearErrors = () => {
         setHasGeolocationError(false);
@@ -73,9 +96,37 @@ const SearchBar = (props) => {
         setMaxMiles(distance === '-1' ? null : distance);
     };
 
+    const Toggle = () => (
+        <button className="toggle" onClick={() => setIsCollapsed(!isCollapsed)}>
+            {isCollapsed ? (
+                <FontAwesomeIcon icon={faChevronDown} />
+            ) : (
+                <FontAwesomeIcon icon={faTimes} />
+            )}
+        </button>
+    );
+
+    if (isCollapsed) {
+        return (
+            <div className="search-header sticky-top full-width">
+                <div className="container collapsed-container">
+                    <p>Show me vaccines near...</p>
+                    <Toggle />
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="search-header sticky-top full-width">
             <div className="container">
+                {isMobile && (
+                    <div className="relative">
+                        <div className="toggle-container">
+                            <Toggle />
+                        </div>
+                    </div>
+                )}
                 <div className="search-header-contents">
                     {/* The "sections" help to ensure the buttons stay on the
                     same line while resizing.*/}
