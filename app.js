@@ -85,10 +85,20 @@ if (cluster.isMaster) {
 
     app.prepare().then(() => {
         var server = express();
+        
+        server.enable('trust proxy');
 
         server.use(bodyParser.urlencoded({extended:false}));
         server.use(bodyParser.json());
-
+        
+        server.use (function (req, res, next) {
+            if (req.secure || process.env.NODE_ENV === 'development') {
+                next();
+            } else {
+                res.redirect('https://' + req.headers.host + req.url);
+            }
+        });
+    
         server.use('/robots.txt', function (req, res) {
             res.type('text/plain');
             res.send('User-agent: *\nAllow: /');

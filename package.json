@@ -39,7 +39,7 @@
     "sass": "^1.32.7"
   },
   "scripts": {
-    "local": "node app.js",
+    "local": "NODE_ENV=development node app.js",
     "build": "next build",
     "lint": "eslint '**/*.js' --ignore-pattern 'static/*'",
     "lint-fix": "eslint '**/*.js' --fix --ignore-pattern 'static/*'",
