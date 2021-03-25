@@ -112,14 +112,19 @@ if (cluster.isMaster) {
                 locations = sites;
             }
 
-            const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
-            const siteData = distanceUtils.getClosestLocations(
-                locations,
-                lat,
-                lng,
-                req.body.maxMiles,
-            );
-            res.send({siteData, lat, lng});
+            try {
+                const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
+                const siteData = distanceUtils.getClosestLocations(
+                    locations,
+                    lat,
+                    lng,
+                    req.body.maxMiles,
+                );
+                res.send({siteData, lat, lng});
+            } catch (exception) {
+                console.error('Failed to geocode', exception);
+                res.status(500).send('Failed geocoding request.');
+            }
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:
