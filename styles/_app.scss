@@ -101,8 +101,9 @@ a {
   background: #D0DDE9;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 15px 15px 0 15px;
+  overflow: hidden;
   h2 {
     font-size: 21px;
     line-height: 26px;
@@ -110,9 +111,10 @@ a {
   }
   .footer-box {
     display: block;
-    width: 30%;
-    min-width: 300px;
-    padding: 0 5px 15px 5px;
+    @media screen and (min-width: 768px) {
+      width: 30%;
+      min-width: 300px;
+    }
     p {
       font-size: 16px;
     }
@@ -143,6 +145,13 @@ a {
       }
     }
   }
+  .disclaimer {
+    // 1000px is the width at which the disclaimer goes on to its own line
+    // (each of the 3 columns has a width of 30% and a min-width of 300px).
+    @media screen and (max-width: 1000px) {
+      flex: 1;
+    }
+  }
 }
 
 .btn.btn-success {
@@ -164,39 +173,39 @@ a {
 
 .star {
   position: relative;
-  
+
   display: inline-block;
   width: 0;
   height: 0;
-  
+
   margin-left: .9em;
   margin-right: .9em;
   margin-bottom: 1.2em;
-  
+
   border-right:  .3em solid transparent;
   border-left:   .3em solid transparent;
 
   /* Controlls the size of the stars. */
   font-size: 12px;
-  
+
   &:before, &:after {
     content: '';
-    
+
     display: block;
     width: 0;
     height: 0;
-    
+
     position: absolute;
     top: .6em;
     left: -1em;
-  
+
     border-right:  1em solid transparent;
     border-left:   1em solid transparent;
-  
+
     transform: rotate(-35deg);
   }
-  
-  &:after {  
+
+  &:after {
     transform: rotate(35deg);
   }
 }
@@ -235,7 +244,8 @@ a {
 }
 
 #faq-page,
-#press-page {
+#press-page,
+#updater-page {
   padding-bottom: 30px;
   .faq-description {
     padding-top: 30px;
@@ -249,6 +259,79 @@ a {
   }
 }
 
+#updater-page {
+  .updater-image {
+    width: 100%;
+  }
+  .updater-form {
+    div.radio-button {
+      label {
+        cursor: pointer;
+        line-height: 16px;
+        padding-right: 15px;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      input[type="radio"] + label:before {
+        background: white;
+        cursor: pointer;
+        border: 1px solid rgba(darkblue, 0.7);
+        content: "\00a0";
+        display: inline-block;
+        height: 16px;
+        margin: 0 .25em 0 0;
+        padding: 0;
+        vertical-align: top;
+        width: 16px;
+      }
+
+      input[type="radio"]:checked + label:before {
+        background: darkblue;
+      }
+
+      input[type="radio"] + label {
+        color: rgba(darkblue, 0.7);
+      }
+
+      input[type="radio"]:checked + label {
+        color: darkblue;
+      }
+    }
+  }
+}
+
 #geolocate {
   margin-bottom: 16px;
+}
+
+.availability-banner {
+  display: flex;
+  flex-direction: row;
+  font-size: 27px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+
+  p {
+    margin-bottom: 0px;
+    margin-left: 16px;
+  }
+}
+
+.info-banner {
+  background-color: $white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 32px;
+  margin-top: 16px;
+  padding: 16px;
+
+  p {
+    font-size: 26px;
+    line-height: 32px;
+    margin: 0px;
+  }
 }

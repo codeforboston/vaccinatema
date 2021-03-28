@@ -1,0 +1,3 @@
+[submodule "covid-vaccine-scrapers"]
+	path = covid-vaccine-scrapers
+	url = https://github.com/livgust/covid-vaccine-scrapers.git

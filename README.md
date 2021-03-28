@@ -10,6 +10,18 @@ cp .env.template .env
 open .env
 ```
 
+### Setup the Database
+To setup a local copy of your database you should use a local Postgres instance.
+You can set the credentials you want in .env then setup a local database to match.
+
+```sh
+createuser -s -P vaccinatema
+# enter password you set in .env DB_CRED_PW
+createdb -O vaccinatema vaccinatema_development
+psql -U vaccinatema -d vaccinatema_development -f dbschema.sql
+node db/migration.js
+```
+
 Then run the server locally.
 ```sh
 npm install

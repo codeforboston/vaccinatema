@@ -13,7 +13,8 @@ const MASS_VACCINATION_SITES = [
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
     'Natick: Natick Mall',
-    'Boston: Reggie Lewis Center (Roxbury Community College)'
+    'Boston: Reggie Lewis Center (Roxbury Community College)',
+    'Boston: Hynes Convention Center'
 ];
 
 const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
@@ -130,16 +131,18 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const Map = ({height = '400px', width = '100%', rawSiteData}) => {
+const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
+
+const Map = ({
+    height = '400px',
+    width = '100%',
+    rawSiteData,
+    coordinates = BOSTON_COORDINATES,
+}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
-
-    const bostonCoordinates = {
-        lat: 42.360081,
-        lng: -71.058884
-    };
-
-    const defaultMassachusettsZoom = 8;
+    const [center, setCenter] = useState(BOSTON_COORDINATES);
+    const [zoom, setZoom] = useState(8);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -150,14 +153,26 @@ const Map = ({height = '400px', width = '100%', rawSiteData}) => {
         setSiteData(parseLocationData(rawSiteData));
     }, [rawSiteData]);
 
+    // Update the center and zoom whenever the given coordinates change.
+    useEffect(() => {
+        setCenter(coordinates);
+        setZoom(coordinates == BOSTON_COORDINATES ? 8 : 12);
+    }, [coordinates]);
+
+    const handleChange = ({center, zoom}) => {
+        setCenter(center);
+        setZoom(zoom);
+    };
+
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
         <div style={{ height, width }}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
-                defaultCenter={bostonCoordinates}
-                defaultZoom={defaultMassachusettsZoom}
+                center={center}
+                zoom={zoom}
                 draggableCursor="crosshair"
+                onChange={handleChange}
             >
                 {siteData && siteData.map((site) => (
                     <Marker
@@ -186,6 +201,10 @@ Map.propTypes = {
     width: PropTypes.string,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
+    coordinates: PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.number,
+    }),
 };
 
 export default Map;

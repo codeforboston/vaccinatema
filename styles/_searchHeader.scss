@@ -1,0 +1,69 @@
+.search-header {
+    padding: 16px;
+    background-color: $white;
+    border-radius: 4px;
+    margin-bottom: 16px;
+
+    .search-header-contents {
+        display: flex;
+        flex-wrap: wrap;
+        
+        @media screen and (min-width: 480px) {
+            flex-direction: row;
+        }
+
+        .search-header-section {
+            @media screen and (min-width: 480px) {
+                flex-direction: row;
+            }
+        }
+
+        .search-header-col {
+            display: inline-block;
+            flex-direction: column;
+            flex-shrink: 0;
+            margin: 6px 16px 6px 0px;
+        }
+
+        p {
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: inline-block;
+            font-size: 16px;
+            min-width: 150px;
+        }
+
+        span {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        input, select {
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+
+        .options {
+            flex: 1;
+        }
+
+        #no-availability {
+            margin-right: 10px;
+        }
+
+        #address, #distance {
+            // TODO(hannah): This width can be a bit wider when we finish
+            // stylizing the search bar.
+            width: 150px;
+        }
+    }
+
+    .error {
+        color: darkred;
+        margin-bottom: 0px;
+    }
+}

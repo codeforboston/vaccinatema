@@ -82,7 +82,7 @@ router.post('/',
                 locationToCreate.longitude = geoLocation.longitude;
             }
 
-            let createdLocation = await locationsDb.createLocation(req.body);
+            let createdLocation = await locationsDb.createLocation(locationToCreate);
             res.status(201).json(createdLocation);
         } catch (error) {
             let errorString = `ERROR OCCURRED CREATING LOCATION! body: ${req.body} error: ${error}`;
@@ -120,7 +120,7 @@ router.put('/:locationId',
                 }
             }
 
-            let updatedLocation = await locationsDb.updateLocation(req.params.locationId, req.body);
+            let updatedLocation = await locationsDb.updateLocation(req.params.locationId, locationToUpdate);
             res.status(200).json(updatedLocation);
         } catch (error) {
 
@@ -175,8 +175,8 @@ router.delete('/:locationId',
     param('locationId').isNumeric(),
     async function(req, res) {
         try {
-            await locationsDb.deleteLocation(req.params.locationId);
-            res.status(200).send('deleted');
+            const result = await locationsDb.deleteLocation(req.params.locationId);
+            res.status(200).json(result);
         } catch (error) {
             console.log(`ERROR OCCURRED DELETING LOCATION! locationId: ${req.params.locationId} error: ${error}`);
             let errorObj = {error};

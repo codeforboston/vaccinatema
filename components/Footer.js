@@ -50,12 +50,14 @@ const Footer = () => {
                     <LinkedinShareButton url="http://vaccinatema.com/">
                         <FontAwesomeIcon icon={faLinkedin} />
                     </LinkedinShareButton>
+                    {/* Ensure margins are consistent with other footer-boxes. */}
+                    <p />
                 </div>
             </div>
             <div className="footer-box">
                 <h2 className="footer-heading">Get involved</h2>
                 <p>Email us at{' '}<EmailLink/>{' '}if you&apos;d like to help out.</p>
-                <h2>Feedback</h2>
+                <h2 className="footer-heading">Feedback</h2>
                 <p>
           Like the site? Found a bug? Have a feature idea?
           Get a vaccine from info you found here?{' '}
@@ -68,7 +70,7 @@ const Footer = () => {
                     </a>
                 </p>
             </div>
-            <div className="footer-box">
+            <div className="footer-box disclaimer">
                 <h2 className="footer-heading">Disclaimer</h2>
                 <p>
           This site was put together by volunteers using our best efforts to assemble readily available data from

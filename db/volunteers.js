@@ -13,8 +13,8 @@ const pool = new Pool({
 **/
 const createVolunteer = async (volunteer) => {
     try {
-        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName, role) VALUES ($1, $2, $3, $4)', [volunteer.email, volunteer.firstName, volunteer.lastName, volunteer.role]);
-        return rows;
+        const { rows } = await pool.query('INSERT INTO volunteers (email, firstName, lastName, role) VALUES ($1, $2, $3, $4) RETURNING *', [volunteer.email, volunteer.firstName, volunteer.lastName, volunteer.role]);
+        return rows[0];
     } catch (error) {
         console.error(`an error occurred when creating a new volunteer ${volunteer}`, volunteer);
         throw new Error(`An unexpected error occurred creating a new volunteer error: ${error}`);
@@ -22,14 +22,46 @@ const createVolunteer = async (volunteer) => {
 };
 
 /**
-* Update volunteer email
-**/
-const updatedEmail = async (id, newEmail) => {
+ * Build the volunteer update query to only update the fields specified on
+ * the colsToUpdate
+ */
+function buildUpdateVolunteerQuery (volunteerId, colsToUpdate) {
+    // Setup static beginning of query
+    var query = ['UPDATE volunteers'];
+    query.push('SET');
+
+    // Create another array storing each set command
+    // and assigning a number value for parameterized query
+    var set = [];
+    Object.keys(colsToUpdate).forEach(function (key, i) {
+        set.push(key + ' = ($' + (i + 1) + ')');
+    });
+    query.push(set.join(', '));
+
+    // Add the WHERE statement to look up by id
+    query.push('WHERE id = ' + volunteerId );
+    query.push(' RETURNING *');
+
+    // Return a complete query string
+    return query.join(' ');
+}
+
+/**
+ * Update the volunteer with the specified details in the volunteerObject
+ */
+const updateVolunteer = async (id, volunteerObject) => {
     try {
-        const { rows } = await pool.query('UPDATE volunteers SET email = $2 WHERE id = $1', [id, newEmail]);
-        return rows;
+        let query = buildUpdateVolunteerQuery(id, volunteerObject);
+        // only update the columns that were specified
+        const columnValues = Object.keys(volunteerObject).map(function (key) {
+            return volunteerObject[key];
+        });
+        const { rows }  = await pool.query(query, columnValues);
+        const updatedRow = rows[0];
+        console.log(`UPDATED VOLUNTEER ${JSON.stringify(updatedRow)} `);
+        return updatedRow;
     } catch (error) {
-        console.error(`an error occurred when updating a volunteer's email ${id}, ${newEmail}`);
+        console.error(`an error occurred when updating a volunteer's email ${id}, ${volunteerObject}`);
         throw new Error(`An unexpected error occurred updating a volunteer's email error: ${error}`);
     }
 };
@@ -65,8 +97,8 @@ const getVolunteerByEmail = async (email) => {
 **/
 const deleteVolunteer = async (volunteerId) => {
     try {
-        const { rows } = await pool.query('DELETE FROM volunteers WHERE id = $1', [volunteerId]);
-        return rows;
+        await pool.query('DELETE FROM volunteers WHERE id = $1', [volunteerId]);
+        return { result: 'deleted', id: volunteerId };
         // todo delete associated volunteer locations
     } catch (error) {
         console.error(`an error occurred when updating a volunteer ${volunteerId}`, volunteerId);
@@ -79,8 +111,8 @@ const deleteVolunteer = async (volunteerId) => {
 **/
 const createVolunteerMapping = async (volunteerId, locationId) => {
     try {
-        const { rows } = await pool.query('INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2)', [volunteerId, locationId]);
-        return rows;
+        const { rows } = await pool.query('INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2) RETURNING *', [volunteerId, locationId]);
+        return rows[0];
     } catch (error) {
         console.error(`an error occurred when creating a new volunteer mapping ${volunteerId} - ${locationId}`, volunteerId, locationId);
         throw new Error(`An unexpected error occurred creating a new volunteer: ${error}`);
@@ -124,7 +156,7 @@ const deleteVolunteerLocationMapping = async (volunteerId, locationId) => {
 
 module.exports = {
     createVolunteer,
-    updatedEmail,
+    updateVolunteer,
     getAllVolunteers,
     getVolunteerByEmail,
     deleteVolunteer,
