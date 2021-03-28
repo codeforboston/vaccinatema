@@ -42,7 +42,7 @@
             flex-wrap: wrap;
         }
 
-        input, select {
+        input {
             border: 1px solid #cccccc;
             border-radius: 4px;
         }
@@ -53,12 +53,6 @@
 
         #no-availability {
             margin-right: 10px;
-        }
-
-        #address, #distance {
-            // TODO(hannah): This width can be a bit wider when we finish
-            // stylizing the search bar.
-            width: 150px;
         }
     }
 

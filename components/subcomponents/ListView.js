@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import SearchResult from '../SearchResult';
+import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import {dateToString} from '../utilities/date-utils';
 import AvailabilityBanner from './AvailabilityBanner';
 

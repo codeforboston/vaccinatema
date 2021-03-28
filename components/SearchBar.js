@@ -9,7 +9,7 @@ const AVAILABLE_ONLY = 'Sites with reported doses';
 const SearchBar = (props) => {
     const [address, setAddress] = useState('');
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
-    const [maxMiles, setMaxMiles] = useState(null);
+
     const [hasGeolocationError, setHasGeolocationError] = useState(false);
 
     const clearErrors = () => {
@@ -18,13 +18,7 @@ const SearchBar = (props) => {
 
     const searchByAddress = () => {
         clearErrors();
-
-        // If there's no address set, only allow "All MA" searches.
-        if (address === '') {
-            setMaxMiles(null);
-        }
-
-        props.onSearch({address, availability, maxMiles});
+        props.onSearch({address, availability});
     };
 
     const searchByGeolocation = async () => {
@@ -41,7 +35,6 @@ const SearchBar = (props) => {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                     availability,
-                    maxMiles,
                 });
             } catch (err) {
                 console.log(err);
@@ -68,11 +61,6 @@ const SearchBar = (props) => {
         );
     };
 
-    const handleDistanceChange = (event) => {
-        const distance = event.target.value;
-        setMaxMiles(distance === '-1' ? null : distance);
-    };
-
     return (
         <div className="search-header">
             <div className="search-header-contents">
@@ -89,22 +77,6 @@ const SearchBar = (props) => {
                             onChange={handleAddressChange}
                             onKeyDown={handleKeyDown}
                         />
-                    </div>
-                    <div className="search-header-col">
-                        <p>Search distance</p>
-                        <select
-                            id="distance"
-                            value={maxMiles || -1}
-                            onChange={handleDistanceChange}
-                        >
-                            <option value="-1">All MA</option>
-                            <option value="0.25">0.25mi</option>
-                            <option value="0.5">0.5mi</option>
-                            <option value="1">1mi</option>
-                            <option value="5">5mi</option>
-                            <option value="10">10mi</option>
-                            <option value="25">25mi</option>
-                        </select>
                     </div>
                     <div className="search-header-col options">
                         <p>Other options</p>
