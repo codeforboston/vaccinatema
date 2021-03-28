@@ -61,6 +61,12 @@ const SearchBar = (props) => {
         );
     };
 
+    // Note that we need to use the typeof check for Next.js's prerendering.
+    const isHttps =
+        typeof window !== 'undefined' &&
+        window.location &&
+        window.location.protocol === 'https:';
+
     return (
         <div className="search-header">
             <div className="search-header-contents">
@@ -100,14 +106,20 @@ const SearchBar = (props) => {
                             onClick={searchByAddress}
                         />
                     </div>
-                    <div className="search-header-col">
-                        <Button
-                            title="Use my location"
-                            color="blue"
-                            icon="location"
-                            onClick={searchByGeolocation}
-                        />
-                    </div>
+                    {
+                        // Geolocation only works on https. Hide the button if
+                        // not on https to avoid confusion.
+                        isHttps && (
+                            <div className="search-header-col">
+                                <Button
+                                    title="Use my location"
+                                    color="blue"
+                                    icon="location"
+                                    onClick={searchByGeolocation}
+                                />
+                            </div>
+                        )
+                    }
                 </div>
             </div>
             <div className="error">
