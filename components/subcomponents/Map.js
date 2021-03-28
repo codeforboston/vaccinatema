@@ -166,9 +166,9 @@ const Map = ({
 
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
-        <div style={{ height, width }}>
+        <div style={{height, width}}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
+                bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_API_KEY}}
                 center={center}
                 zoom={zoom}
                 draggableCursor="crosshair"
