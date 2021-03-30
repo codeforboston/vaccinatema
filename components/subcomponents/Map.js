@@ -140,12 +140,12 @@ const Map = ({
     width = '100%',
     rawSiteData,
     coordinates = BOSTON_COORDINATES,
-    zoom = DEFAULT_STATEWIDE_ZOOM_LEVEL,
+    defaultZoom = DEFAULT_STATEWIDE_ZOOM_LEVEL,
 }) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
     const [center, setCenter] = useState(coordinates);
-    const [zoom, setZoom] = useState(zoom);
+    const [zoom, setZoom] = useState(defaultZoom);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -204,7 +204,7 @@ Map.propTypes = {
     width: PropTypes.string,
     lat: PropTypes.number,
     lng: PropTypes.number,
-    zoom: PropTypes.number,
+    defaultZoom: PropTypes.number,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
     coordinates: PropTypes.shape({
