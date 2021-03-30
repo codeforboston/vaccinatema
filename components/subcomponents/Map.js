@@ -13,7 +13,8 @@ const MASS_VACCINATION_SITES = [
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
     'Natick: Natick Mall',
-    'Boston: Reggie Lewis Center (Roxbury Community College)'
+    'Boston: Reggie Lewis Center (Roxbury Community College)',
+    'Boston: Hynes Convention Center'
 ];
 
 const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
@@ -169,9 +170,9 @@ const Map = ({
 
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
-        <div style={{ height, width }}>
+        <div style={{height, width}}>
             <GoogleMapReact
-                bootstrapURLKeys={{ key: '' }}
+                bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_API_KEY}}
                 center={center}
                 zoom={zoom}
                 draggableCursor="crosshair"
