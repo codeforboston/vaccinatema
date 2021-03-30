@@ -8,7 +8,6 @@ import {dateToString} from '../utilities/date-utils';
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
     'Foxborough: Gillette Stadium',
-    'Boston: Fenway Park',
     'Danvers: Doubletree Hotel',
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
