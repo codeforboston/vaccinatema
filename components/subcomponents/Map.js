@@ -131,18 +131,21 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
-const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
+// TODO(hannah): These values were calculated by hand and assume the map is
+// 400px tall. We can do this more scientifically, but it'll never be exact
+// because the zoom values must be integers.
+export const MAX_MILES_TO_ZOOM = {
+    '0.25': 17,
+    '0.5': 16,
+    '1': 15,
+    '5': 12,
+    '10': 11,
+    '25': 10,
+};
 
-const Map = ({
-    height = '400px',
-    width = '100%',
-    rawSiteData,
-    coordinates = BOSTON_COORDINATES,
-}) => {
+const Map = ({rawSiteData, center, zoom, onMapChange}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
-    const [center, setCenter] = useState(BOSTON_COORDINATES);
-    const [zoom, setZoom] = useState(8);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -153,26 +156,15 @@ const Map = ({
         setSiteData(parseLocationData(rawSiteData));
     }, [rawSiteData]);
 
-    // Update the center and zoom whenever the given coordinates change.
-    useEffect(() => {
-        setCenter(coordinates);
-        setZoom(coordinates == BOSTON_COORDINATES ? 8 : 12);
-    }, [coordinates]);
-
-    const handleChange = ({center, zoom}) => {
-        setCenter(center);
-        setZoom(zoom);
-    };
-
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
-        <div style={{ height, width }}>
+        <div style={{height: '400px', width: '100%'}}>
             <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyDLApAjP27_nCB5BbfICaJ0sJ1AmmuMkD0' }}
                 center={center}
                 zoom={zoom}
                 draggableCursor="crosshair"
-                onChange={handleChange}
+                onChange={onMapChange}
             >
                 {siteData && siteData.map((site) => (
                     <Marker
@@ -197,14 +189,15 @@ const Map = ({
 };
 
 Map.propTypes = {
-    height: PropTypes.string,
-    width: PropTypes.string,
     // The raw site data should be JSON. Improve the type checking here!
     rawSiteData: PropTypes.any.isRequired,
-    coordinates: PropTypes.shape({
+    center: PropTypes.shape({
         lat: PropTypes.number,
         lng: PropTypes.number,
-    }),
+    }).isRequired,
+    zoom: PropTypes.number.isRequired,
+    // ({center: {lat: number, lng: number}, zoom: number}) => void
+    onMapChange: PropTypes.func.isRequired,
 };
 
 export default Map;

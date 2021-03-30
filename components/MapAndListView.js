@@ -13,10 +13,6 @@ const MapAndListView = (props) => {
         (site) => site.availability.length > 0
     ).length;
 
-    const mapProps = props.mapCoordinates
-        ? {coordinates: props.mapCoordinates}
-        : {};
-
     return (
         <div className="map-and-list">
             <div className="button-container">
@@ -42,7 +38,12 @@ const MapAndListView = (props) => {
             <div className="map-and-list-contents">
                 {showMap ? (
                     <div>
-                        <Map {...mapProps} rawSiteData={props.rawSiteData} />
+                        <Map
+                            rawSiteData={props.rawSiteData}
+                            center={props.mapCoordinates}
+                            zoom={props.mapZoom}
+                            onMapChange={props.onMapChange}
+                        />
                         <MapKey />
                     </div>
                 ) : (
@@ -82,5 +83,7 @@ MapAndListView.propTypes = {
     mapCoordinates: PropTypes.shape({
         lat: PropTypes.number,
         lng: PropTypes.number,
-    }),
+    }).isRequired,
+    mapZoom: PropTypes.number.isRequired,
+    onMapChange: PropTypes.func.isRequired,
 };
