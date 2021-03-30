@@ -36,19 +36,19 @@ const MapAndListView = (props) => {
                 hasAvailability={true}
             />
             <div className="map-and-list-contents">
-                {showMap ? (
-                    <div>
-                        <Map
-                            rawSiteData={props.rawSiteData}
-                            center={props.mapCoordinates}
-                            zoom={props.mapZoom}
-                            onMapChange={props.onMapChange}
-                        />
-                        <MapKey />
-                    </div>
-                ) : (
-                    <ListView rawSiteData={props.rawSiteData} />
-                )}
+                {/* Use display: 'none' to avoid rerendering the map and
+                losing state (map zoom and center) each time the user toggles
+                between the map and list views. */}
+                <div style={showMap ? {} : {display: 'none'}}>
+                    <Map
+                        rawSiteData={props.rawSiteData}
+                        center={props.mapCoordinates}
+                        zoom={props.mapZoom}
+                        onMapChange={props.onMapChange}
+                    />
+                    <MapKey />
+                </div>
+                {!showMap && <ListView rawSiteData={props.rawSiteData} />}
             </div>
         </div>
     );
