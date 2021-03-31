@@ -13,7 +13,6 @@ open .env
 Then run the server locally.
 ```sh
 npm install
-npm run build
 npm run local
 open http://127.0.0.1:3002/
 ```

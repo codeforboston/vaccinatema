@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import Map from './subcomponents/Map';
 import PropTypes from 'prop-types';
 import parseURLsInStrings from './utilities/parseURLsInStrings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
-const ResultsModal = ({data, hideModal}) => (
+const ResultsModal = React.forwardRef(({data, hideModal}, ref) => (
     <div className="modal">
-        <div className="modal-content">
+        <div className="modal-content" ref={ref}>
             <div>
                 <Map 
                     rawSiteData={[data]}
@@ -31,10 +31,17 @@ const ResultsModal = ({data, hideModal}) => (
             </div>
             <div>
                 <div className="modal-section-content">
-                    <p className="modal-section-header">Site details</p>
+                    <p className="modal-section-header">Serves</p>
                     <p className="modal-text">
                         {data.serves}
+                    </p>
+                    <p className="modal-section-header">Availability</p>
+                    <p className="modal-text">
                         {data.availability}
+                    </p>
+                    <p className="modal-section-header">Instructions at site</p>
+                    <p className="modal-text">
+                        {data.instructionsAtSite}
                     </p>
                 </div>
             </div>
@@ -43,10 +50,10 @@ const ResultsModal = ({data, hideModal}) => (
             </button>
         </div>
     </div>
-);
+));
 
 ResultsModal.propTypes = {
-    hideModal: PropTypes.bool,
+    hideModal: PropTypes.func,
     data: PropTypes.shape(
         {
             id: PropTypes.string,
@@ -58,6 +65,7 @@ ResultsModal.propTypes = {
             bookAppointmentInfo: PropTypes.string,
             latitude: PropTypes.number,
             longitude: PropTypes.number,
+            instructionsAtSite: PropTypes.string,
         }
     ),
 };

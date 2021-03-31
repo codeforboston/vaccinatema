@@ -8,17 +8,20 @@
  *     // May contain a URL
  *     serves: string,
  * 
- *     latitude: string,
- *     longitude: string,
+ *     latitude: number,
+ *     longitude: number,
  *
  *     // An empty string indicates that there is no availability
  *     // May contain a URL
  *     availability: string,
  *
- *     lastUpdated: ?Date,
+ *     // milliseconds since Unix epoch
+ *     lastUpdated: ?number,
  *
  *     // May contain a URL
  *     bookAppointmentInfo: string,
+ *      
+ *     instructionsAtSite: string
  * }
  */
 const getDataFromRecord = (record) => {
@@ -41,6 +44,7 @@ const getDataFromRecord = (record) => {
         availability,
         lastUpdated: parseDate(fields['Last Updated']),
         bookAppointmentInfo: fields['Book an appointment'] || '',
+        instructionsAtSite: fields['Instructions at site'] || '',
     };
 };
 
