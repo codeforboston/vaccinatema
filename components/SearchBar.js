@@ -6,22 +6,26 @@ import Button from '../components/subcomponents/Button';
 export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
 
+const MISSING_INFO_ERROR = 'Please enter a city, town, or ZIP.';
+const GEOLOCATION_ERROR = 'Cannot figure out your location.';
+
 const SearchBar = (props) => {
     const [address, setAddress] = useState('');
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
     const [maxMiles, setMaxMiles] = useState(null);
-    const [hasGeolocationError, setHasGeolocationError] = useState(false);
+    const [error, setError] = useState(null);
 
     const clearErrors = () => {
-        setHasGeolocationError(false);
+        setError(null);
     };
 
     const searchByAddress = () => {
         clearErrors();
 
-        // If there's no address set, only allow "All MA" searches.
-        if (address === '') {
-            setMaxMiles(null);
+        // If there's no address set, we only allow "All MA" searches.
+        if (address === '' && maxMiles != null) {
+            setError(MISSING_INFO_ERROR);
+            return;
         }
 
         props.onSearch({address, availability, maxMiles});
@@ -47,7 +51,7 @@ const SearchBar = (props) => {
                 console.log(err);
             }
         } else {
-            setHasGeolocationError(true);
+            setError(GEOLOCATION_ERROR);
         }
     };
 
@@ -139,7 +143,7 @@ const SearchBar = (props) => {
                 </div>
             </div>
             <div className="error">
-                {hasGeolocationError && <p>Cannot figure out your location.</p>}
+                {error && <p>{error}</p>}
             </div>
         </div>
     );
