@@ -19,21 +19,20 @@ const SearchBar = (props) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const handleWindowSizeChange = () => {
-        const wasMobile = isMobile;
-        const isMobile = window.innerWidth <= MOBILE_WIDTH;
-        if (wasMobile != isMobile) {
-            setIsMobile(isMobile);
-            setIsCollapsed(isMobile);
-        }
+        setIsMobile(window.innerWidth <= MOBILE_WIDTH);
     };
 
-    // Update isMobile and isCollapsed when the window is resized.
+    // Update isMobile when the window is resized.
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
             window.removeEventListener('resize', handleWindowSizeChange);
         };
     }, []);
+
+    // Update isCollapsed if isMobile changes. (The default state is collapsed 
+    // on small screens and expanded on large screens.)
+    useEffect(() => setIsCollapsed(isMobile), [isMobile]);
 
     const clearErrors = () => {
         setHasGeolocationError(false);
