@@ -15,6 +15,26 @@
     margin-top: -($navbar-height + 1px + 16px);
     padding-top: $navbar-height + 1px + 16px;
 
+    p {
+        font-weight: 800;
+        margin-bottom: 0px;
+    }
+
+    .toggle {
+        border: none;
+        background: none;
+    }
+
+    .relative {
+        position: relative;
+
+        .toggle-container {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+
     .search-header-contents {
         display: flex;
         flex-wrap: wrap;
@@ -37,7 +57,6 @@
         }
 
         p {
-            font-weight: 800;
             margin-bottom: 5px;
         }
 
@@ -77,4 +96,10 @@
         color: darkred;
         margin-bottom: 0px;
     }
+}
+
+.collapsed-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
