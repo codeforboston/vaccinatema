@@ -4,10 +4,16 @@ import PreregisterBanner from '../components/PreregisterBanner';
 import Layout from '../components/Layout';
 import MapAndListView from '../components/MapAndListView';
 import SearchBar, {ALL_AVAILABIITY} from '../components/SearchBar';
+import {MAX_MILES_TO_ZOOM} from '../components/subcomponents/Map';
+
+const DEFAULT_ZOOMED_OUT = 8;
+const DEFAULT_ZOOMED_IN = 9;
+const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
 
 const Home = () => {
     const [rawSiteData, setRawSiteData] = useState([]);
-    const [mapCoordinates, setMapCoordinates] = useState(null);
+    const [mapCoordinates, setMapCoordinates] = useState(BOSTON_COORDINATES);
+    const [mapZoom, setMapZoom] = useState(DEFAULT_ZOOMED_OUT);
 
     useEffect(
         // Before the user makes any searches, default to showing all available
@@ -18,8 +24,9 @@ const Home = () => {
     );
 
     const fetchSites = ({includeUnavailable}) => {
-        // Clear coordinates.
-        setMapCoordinates(null);
+        // Clear coordinates and zoom.
+        setMapCoordinates(BOSTON_COORDINATES);
+        setMapZoom(DEFAULT_ZOOMED_OUT);
 
         fetch('/initmap')
             .then((response) => response.json())
@@ -57,11 +64,19 @@ const Home = () => {
                 const {lat, lng, siteData} = response;
                 setRawSiteData(siteData);
                 setMapCoordinates({lat, lng});
+                setMapZoom(
+                    MAX_MILES_TO_ZOOM[args.maxMiles] || DEFAULT_ZOOMED_IN
+                );
             })
             .catch((error) => {
                 // TODO(hannah): Add better error handling.
                 console.log(error);
             });
+    };
+
+    const onMapChange = ({center, zoom}) => {
+        setMapCoordinates(center);
+        setMapZoom(zoom);
     };
 
     return (
@@ -70,8 +85,10 @@ const Home = () => {
                 <SearchBar onSearch={onSearch} />
                 <PreregisterBanner />
                 <MapAndListView
-                    mapCoordinates={mapCoordinates}
                     rawSiteData={rawSiteData}
+                    mapCoordinates={mapCoordinates}
+                    mapZoom={mapZoom}
+                    onMapChange={onMapChange}
                 />
             </div>
         </Layout>
