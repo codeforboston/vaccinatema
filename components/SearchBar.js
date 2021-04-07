@@ -78,72 +78,73 @@ const SearchBar = (props) => {
     };
 
     return (
-        <div className="search-header">
-            <div className="search-header-contents">
-                {/* The "sections" help to ensure the buttons stay on the same
-                line while resizing.*/}
-                <div className="search-header-section">
-                    <div className="search-header-col">
-                        <p>City, Town, or ZIP</p>
-                        <input
-                            type="text"
-                            id="address"
-                            name="address"
-                            value={address}
-                            onChange={handleAddressChange}
-                            onKeyDown={handleKeyDown}
-                        />
-                    </div>
-                    <div className="search-header-col">
-                        <p>Search distance</p>
-                        <select
-                            id="distance"
-                            value={maxMiles || -1}
-                            onChange={handleDistanceChange}
-                        >
-                            <option value="-1">All MA</option>
-                            <option value="0.25">0.25mi</option>
-                            <option value="0.5">0.5mi</option>
-                            <option value="1">1mi</option>
-                            <option value="5">5mi</option>
-                            <option value="10">10mi</option>
-                            <option value="25">25mi</option>
-                        </select>
-                    </div>
-                    <div className="search-header-col options">
-                        <p>Other options</p>
-                        <label htmlFor="no-availability">
+        <div className="search-header sticky-top full-width">
+            <div className="container">
+                <div className="search-header-contents">
+                    {/* The "sections" help to ensure the buttons stay on the
+                    same line while resizing.*/}
+                    <div className="search-header-section">
+                        <div className="search-header-col">
+                            <p>City, Town, or ZIP</p>
                             <input
-                                type="checkbox"
-                                id="no-availability"
-                                value={availability === AVAILABLE_ONLY}
-                                onChange={onChangeAvailability}
+                                type="text"
+                                id="address"
+                                name="address"
+                                value={address}
+                                onChange={handleAddressChange}
+                                onKeyDown={handleKeyDown}
                             />
-                            Show sites that don&apos;t have availability
-                        </label>
+                        </div>
+                        <div className="search-header-col">
+                            <p>Search distance</p>
+                            <select
+                                id="distance"
+                                onChange={handleDistanceChange}
+                            >
+                                <option value="-1">All MA</option>
+                                <option value="0.25">0.25mi</option>
+                                <option value="0.5">0.5mi</option>
+                                <option value="1">1mi</option>
+                                <option value="5">5mi</option>
+                                <option value="10">10mi</option>
+                                <option value="25">25mi</option>
+                            </select>
+                        </div>
+                        <div className="search-header-col options">
+                            <p>Other options</p>
+                            <label htmlFor="no-availability">
+                                <input
+                                    type="checkbox"
+                                    id="no-availability"
+                                    value={availability === AVAILABLE_ONLY}
+                                    onChange={onChangeAvailability}
+                                />
+                                Show sites that don&apos;t have availability
+                            </label>
+                        </div>
+                    </div>
+                    <div className="search-header-section">
+                        <div className="search-header-col">
+                            <Button
+                                title="Search"
+                                color="blue"
+                                icon="search"
+                                onClick={searchByAddress}
+                            />
+                        </div>
+                        <div className="search-header-col">
+                            <Button
+                                title="Use my location"
+                                color="blue"
+                                icon="location"
+                                onClick={searchByGeolocation}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="search-header-section">
-                    <div className="search-header-col">
-                        <Button
-                            title="Search"
-                            color="blue"
-                            icon="search"
-                            onClick={searchByAddress}
-                        />
-                    </div>
-                    <div className="search-header-col">
-                        <Button
-                            title="Use my location"
-                            color="blue"
-                            icon="location"
-                            onClick={searchByGeolocation}
-                        />
-                    </div>
+                <div className="error">
+                    {error && <p>{error}</p>}
                 </div>
-            </div>
-            <div className="error">
-                {error && <p>{error}</p>}
             </div>
         </div>
     );
