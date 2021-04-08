@@ -8,9 +8,11 @@ import Footer from './Footer';
 export default function Layout({
     children,
     pageTitle = '',
+    // If set, applies an additional classname to the container.
+    containerClassName = '',
 }) {
     return (
-        <div className="container">
+        <div className={`container ${containerClassName}`}>
             <PageHead pageTitle={pageTitle} />
             <NavHeader />
             <div className="main-content">
@@ -27,4 +29,5 @@ Layout.propTypes = {
         PropTypes.node
     ]),
     pageTitle: PropTypes.string,
+    containerClassName: PropTypes.string,
 };
