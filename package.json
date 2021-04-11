@@ -10,6 +10,7 @@
     "@newrelic/aws-sdk": "^3.1.0",
     "airtable": "^0.10.1",
     "aws-sdk": "latest",
+    "axios": "^0.21.1",
     "body-parser": "latest",
     "bootstrap": "^4.6.0",
     "cross-env": "^7.0.2",
@@ -38,7 +39,7 @@
     "sass": "^1.32.7"
   },
   "scripts": {
-    "local": "node app.js",
+    "local": "NODE_ENV=development node app.js",
     "build": "next build",
     "lint": "eslint '**/*.js' --ignore-pattern 'static/*'",
     "lint-fix": "eslint '**/*.js' --fix --ignore-pattern 'static/*'",

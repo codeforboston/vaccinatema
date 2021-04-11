@@ -1,8 +1,39 @@
 .search-header {
-    padding: 16px;
-    background-color: $white;
-    border-radius: 4px;
+    background-color: $background;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 16px;
+    padding: 16px;
+
+    // HACK(hannah): While the navbar is a fixed height, the search bar can
+    // change heights as the screen width decreases. As a result, the search
+    // bar must have relative positioning (so the contents below shift down as
+    // necessary). We use Bootstrap's sticky-top to get the sticky behavior and
+    // relative positioning. Since we don't want the search bar to scroll under
+    // the navbar, we have to get rid of the margin that we're using to position
+    // the rest of the content (since the navbar is absolutely positioned). To
+    // ensure the positioning is the same, we use padding instead.
+    margin-top: -($navbar-height + 1px + 16px);
+    padding-top: $navbar-height + 1px + 16px;
+
+    p {
+        font-weight: 800;
+        margin-bottom: 0px;
+    }
+
+    .toggle {
+        border: none;
+        background: none;
+    }
+
+    .relative {
+        position: relative;
+
+        .toggle-container {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
 
     .search-header-contents {
         display: flex;
@@ -26,7 +57,6 @@
         }
 
         p {
-            font-weight: 800;
             margin-bottom: 5px;
         }
 
@@ -42,7 +72,7 @@
             flex-wrap: wrap;
         }
 
-        input {
+        input, select {
             border: 1px solid #cccccc;
             border-radius: 4px;
         }
@@ -54,10 +84,22 @@
         #no-availability {
             margin-right: 10px;
         }
+
+        #address, #distance {
+            // TODO(hannah): This width can be a bit wider when we finish
+            // stylizing the search bar.
+            width: 150px;
+        }
     }
 
     .error {
         color: darkred;
         margin-bottom: 0px;
     }
+}
+
+.collapsed-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

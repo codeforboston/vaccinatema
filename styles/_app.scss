@@ -68,9 +68,38 @@ a {
 }
 
 .header {
+  background-color: $background;
+  border-bottom: 1px solid #A0A0A0;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+
   .logo-container {
     max-width: 60vw;
   }
+
+  .navbar {
+    height: $navbar-height;
+    padding: 0px;
+  }
+
+  .navbar-collapse {
+    background-color: $background;
+  }
+}
+
+// On the home page, remove the shadow from the header (since the search bar is
+// right beneath it).
+.home-page {
+  .header {
+    box-shadow: none;
+  }
+}
+
+.full-width {
+  // Source: https://stackoverflow.com/a/20214782/5162535
+  // Make the element as Wide as the browser window (viewport).
+  width: max(100vw, 100%);
+  // Align left edge to the left edge of the viewport.
+  margin-left: min(0px, calc(-1 * ((100vw - 100%) / 2)));
 }
 
 .logo-container {
@@ -94,6 +123,8 @@ a {
 
 .main-content {
   min-height: calc(100vh - 368px);
+  margin-top: $navbar-height + 16px;
+
 }
 .footer {
   min-height: 268px;

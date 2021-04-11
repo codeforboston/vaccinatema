@@ -85,10 +85,20 @@ if (cluster.isMaster) {
 
     app.prepare().then(() => {
         var server = express();
+        
+        server.enable('trust proxy');
 
         server.use(bodyParser.urlencoded({extended:false}));
         server.use(bodyParser.json());
-
+        
+        server.use (function (req, res, next) {
+            if (req.secure || process.env.NODE_ENV === 'development') {
+                next();
+            } else {
+                res.redirect('https://' + req.headers.host + req.url);
+            }
+        });
+    
         server.use('/robots.txt', function (req, res) {
             res.type('text/plain');
             res.send('User-agent: *\nAllow: /');
@@ -112,14 +122,19 @@ if (cluster.isMaster) {
                 locations = sites;
             }
 
-            const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
-            const siteData = distanceUtils.getClosestLocations(
-                locations,
-                lat,
-                lng,
-                req.body.maxMiles,
-            );
-            res.send({siteData, lat, lng});
+            try {
+                const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
+                const siteData = distanceUtils.getClosestLocations(
+                    locations,
+                    lat,
+                    lng,
+                    req.body.maxMiles,
+                );
+                res.send({siteData, lat, lng});
+            } catch (exception) {
+                console.error('Failed to geocode', exception);
+                res.status(500).send('Failed geocoding request.');
+            }
         });
 
         // THE API ROUTES WE HAVE DEFINED NEED TO BE ADDED HERE:

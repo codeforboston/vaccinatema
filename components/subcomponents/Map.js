@@ -8,7 +8,6 @@ import {dateToString} from '../utilities/date-utils';
 // High volume, large venue sites
 const MASS_VACCINATION_SITES = [
     'Foxborough: Gillette Stadium',
-    'Boston: Fenway Park',
     'Danvers: Doubletree Hotel',
     'Springfield: Eastfield Mall',
     'Dartmouth: Former Circuit City', 
@@ -21,10 +20,6 @@ const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
     'All eligible people statewide',
     'Eligible populations statewide'
 ];
-
-const BOSTON_COORDINATES = {lat: 42.360081, lng: -71.058884};
-
-const DEFAULT_STATEWIDE_ZOOM_LEVEL = 8;
 
 const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEWIDE_TEXT.includes(serves?.trim());
 
@@ -135,18 +130,21 @@ Popup.propTypes = {
     setPopupData: PropTypes.func,
 };
 
+// TODO(hannah): These values were calculated by hand and assume the map is
+// 400px tall. We can do this more scientifically, but it'll never be exact
+// because the zoom values must be integers.
+export const MAX_MILES_TO_ZOOM = {
+    '0.25': 17,
+    '0.5': 16,
+    '1': 15,
+    '5': 12,
+    '10': 11,
+    '25': 10,
+};
 
-const Map = ({
-    height = '400px',
-    width = '100%',
-    rawSiteData,
-    coordinates = BOSTON_COORDINATES,
-    defaultZoom = DEFAULT_STATEWIDE_ZOOM_LEVEL,
-}) => {
+const Map = ({rawSiteData, center, zoom, onMapChange}) => {
     const [siteData, setSiteData] = useState([]);
     const [popupData, setPopupData] = useState({});
-    const [center, setCenter] = useState(coordinates);
-    const [zoom, setZoom] = useState(defaultZoom);
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -157,26 +155,15 @@ const Map = ({
         setSiteData(parseLocationData(rawSiteData));
     }, [rawSiteData]);
 
-    // Update the center and zoom whenever the given coordinates change.
-    useEffect(() => {
-        setCenter(coordinates);
-        setZoom(coordinates == BOSTON_COORDINATES ? 8 : 12);
-    }, [coordinates]);
-
-    const handleChange = ({center, zoom}) => {
-        setCenter(center);
-        setZoom(zoom);
-    };
-
     return (
     // Container element must have height and width for map to display. See https://developers.google.com/maps/documentation/javascript/overview#Map_DOM_Elements
-        <div style={{height, width}}>
+        <div style={{height: '400px', width: '100%'}}>
             <GoogleMapReact
                 bootstrapURLKeys={{key: process.env.GOOGLE_MAPS_API_KEY}}
                 center={center}
                 zoom={zoom}
                 draggableCursor="crosshair"
-                onChange={handleChange}
+                onChange={onMapChange}
             >
                 {siteData && siteData.map((site) => (
                     <Marker
@@ -201,11 +188,6 @@ const Map = ({
 };
 
 Map.propTypes = {
-    height: PropTypes.string,
-    width: PropTypes.string,
-    lat: PropTypes.number,
-    lng: PropTypes.number,
-    defaultZoom: PropTypes.number,
     rawSiteData: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string,
@@ -220,10 +202,13 @@ Map.propTypes = {
             instructionsAtSite: PropTypes.string,
         })
     ),
-    coordinates: PropTypes.shape({
+    center: PropTypes.shape({
         lat: PropTypes.number,
         lng: PropTypes.number,
-    }),
+    }).isRequired,
+    zoom: PropTypes.number.isRequired,
+    // ({center: {lat: number, lng: number}, zoom: number}) => void
+    onMapChange: PropTypes.func.isRequired,
 };
 
 export default Map;

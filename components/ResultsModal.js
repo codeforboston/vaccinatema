@@ -25,8 +25,8 @@ const ResultsModal = ({data, hideModal}) => {
                 <div>
                     <Map 
                         rawSiteData={[data]}
-                        coordinates={{lat: data.latitude, lng: data.longitude}}
-                        defaultZoom={12}
+                        center={{lat: data.latitude, lng: data.longitude}}
+                        zoom={12}
                     />
                 </div>
                 <div className="modal-site-name-section">
