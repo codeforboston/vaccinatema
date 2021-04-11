@@ -1,23 +1,13 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import Modal from '../components/ResultsModal';
 
+// For development purposes only
+// Demonstrates how to show/hide a results modal
+// and pass the expected data structure to it
 const ModalTestPage = () => {
     const [showModal, setShowModal] = useState(false);
-    React.useEffect(() => {
-        if (showModal) {
-            document.addEventListener('click', handleOutsideClick, false);
-        }
-    }, [showModal]);
-    const modalRef = useRef();
     const triggerModalChange = () => {
-        document.removeEventListener('click', handleOutsideClick, false);
         setShowModal(!showModal);
-    };
-    const handleOutsideClick = e => {
-        const target = e.target;
-        if (!modalRef.current.contains(target)) {
-            triggerModalChange();
-        }
     };
     return (
         <div>
@@ -72,7 +62,7 @@ const ModalTestPage = () => {
             <p>text</p>
             <p>text</p>
             <div>
-                {showModal && <Modal ref={modalRef} data={
+                {showModal && <Modal data={
                     {
                         id: '1',
                         name: 'Location name!',
