@@ -4,6 +4,9 @@ import {faChevronDown, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
 import Button from '../components/subcomponents/Button';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+import Typeahead from './Typeahead';
+
 
 export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
@@ -54,6 +57,16 @@ const SearchBar = (props) => {
         props.onSearch({address, availability, maxMiles});
     };
 
+    const searchWithLatLng = (lat, long) => {
+        console.log('searchWithLatLng');
+        props.onSearch({
+            latitude: lat,
+            longitude: long,
+            availability,
+            maxMiles,
+        });
+    };
+
     const searchByGeolocation = async () => {
         clearErrors();
 
@@ -65,12 +78,7 @@ const SearchBar = (props) => {
                     });
                 });
                 isMobile && setIsCollapsed(true);
-                props.onSearch({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    availability,
-                    maxMiles,
-                });
+                searchWithLatLng(position.coords.latitude,position.coords.longitude);
             } catch (err) {
                 console.log(err);
             }
@@ -133,24 +141,21 @@ const SearchBar = (props) => {
                     </div>
                 )}
                 <div className="search-header-contents">
-                    {/* The "sections" help to ensure the buttons stay on the
-                    same line while resizing.*/}
+                    {/* The "sections" help to ensure the buttons stay on the same
+                    line while resizing.*/}
                     <div className="search-header-section">
                         <div className="search-header-col">
                             <p>City, Town, or ZIP</p>
-                            <input
-                                type="text"
-                                id="address"
-                                name="address"
-                                value={address}
-                                onChange={handleAddressChange}
-                                onKeyDown={handleKeyDown}
-                            />
+                            <Typeahead onSelectZipCodeObj={(zipCodeObj) => {
+                                console.log(zipCodeObj);
+                                searchWithLatLng(zipCodeObj['latitude'], zipCodeObj['longitude']);
+                            }}/>   
                         </div>
                         <div className="search-header-col">
                             <p>Search distance</p>
                             <select
                                 id="distance"
+                                value={maxMiles || -1}
                                 onChange={handleDistanceChange}
                             >
                                 <option value="-1">All MA</option>
