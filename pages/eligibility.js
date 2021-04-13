@@ -14,9 +14,9 @@ const Eligibility = () => (
                 requirements below and sign up for your appointment in advance
                 using the link or phone number included in the site location’s
                 details. Note that minors (16-17 years old) are only eligible to
-                receive the Pfizer vaccine, not Moderna or Janssen. Vaccination locations
-                are available only to those within active and eligible priority
-                groups as a part of the Massachusetts{' '}
+                receive the Pfizer vaccine, not Moderna or Janssen. Vaccination
+                locations are available only to those within active and eligible
+                priority groups as a part of the Massachusetts{' '}
                 <a
                     href="https://www.mass.gov/info-details/covid-19-vaccine-distribution-timeline-phase-overview"
                     target="_blank"
@@ -29,7 +29,7 @@ const Eligibility = () => (
             </p>
             <img
                 className="eligibility-image"
-                src={'../static/updated_eligibility_4_5.png'} 
+                src={'../static/updated_eligibility_4_5.png'}
                 alt="COVID-19 Vaccination in MA: Phase 1, 2, and 3 Eligibility Status"
             />
         </div>

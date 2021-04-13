@@ -1,25 +1,28 @@
 var geocoder = require('google-geocoder');
 
 var geo = geocoder({
-    key: process.env.GEOCODER_API_KEY
+    key: process.env.GEOCODER_API_KEY,
 });
 
 /**
  * Use googles API to identify the lat/long for a given fullAddressString
- * @param {*} fullAddressString 
+ * @param {*} fullAddressString
  */
-const getLatLngByAddress = async (fullAddressString) =>
-{
+const getLatLngByAddress = async (fullAddressString) => {
     return new Promise((resolve, reject) => {
         geo.find(fullAddressString, function (err, results, status) {
-            if(err){
-                console.log(`ERROR OCCURRED LOOKING UP LAT/LONG for fullAddressString: ${fullAddressString} error:${JSON.stringify(err)}`);
+            if (err) {
+                console.log(
+                    `ERROR OCCURRED LOOKING UP LAT/LONG for fullAddressString: ${fullAddressString} error:${JSON.stringify(
+                        err
+                    )}`
+                );
                 resolve({});
             }
-            if(results) {
+            if (results) {
                 var latitude = results[0].location.lat;
                 var longitude = results[0].location.lng;
-                let geoLocation = { latitude, longitude };
+                let geoLocation = {latitude, longitude};
                 resolve(geoLocation);
             } else {
                 reject(status);
@@ -29,5 +32,5 @@ const getLatLngByAddress = async (fullAddressString) =>
 };
 
 module.exports = {
-    getLatLngByAddress
+    getLatLngByAddress,
 };

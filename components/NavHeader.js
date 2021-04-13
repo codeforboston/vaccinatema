@@ -1,6 +1,6 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { Navbar, Nav } from 'react-bootstrap';
+import {useRouter} from 'next/router';
+import {Navbar, Nav} from 'react-bootstrap';
 
 import Logo from './subcomponents/Logo';
 
@@ -18,11 +18,13 @@ const NavHeader = () => {
         }
     };
 
-    return(
+    return (
         <div className="header fixed-top full-width">
             <div className="container">
                 <Navbar collapseOnSelect expand="lg">
-                    <Navbar.Brand href="#"><Logo/></Navbar.Brand>
+                    <Navbar.Brand href="#">
+                        <Logo />
+                    </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto"></Nav>

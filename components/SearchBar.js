@@ -33,7 +33,7 @@ const SearchBar = (props) => {
         };
     }, []);
 
-    // Update isCollapsed if isMobile changes. (The default state is collapsed 
+    // Update isCollapsed if isMobile changes. (The default state is collapsed
     // on small screens and expanded on large screens.)
     useEffect(() => setIsCollapsed(isMobile), [isMobile]);
 
@@ -192,9 +192,7 @@ const SearchBar = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="error">
-                    {error && <p>{error}</p>}
-                </div>
+                <div className="error">{error && <p>{error}</p>}</div>
             </div>
         </div>
     );
