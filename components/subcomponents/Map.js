@@ -188,8 +188,20 @@ const Map = ({rawSiteData, center, zoom, onMapChange}) => {
 };
 
 Map.propTypes = {
-    // The raw site data should be JSON. Improve the type checking here!
-    rawSiteData: PropTypes.any.isRequired,
+    rawSiteData: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string,
+            name: PropTypes.string,
+            address: PropTypes.string,
+            serves: PropTypes.string,
+            availability: PropTypes.string,
+            lastUpdated: PropTypes.number,
+            bookAppointmentInfo: PropTypes.string,
+            latitude: PropTypes.number,
+            longitude: PropTypes.number,
+            instructionsAtSite: PropTypes.string,
+        })
+    ),
     center: PropTypes.shape({
         lat: PropTypes.number,
         lng: PropTypes.number,
