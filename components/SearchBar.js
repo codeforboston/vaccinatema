@@ -169,7 +169,7 @@ const SearchBar = (props) => {
                                     value={availability === AVAILABLE_ONLY}
                                     onChange={onChangeAvailability}
                                 />
-                                Show sites that don&apos;t have availability
+                                Include sites without availability
                             </label>
                         </div>
                     </div>
