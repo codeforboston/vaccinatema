@@ -16,7 +16,8 @@ const MISSING_INFO_ERROR = 'Please enter a city, town, or ZIP.';
 const GEOLOCATION_ERROR = 'Cannot figure out your location.';
 
 const SearchBar = (props) => {
-    const [address, setAddress] = useState('');
+    // Nothing selected is an empty list
+    const [selectedZipCodeObj, setSelectedZipCodeObj] = useState([]);
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
     const [maxMiles, setMaxMiles] = useState(null);
     const [error, setError] = useState(null);
@@ -48,13 +49,21 @@ const SearchBar = (props) => {
         clearErrors();
 
         // If there's no address set, we only allow "All MA" searches.
-        if (address === '' && maxMiles != null) {
+        if (selectedZipCodeObj.length === 0 && maxMiles != null) {
             setError(MISSING_INFO_ERROR);
             return;
+        } else if (selectedZipCodeObj.length === 0) {
+            // We are searching for "All MA"
+            props.onSearch({availability, maxMiles});
+        } else {
+            props.onSearch({
+                latitude: selectedZipCodeObj[0]['latitude'],
+                longitude: selectedZipCodeObj[0]['longitude'],
+                availability,
+                maxMiles,
+            });
         }
-
         isMobile && setIsCollapsed(true);
-        props.onSearch({address, availability, maxMiles});
     };
 
     const searchWithLatLng = (lat, long) => {
@@ -94,8 +103,8 @@ const SearchBar = (props) => {
         }
     };
 
-    const handleAddressChange = (event) => {
-        setAddress(event.target.value);
+    const handleLocationChange = (zipCodeObj) => {
+        setSelectedZipCodeObj(zipCodeObj);
     };
 
     const onChangeAvailability = () => {
@@ -146,16 +155,15 @@ const SearchBar = (props) => {
                     <div className="search-header-section">
                         <div className="search-header-col">
                             <p>City, Town, or ZIP</p>
-                            <Typeahead onSelectZipCodeObj={(zipCodeObj) => {
-                                console.log(zipCodeObj);
-                                searchWithLatLng(zipCodeObj['latitude'], zipCodeObj['longitude']);
-                            }}/>   
+                            <Typeahead 
+                                selectedZipCodeObj={selectedZipCodeObj} 
+                                onSelectZipCodeObj={handleLocationChange} 
+                                onKeyDown={handleKeyDown} />
                         </div>
                         <div className="search-header-col">
                             <p>Search distance</p>
                             <select
                                 id="distance"
-                                value={maxMiles || -1}
                                 onChange={handleDistanceChange}
                             >
                                 <option value="-1">All MA</option>

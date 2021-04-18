@@ -4,10 +4,13 @@ import { Typeahead as BootstrapTypeahead } from 'react-bootstrap-typeahead';
 import { readString } from 'react-papaparse';
 import 'react-bootstrap-typeahead/css/Typeahead.css';
 
-const Typeahead = ({onSelectZipCodeObj}) => {
+const Typeahead = ({selectedZipCodeObj, onSelectZipCodeObj, onKeyDown}) => {
 
-    const [selectedZipCodeObj, setSelectedZipCodeObj] = useState();
-    const [locations, setLocations] = useState([]);
+    const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
+
+    // We track whether we think the user is searching for a zipcode (numeric) or
+    // a city name, so we can render the autocomplete in the most user friendly way.
+    const [usingNumericInput, setUsingNumericInput] = useState(true);
 
     useEffect(() => {
         fetch('ma-zip-code-data.csv', { 
@@ -16,37 +19,71 @@ const Typeahead = ({onSelectZipCodeObj}) => {
                 'Accept': 'application/csv'
             }
         }).then(response => {
-            return response.text().then(csvStr => {
-                const results = readString(csvStr, {header: true});
-                const parsedZipcodes = [];
-                results.data.forEach(location => {
-                    parsedZipcodes.push({
-                        'zipcode': location['Zip'],
-                        'city': location['City'],
-                        'latitude': location['Latitude'],
-                        'longitude': location['Longitude'],
-                        'label': `${location['City']} (${location['Zip']})`
-                    });
+            return response.text();
+        }).then(csvStr => {
+            const parsedCSV = readString(csvStr, {header: true}).data;
+            const options = usingNumericInput ? getZipCodeOptions(parsedCSV) : getCityOptions(parsedCSV);
+            setAutoCompleteOptions(options);
+        });
+    }, [usingNumericInput]);
+
+    const getCityOptions = (parsedCSV) => {
+        const options = [];
+        // The set of cities we have already added
+        const cityNames = new Set();
+        parsedCSV.forEach(location => {
+            const city = location['City'].toString();
+            // Only add a city if it is the first time we have seen it
+            if (!cityNames.has(city)) {
+                options.push({
+                    'zipcode': location['Zip'],
+                    'city': location['City'],
+                    'latitude': parseFloat(location['Latitude']),
+                    'longitude': parseFloat(location['Longitude']),
+                    'label': city,
                 });
-                console.log(parsedZipcodes);
-                setLocations(parsedZipcodes);
+                cityNames.add(city);
+            }
+        }); 
+        return options;
+    };
+
+
+    const getZipCodeOptions = (parsedCsv) => {
+        const options = [];
+        parsedCsv.forEach(location => {
+            options.push({
+                'zipcode': location['Zip'],
+                'city': location['City'],
+                'latitude': parseFloat(location['Latitude']),
+                'longitude': parseFloat(location['Longitude']),
+                'label': `${location['City']} (${location['Zip']})`
             });
         });
-    }, []);
+        return options;
+    };
 
-  
+    const updateUsingNumeric = (searchText) => {
+        if (!isNaN(searchText)) {
+            setUsingNumericInput(true);
+        } else {
+            setUsingNumericInput(false);
+        }
+    };
+
 
     return (
         <BootstrapTypeahead 
             id="typeahead"
-            onChange={(selected) => {
-                console.log(selected);
-                if (selected.length > 0) {
-                    setSelectedZipCodeObj(selected[0]);
-                    onSelectZipCodeObj(selected[0]);
-                }
+            onInputChange={(text) => {
+                updateUsingNumeric(text);
             }}
-            options={locations} >
+            selected={selectedZipCodeObj}
+            onChange={(selected) => {
+                onSelectZipCodeObj(selected);
+            }}
+            options={autoCompleteOptions}
+            onKeyDown={onKeyDown} >
         </BootstrapTypeahead>
     );
 };
@@ -54,5 +91,7 @@ const Typeahead = ({onSelectZipCodeObj}) => {
 export default Typeahead;
 
 Typeahead.propTypes = {
-    onSelectZipCodeObj: PropTypes.func
+    selectedZipCodeObj: PropTypes.object,
+    onSelectZipCodeObj: PropTypes.func,
+    onKeyDown: PropTypes.func,
 };

@@ -48,7 +48,6 @@ const Home = () => {
     };
 
     const onSearch = (args) => {
-        console.log(args);
         if (!args.address && !args.latitude && !args.longitude) {
             return fetchSites({
                 includeUnavailable: args.availability === ALL_AVAILABIITY,
