@@ -50,6 +50,7 @@ const SearchBar = (props) => {
             return;
         }
 
+        isMobile && setIsCollapsed(true);
         props.onSearch({address, availability, maxMiles});
     };
 
@@ -63,6 +64,7 @@ const SearchBar = (props) => {
                         timeout: 5000,
                     });
                 });
+                isMobile && setIsCollapsed(true);
                 props.onSearch({
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
