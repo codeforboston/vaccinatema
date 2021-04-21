@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Select from 'react-select';
 
 import YesNoRadio from './subcomponents/YesNoRadio';
 import DateTile from './subcomponents/DateTile';
 import DatePicker from 'react-datepicker';
-import { addSelectFields, alphabetize } from './utilities/utils';
+import {addSelectFields, alphabetize} from './utilities/utils';
 
-const YES = 'yes', NO = 'no';
+const YES = 'yes',
+    NO = 'no';
 
 const UpdaterForm = () => {
     const [sites, setSites] = useState([]);
@@ -20,24 +21,26 @@ const UpdaterForm = () => {
     const [nextAvailKnown, setNextAvailKnown] = useState(null);
 
     useEffect(() => {
-        fetch('/locations', { credentials: 'same-origin' })
-            .then(response => {
+        fetch('/locations', {credentials: 'same-origin'})
+            .then((response) => {
                 if (response.ok) {
                     return response;
                 } else {
                     let errorMessage = `${response.status} (${response.statusText})`,
                         error = new Error(errorMessage);
-                    throw(error);
+                    throw error;
                 }
             })
-            .then(response => {
+            .then((response) => {
                 return response.json();
             })
-            .then(body => {
+            .then((body) => {
                 const newOptions = alphabetize(addSelectFields(body), 'name');
                 setSites(newOptions);
             })
-            .catch(error => console.error(`Error in fetch: ${error.message}`));
+            .catch((error) =>
+                console.error(`Error in fetch: ${error.message}`)
+            );
     }, []);
 
     useEffect(() => {
@@ -62,7 +65,7 @@ const UpdaterForm = () => {
         placeholder: 'Select a site or start typing to search',
         onChange: (obj) => setSite(obj),
         options: sites,
-        value: sites.find(op => op.value === site?.id),
+        value: sites.find((op) => op.value === site?.id),
     };
 
     const handleSubmit = () => {
@@ -71,7 +74,7 @@ const UpdaterForm = () => {
 
     const addToDates = (date, slots) => {
         const newDates = [...dates];
-        const idx = newDates.findIndex(entry => entry.date === date);
+        const idx = newDates.findIndex((entry) => entry.date === date);
         if (idx === -1) {
             newDates.push({date, slots});
         } else {
@@ -82,7 +85,7 @@ const UpdaterForm = () => {
 
     const removeFromDates = (date) => {
         const newDates = [...dates];
-        const idx = newDates.findIndex(entry => entry.date === date);
+        const idx = newDates.findIndex((entry) => entry.date === date);
         newDates.splice(idx, 1);
         setDates(newDates);
     };
@@ -92,7 +95,9 @@ const UpdaterForm = () => {
             return (
                 <span className="submit-container">
                     <p>Everything look good?</p>
-                    <button className="submit-button" onClick={handleSubmit}>Submit Update</button>
+                    <button className="submit-button" onClick={handleSubmit}>
+                        Submit Update
+                    </button>
                 </span>
             );
         }
@@ -100,9 +105,10 @@ const UpdaterForm = () => {
 
     const renderAvailFields = () => {
         if (datesKnown === YES) {
-            const dateTiles = dates.map(entry => {
+            const dateTiles = dates.map((entry) => {
                 return (
-                    <DateTile key={entry.date}
+                    <DateTile
+                        key={entry.date}
                         date={entry.date}
                         slots={entry.slots}
                         action={addToDates}
@@ -112,7 +118,8 @@ const UpdaterForm = () => {
                 );
             });
             dateTiles.push(
-                <DateTile key={1}
+                <DateTile
+                    key={1}
                     date={null}
                     slots={''}
                     action={addToDates}
@@ -121,11 +128,7 @@ const UpdaterForm = () => {
                 />
             );
 
-            return (
-                <div>
-                    {dateTiles}
-                </div>
-            );
+            return <div>{dateTiles}</div>;
         } else if (datesKnown === NO) {
             return (
                 <div className="updater-form-fields">
@@ -146,12 +149,17 @@ const UpdaterForm = () => {
         const websiteInput = (
             <div>
                 <label htmlFor="website">Website</label>
-                <input type="text" name="website" id="website" value={website}
+                <input
+                    type="text"
+                    name="website"
+                    id="website"
+                    value={website}
                     placeholder="Website to check availability, if known"
-                    onChange={(e) => setWebsite(e.target.value)} />
+                    onChange={(e) => setWebsite(e.target.value)}
+                />
             </div>
         );
-        
+
         if (nextAvailKnown === YES) {
             return (
                 <div className="updater-form-fields date-input">
@@ -162,17 +170,13 @@ const UpdaterForm = () => {
                         placeholderText="Choose date and time"
                         minDate={Date.now()}
                         showTimeSelect={true}
-                        dateFormat='MMM. d h:mm a'
+                        dateFormat="MMM. d h:mm a"
                     />
                     {websiteInput}
                 </div>
             );
         } else if (nextAvailKnown === NO) {
-            return (
-                <div className="updater-form-fields">
-                    {websiteInput}
-                </div>
-            );
+            return <div className="updater-form-fields">{websiteInput}</div>;
         }
     };
 
@@ -180,28 +184,40 @@ const UpdaterForm = () => {
         if (isAvailable === YES) {
             return (
                 <div>
-                    <YesNoRadio name="dates-known" title="Do you know the date(s) of the clinic?"
-                        action={setDatesKnown} value={datesKnown}/>
+                    <YesNoRadio
+                        name="dates-known"
+                        title="Do you know the date(s) of the clinic?"
+                        action={setDatesKnown}
+                        value={datesKnown}
+                    />
                     {renderAvailFields()}
                 </div>
             );
         } else if (isAvailable === NO) {
             return (
                 <div>
-                    <YesNoRadio name="next-avail-known" title="Do you know when there will next be availability?"
-                        action={setNextAvailKnown} value={nextAvailKnown}/>
+                    <YesNoRadio
+                        name="next-avail-known"
+                        title="Do you know when there will next be availability?"
+                        action={setNextAvailKnown}
+                        value={nextAvailKnown}
+                    />
                     {renderNoAvailFields()}
                 </div>
             );
         }
     };
-    
+
     const renderQuestionOne = () => {
         if (site) {
             return (
                 <div>
-                    <YesNoRadio name="is-available" title="Do they have available appointments?"
-                        action={setIsAvailable} value={isAvailable}/>
+                    <YesNoRadio
+                        name="is-available"
+                        title="Do they have available appointments?"
+                        action={setIsAvailable}
+                        value={isAvailable}
+                    />
                     {renderAvailAnswered()}
                 </div>
             );

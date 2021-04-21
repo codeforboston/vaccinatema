@@ -15,9 +15,7 @@ export default function Layout({
         <div className={`container ${containerClassName}`}>
             <PageHead pageTitle={pageTitle} />
             <NavHeader />
-            <div className="main-content">
-                {children}
-            </div>
+            <div className="main-content">{children}</div>
             <Footer />
         </div>
     );
@@ -26,7 +24,7 @@ export default function Layout({
 Layout.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
+        PropTypes.node,
     ]),
     pageTitle: PropTypes.string,
     containerClassName: PropTypes.string,

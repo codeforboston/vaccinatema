@@ -87,7 +87,7 @@ async function getLatLngPelias(address) {
 
 /**
  * Best effort to parse GeoJson response from Pelias geocoding, however the
- * the docs do not describe exactly what features of GeoJson are used so the 
+ * the docs do not describe exactly what features of GeoJson are used so the
  * caller should handle catching exceptions (likely index/key errors).
  */
 function parsePeliasGeoJson(geojson) {

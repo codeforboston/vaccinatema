@@ -12,34 +12,40 @@ var siteUtils = require('./utils/site-utils');
 function saveState() {
     sites = [];
     available = [];
-    base('MaVaccSites_Today').select({
-        // Selecting the first 3 records in Grid view:
-        view: 'Default all site view'
-    }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
-        records.forEach(function(record) {
-            const data = siteUtils.getDataFromRecord(record);
+    base('MaVaccSites_Today')
+        .select({
+            // Selecting the first 3 records in Grid view:
+            view: 'Default all site view',
+        })
+        .eachPage(
+            function page(records, fetchNextPage) {
+                // This function (`page`) will get called for each page of records.
+                records.forEach(function (record) {
+                    const data = siteUtils.getDataFromRecord(record);
 
-            sites.push(data);
-            if (data.availability) {
-                available.push(data);
+                    sites.push(data);
+                    if (data.availability) {
+                        available.push(data);
+                    }
+                });
+
+                // To fetch the next page of records, call `fetchNextPage`.
+                // If there are more records, `page` will get called again.
+                // If there are no more records, `done` will get called.
+                fetchNextPage();
+            },
+            function done(err) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
             }
-        });
-
-        // To fetch the next page of records, call `fetchNextPage`.
-        // If there are more records, `page` will get called again.
-        // If there are no more records, `done` will get called.
-        fetchNextPage();
-
-    }, function done(err) {
-        if (err) { console.error(err); return; }
-    });
+        );
     setTimeout(saveState, 60000);
 }
 
 // Code to run if we're in the master process
 if (cluster.isMaster) {
-
     // Count the machine's CPUs
     var cpuCount = require('os').cpus().length;
 
@@ -50,19 +56,19 @@ if (cluster.isMaster) {
 
     // Listen for terminating workers
     cluster.on('exit', function (worker) {
-
         // Replace the terminated workers
         console.log('Worker ' + worker.id + ' died :(');
         cluster.fork();
-
     });
 
-// Code to run if we're in a worker process
+    // Code to run if we're in a worker process
 } else {
     var Airtable = require('airtable');
     var base;
     if (process.env.AIRTABLE_API_KEY) {
-        base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('applrO42eyJ3rUQyb');
+        base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(
+            'applrO42eyJ3rUQyb'
+        );
     } else {
         console.error('AIRTABLE_API_KEY should be set in .env');
     }
@@ -78,33 +84,33 @@ if (cluster.isMaster) {
     var next = require('next');
 
     const dev = process.env.NODE_ENV !== 'production';
-    const app = next({ dev });
+    const app = next({dev});
     const handle = app.getRequestHandler();
 
     AWS.config.region = process.env.REGION;
 
     app.prepare().then(() => {
         var server = express();
-        
+
         server.enable('trust proxy');
 
-        server.use(bodyParser.urlencoded({extended:false}));
+        server.use(bodyParser.urlencoded({extended: false}));
         server.use(bodyParser.json());
-        
-        server.use (function (req, res, next) {
+
+        server.use(function (req, res, next) {
             if (req.secure || process.env.NODE_ENV === 'development') {
                 next();
             } else {
                 res.redirect('https://' + req.headers.host + req.url);
             }
         });
-    
+
         server.use('/robots.txt', function (req, res) {
             res.type('text/plain');
             res.send('User-agent: *\nAllow: /');
         });
 
-        server.get('/initmap', function(req, res) {
+        server.get('/initmap', function (req, res) {
             res.send(sites);
         });
 
@@ -123,12 +129,14 @@ if (cluster.isMaster) {
             }
 
             try {
-                const {lat, lng} = await distanceUtils.getLatLngFromRequest(req);
+                const {lat, lng} = await distanceUtils.getLatLngFromRequest(
+                    req
+                );
                 const siteData = distanceUtils.getClosestLocations(
                     locations,
                     lat,
                     lng,
-                    req.body.maxMiles,
+                    req.body.maxMiles
                 );
                 res.send({siteData, lat, lng});
             } catch (exception) {

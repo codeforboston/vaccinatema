@@ -1,19 +1,19 @@
 const router = require('express').Router();
 const volunteersDb = require('../db/volunteers');
-const { body, param, validationResult, query } = require('express-validator');
-
+const {body, param, validationResult, query} = require('express-validator');
 
 // Create locations
-router.post('/',
-    body('email').isLength({ min: 2 }),
-    body('firstName').isLength({ min: 1 }),
-    body('lastName').isLength({ min: 1 }),
-    body('role').isLength({ min: 1 }),
-    async function(req, res) {
-        // Finds the validation errors in this request and wraps them in an object 
+router.post(
+    '/',
+    body('email').isLength({min: 2}),
+    body('firstName').isLength({min: 1}),
+    body('lastName').isLength({min: 1}),
+    body('role').isLength({min: 1}),
+    async function (req, res) {
+        // Finds the validation errors in this request and wraps them in an object
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         try {
             const volunteer = await volunteersDb.createVolunteer(req.body);
@@ -24,20 +24,25 @@ router.post('/',
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
         }
-    });
+    }
+);
 
 // Update volunteer
 // Create locations
-router.put('/:volunteerId',
-    body('email').isLength({ min: 2 }),
-    async function(req, res) {
-        // Finds the validation errors in this request and wraps them in an object 
+router.put(
+    '/:volunteerId',
+    body('email').isLength({min: 2}),
+    async function (req, res) {
+        // Finds the validation errors in this request and wraps them in an object
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
         try {
-            const volunteer = await volunteersDb.updateVolunteer(req.params.volunteerId, req.body);
+            const volunteer = await volunteersDb.updateVolunteer(
+                req.params.volunteerId,
+                req.body
+            );
             res.status(200).json(volunteer);
         } catch (error) {
             let errorString = `ERROR OCCURRED CREATING Volunteer! body: ${req.body} error: ${error}`;
@@ -45,33 +50,35 @@ router.put('/:volunteerId',
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
         }
-    });
+    }
+);
 
 // Get all volunteer
-router.get('/',
-    async function(req, res) {
-        try {  
-            const volunteers = await volunteersDb.getAllVolunteers();
-            res.status(200).json(volunteers);
-        } catch (error) {
-            let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
-            console.log(errorString);
-            let errorObj = {error: errorString};
-            res.status(500).send(errorObj);
-        }
-    });
-
+router.get('/', async function (req, res) {
+    try {
+        const volunteers = await volunteersDb.getAllVolunteers();
+        res.status(200).json(volunteers);
+    } catch (error) {
+        let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
+        console.log(errorString);
+        let errorObj = {error: errorString};
+        res.status(500).send(errorObj);
+    }
+});
 
 // Get all volunteer
-router.get('/by-email',
+router.get(
+    '/by-email',
     query('volunteerEmail').isEmail(),
-    async function(req, res) {
+    async function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
-        try {  
-            const volunteers = await volunteersDb.getVolunteerByEmail(req.query.volunteerEmail);
+        try {
+            const volunteers = await volunteersDb.getVolunteerByEmail(
+                req.query.volunteerEmail
+            );
             res.status(200).json(volunteers);
         } catch (error) {
             let errorString = `ERROR OCCURRED LOOKING UP VOLUNTEER! error: ${error}`;
@@ -79,17 +86,22 @@ router.get('/by-email',
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
         }
-    });
+    }
+);
 
 // Delete volunteer
-router.delete('/:volunteerId', param('volunteerId').isNumeric(),
-    async function(req, res) {
+router.delete(
+    '/:volunteerId',
+    param('volunteerId').isNumeric(),
+    async function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({errors: errors.array()});
         }
-        try {  
-            const result = await volunteersDb.deleteVolunteer(req.params.volunteerId);
+        try {
+            const result = await volunteersDb.deleteVolunteer(
+                req.params.volunteerId
+            );
             res.status(200).json(result);
         } catch (error) {
             let errorString = `ERROR OCCURRED LOOKING UP LOCATIONS! error: ${error}`;
@@ -97,5 +109,6 @@ router.delete('/:volunteerId', param('volunteerId').isNumeric(),
             let errorObj = {error: errorString};
             res.status(500).send(errorObj);
         }
-    });
+    }
+);
 module.exports = router;

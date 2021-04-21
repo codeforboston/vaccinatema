@@ -7,7 +7,7 @@
  *
  *     // May contain a URL
  *     serves: string,
- * 
+ *
  *     latitude: number,
  *     longitude: number,
  *
@@ -20,7 +20,7 @@
  *
  *     // May contain a URL
  *     bookAppointmentInfo: string,
- *      
+ *
  *     instructionsAtSite: string
  * }
  */
