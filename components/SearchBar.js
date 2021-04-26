@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {faChevronDown, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import Button from '../components/subcomponents/Button';
-import 'react-bootstrap-typeahead/css/Typeahead.css';
 import Typeahead from './Typeahead';
 
 
@@ -16,8 +16,7 @@ const MISSING_INFO_ERROR = 'Please enter a city, town, or ZIP.';
 const GEOLOCATION_ERROR = 'Cannot figure out your location.';
 
 const SearchBar = (props) => {
-    // Nothing selected is an empty list
-    const [selectedZipCodeObj, setSelectedZipCodeObj] = useState([]);
+    const [selectedZipCodeObj, setSelectedZipCodeObj] = useState(null);
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
     const [maxMiles, setMaxMiles] = useState(null);
     const [error, setError] = useState(null);
@@ -49,16 +48,16 @@ const SearchBar = (props) => {
         clearErrors();
 
         // If there's no address set, we only allow "All MA" searches.
-        if (selectedZipCodeObj.length === 0 && maxMiles != null) {
+        if (selectedZipCodeObj === null && maxMiles != null) {
             setError(MISSING_INFO_ERROR);
             return;
-        } else if (selectedZipCodeObj.length === 0) {
+        } else if (selectedZipCodeObj === null) {
             // We are searching for "All MA"
             props.onSearch({availability, maxMiles});
         } else {
             props.onSearch({
-                latitude: selectedZipCodeObj[0]['latitude'],
-                longitude: selectedZipCodeObj[0]['longitude'],
+                latitude: selectedZipCodeObj['latitude'],
+                longitude: selectedZipCodeObj['longitude'],
                 availability,
                 maxMiles,
             });
@@ -99,12 +98,18 @@ const SearchBar = (props) => {
     const handleKeyDown = (event) => {
         if (event.keyCode === 13) {
             // If a user presses Enter, trigger search.
-            searchByAddress();
+            if (selectedZipCodeObj !== null) {
+                searchByAddress();
+            }
         }
     };
 
     const handleLocationChange = (zipCodeObj) => {
-        setSelectedZipCodeObj(zipCodeObj);
+        if (zipCodeObj.length > 0) {
+            setSelectedZipCodeObj(zipCodeObj[0]);
+        } else  {
+            setSelectedZipCodeObj(null);
+        }
     };
 
     const onChangeAvailability = () => {
@@ -156,7 +161,7 @@ const SearchBar = (props) => {
                         <div className="search-header-col">
                             <p>City, Town, or ZIP</p>
                             <Typeahead 
-                                selectedZipCodeObj={selectedZipCodeObj} 
+                                selectedZipCodeObj={selectedZipCodeObj === null ? [] : [selectedZipCodeObj]} 
                                 onSelectZipCodeObj={handleLocationChange} 
                                 onKeyDown={handleKeyDown} />
                         </div>

@@ -6,7 +6,8 @@ import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 const Typeahead = ({selectedZipCodeObj, onSelectZipCodeObj, onKeyDown}) => {
 
-    const [autoCompleteOptions, setAutoCompleteOptions] = useState([]);
+    const [zipCodeOptions, setZipCodeOptions] = useState([]);
+    const [cityOptions, setCityOptions] = useState([]);
 
     // We track whether we think the user is searching for a zipcode (numeric) or
     // a city name, so we can render the autocomplete in the most user friendly way.
@@ -22,10 +23,10 @@ const Typeahead = ({selectedZipCodeObj, onSelectZipCodeObj, onKeyDown}) => {
             return response.text();
         }).then(csvStr => {
             const parsedCSV = readString(csvStr, {header: true}).data;
-            const options = usingNumericInput ? getZipCodeOptions(parsedCSV) : getCityOptions(parsedCSV);
-            setAutoCompleteOptions(options);
+            setCityOptions(getCityOptions(parsedCSV));
+            setZipCodeOptions(getZipCodeOptions(parsedCSV));
         });
-    }, [usingNumericInput]);
+    }, []);
 
     const getCityOptions = (parsedCSV) => {
         const options = [];
@@ -75,14 +76,10 @@ const Typeahead = ({selectedZipCodeObj, onSelectZipCodeObj, onKeyDown}) => {
     return (
         <BootstrapTypeahead 
             id="typeahead"
-            onInputChange={(text) => {
-                updateUsingNumeric(text);
-            }}
+            onInputChange={updateUsingNumeric}
             selected={selectedZipCodeObj}
-            onChange={(selected) => {
-                onSelectZipCodeObj(selected);
-            }}
-            options={autoCompleteOptions}
+            onChange={onSelectZipCodeObj}
+            options={usingNumericInput ? zipCodeOptions :  cityOptions}
             onKeyDown={onKeyDown} >
         </BootstrapTypeahead>
     );
