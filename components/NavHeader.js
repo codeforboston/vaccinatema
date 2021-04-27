@@ -42,6 +42,12 @@ const NavHeader = () => {
                                 FAQ
                             </Nav.Link>
                             <Nav.Link
+                                className={renderLinkClass('resources')}
+                                href={`${root}/resources`}
+                            >
+                                Resources
+                            </Nav.Link>
+                            <Nav.Link
                                 className={renderLinkClass('press')}
                                 href={`${root}/press`}
                             >

@@ -276,7 +276,8 @@ a {
 
 #faq-page,
 #press-page,
-#updater-page {
+#updater-page,
+#resources-page {
   padding-bottom: 30px;
   .faq-description {
     padding-top: 30px;
@@ -285,7 +286,7 @@ a {
     padding-top: 16px;
     font-size: 24px;
   }
-  p, a {
+  h3, p, a {
     font-size: 21px;
   }
 }
