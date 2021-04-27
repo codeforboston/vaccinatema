@@ -142,9 +142,8 @@ export const MAX_MILES_TO_ZOOM = {
     '25': 10,
 };
 
-const Map = ({rawSiteData, center, zoom, onMapChange}) => {
+const Map = ({rawSiteData, center, zoom, onMapChange, setPopupData}) => {
     const [siteData, setSiteData] = useState([]);
-    const [popupData, setPopupData] = useState({});
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -176,12 +175,6 @@ const Map = ({rawSiteData, center, zoom, onMapChange}) => {
                         getSiteDataByKey={getSiteDataByKey}
                     />
                 ))}
-                {popupData.data && (<Popup
-                    lat={popupData.lat}
-                    lng={popupData.lng}
-                    data={popupData.data}
-                    setPopupData={setPopupData}
-                />)}
             </GoogleMapReact>
         </div>
     );
@@ -209,6 +202,7 @@ Map.propTypes = {
     zoom: PropTypes.number.isRequired,
     // ({center: {lat: number, lng: number}, zoom: number}) => void
     onMapChange: PropTypes.func.isRequired,
+    onMarkerClick: PropTypes.func,
 };
 
 export default Map;
