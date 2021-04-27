@@ -39,8 +39,12 @@ const Resources = () => (
                         .
                     </li>
                     <li>
-                        You can also contact MA COVID Vax Help, which is a
-                        volunteer project that registers people for a vaccine.
+                        You can also contact{' '}
+                        <Link href={'https://macovidvaxhelp.com'}>
+                            MA COVID Vax Help
+                        </Link>
+                        , which is a volunteer project that registers people for
+                        a vaccine.
                     </li>
                     <li>
                         If you have difficulty using the Internet, you can call
@@ -68,7 +72,10 @@ const Resources = () => (
                 >
                     free rides
                 </Link>
-                . People getting vaccines in Arlington, Boston, Brookline,
+                .
+            </p>
+            <p>
+                People getting vaccines in Arlington, Boston, Brookline,
                 Cambridge, Chelsea, Everett, Newton, Revere, Somerville and
                 Watertown can get{' '}
                 <Link
@@ -96,7 +103,8 @@ const Resources = () => (
                 residents should email{' '}
                 <Link href={'mailto:meghan.maceiko@unitedwaycm.org'}>
                     meghan.maceiko@unitedwaycm.org
-                </Link>.
+                </Link>
+                .
             </p>
             <p>
                 See this{' '}
