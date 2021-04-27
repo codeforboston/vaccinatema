@@ -291,6 +291,15 @@ a {
   }
 }
 
+#resources-page {
+  h2 {
+    border-top: 1px solid #ccc;
+  }
+  h2:first-of-type {
+    border: none;
+  }
+}
+
 #updater-page {
   .updater-image {
     width: 100%;
