@@ -53,19 +53,21 @@ const MapAndListView = (props) => {
                 </div>
                 {!showMap && <ListView rawSiteData={props.rawSiteData} />}
             </div>
-            {resultsModalData.data && <ResultsModal hideModal={() => setResultsModalData({})} data={{
-                id: resultsModalData.data.id,
-                name: resultsModalData.data.locationName,
-                address: resultsModalData.data.address,
-                serves: resultsModalData.data.populationsServed,
-                availability: resultsModalData.data.vaccineAvailability,
-                lastUpdated: resultsModalData.data.lastUpdated,
-                bookAppointmentInfo: resultsModalData.data.bookAppointmentInformation,
-                latitude: resultsModalData.data.latitude,
-                longitude: resultsModalData.data.longitude,
-                instructionsAtSite: 'TBD',
-            }}/>}
-            {console.log(resultsModalData)}
+            {resultsModalData.data && <ResultsModal 
+                hideModal={() => setResultsModalData({})}
+                data={{
+                    id: resultsModalData.data.id,
+                    locationName: resultsModalData.data.locationName,
+                    address: resultsModalData.data.address,
+                    populationsServed: resultsModalData.data.populationsServed,
+                    vaccineAvailability: resultsModalData.data.vaccineAvailability,
+                    lastUpdated: resultsModalData.data.lastUpdated,
+                    bookAppointmentInformation: resultsModalData.data.bookAppointmentInformation,
+                    latitude: resultsModalData.data.latitude,
+                    longitude: resultsModalData.data.longitude,
+                    instructionsAtSite: resultsModalData.data.instructionsAtSite,
+                    sitePinShape: resultsModalData.data.sitePinShape,
+                }}/>}
         </div>
     );
 };

@@ -5,27 +5,8 @@ import GoogleMapReact from 'google-map-react';
 import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import {dateToString} from '../utilities/date-utils';
 
-// High volume, large venue sites
-const MASS_VACCINATION_SITES = [
-    'Foxborough: Gillette Stadium',
-    'Danvers: Doubletree Hotel',
-    'Springfield: Eastfield Mall',
-    'Dartmouth: Former Circuit City', 
-    'Natick: Natick Mall',
-    'Boston: Reggie Lewis Center (Roxbury Community College)',
-    'Boston: Hynes Convention Center'
-];
-
-const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
-    'All eligible people statewide',
-    'Eligible populations statewide'
-];
-
-const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEWIDE_TEXT.includes(serves?.trim());
-
-const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
-
 const parseLocationData = (data) => {
+    console.log(data);
     return data.map((site) => ({
         id: site.id,
         locationName: site.name,
@@ -39,22 +20,8 @@ const parseLocationData = (data) => {
         ),
         latitude: site.latitude,
         longitude: site.longitude,
-        sitePinShape: determineSitePinShape(
-            site.availability, site.serves, site.name,
-        ),
+        sitePinShape: site.sitePinShape,
     }));
-};
-
-const determineSitePinShape = (availability, serves, locationName) => {
-    if (!availability) {
-        return 'dot';
-    } else if (isSiteAMassVaccinationSite(locationName)) {
-        return 'star star-red';
-    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
-        return 'star star-green';
-    } else {
-        return 'star star-blue';
-    }
 };
 
 // google-map-react allows you to pass a "$hover" destructured prop if you want to have an effect on hover
@@ -193,6 +160,7 @@ Map.propTypes = {
             latitude: PropTypes.number,
             longitude: PropTypes.number,
             instructionsAtSite: PropTypes.string,
+            sitePinShape: PropTypes.string,
         })
     ),
     center: PropTypes.shape({
@@ -202,7 +170,7 @@ Map.propTypes = {
     zoom: PropTypes.number.isRequired,
     // ({center: {lat: number, lng: number}, zoom: number}) => void
     onMapChange: PropTypes.func.isRequired,
-    onMarkerClick: PropTypes.func,
+    setPopupData: PropTypes.func.isRequired,
 };
 
 export default Map;
