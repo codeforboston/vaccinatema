@@ -95,3 +95,10 @@ CREATE TABLE volunteerLocations (
   REFERENCES volunteers
   (id) ON DELETE CASCADE
 );
+
+ALTER TABLE locations
+ADD COLUMN methodology VARCHAR(1000),
+ADD COLUMN hiatus BOOLEAN DEFAULT false,
+ADD COLUMN stale BOOLEAN DEFAULT false,
+ADD COLUMN independent BOOLEAN,
+ADD COLUMN miscAvailability VARCHAR(1000);
