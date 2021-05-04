@@ -2,8 +2,11 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {faChevronDown, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
 
 import Button from '../components/subcomponents/Button';
+import Typeahead from './Typeahead';
+
 
 export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
@@ -13,7 +16,7 @@ const MISSING_INFO_ERROR = 'Please enter a city, town, or ZIP.';
 const GEOLOCATION_ERROR = 'Cannot figure out your location.';
 
 const SearchBar = (props) => {
-    const [address, setAddress] = useState('');
+    const [selectedZipCodeObj, setSelectedZipCodeObj] = useState(null);
     const [availability, setAvailability] = useState(AVAILABLE_ONLY);
     const [maxMiles, setMaxMiles] = useState(null);
     const [error, setError] = useState(null);
@@ -45,13 +48,31 @@ const SearchBar = (props) => {
         clearErrors();
 
         // If there's no address set, we only allow "All MA" searches.
-        if (address === '' && maxMiles != null) {
+        if (selectedZipCodeObj === null && maxMiles != null) {
             setError(MISSING_INFO_ERROR);
             return;
+        } else if (selectedZipCodeObj === null) {
+            // We are searching for "All MA"
+            props.onSearch({availability, maxMiles});
+        } else {
+            props.onSearch({
+                latitude: selectedZipCodeObj['latitude'],
+                longitude: selectedZipCodeObj['longitude'],
+                availability,
+                maxMiles,
+            });
         }
-
         isMobile && setIsCollapsed(true);
-        props.onSearch({address, availability, maxMiles});
+    };
+
+    const searchWithLatLng = (lat, long) => {
+        console.log('searchWithLatLng');
+        props.onSearch({
+            latitude: lat,
+            longitude: long,
+            availability,
+            maxMiles,
+        });
     };
 
     const searchByGeolocation = async () => {
@@ -65,12 +86,7 @@ const SearchBar = (props) => {
                     });
                 });
                 isMobile && setIsCollapsed(true);
-                props.onSearch({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                    availability,
-                    maxMiles,
-                });
+                searchWithLatLng(position.coords.latitude,position.coords.longitude);
             } catch (err) {
                 console.log(err);
             }
@@ -82,12 +98,18 @@ const SearchBar = (props) => {
     const handleKeyDown = (event) => {
         if (event.keyCode === 13) {
             // If a user presses Enter, trigger search.
-            searchByAddress();
+            if (selectedZipCodeObj !== null) {
+                searchByAddress();
+            }
         }
     };
 
-    const handleAddressChange = (event) => {
-        setAddress(event.target.value);
+    const handleLocationChange = (zipCodeObj) => {
+        if (zipCodeObj.length > 0) {
+            setSelectedZipCodeObj(zipCodeObj[0]);
+        } else  {
+            setSelectedZipCodeObj(null);
+        }
     };
 
     const onChangeAvailability = () => {
@@ -133,19 +155,15 @@ const SearchBar = (props) => {
                     </div>
                 )}
                 <div className="search-header-contents">
-                    {/* The "sections" help to ensure the buttons stay on the
-                    same line while resizing.*/}
+                    {/* The "sections" help to ensure the buttons stay on the same
+                    line while resizing.*/}
                     <div className="search-header-section">
                         <div className="search-header-col">
                             <p>City, Town, or ZIP</p>
-                            <input
-                                type="text"
-                                id="address"
-                                name="address"
-                                value={address}
-                                onChange={handleAddressChange}
-                                onKeyDown={handleKeyDown}
-                            />
+                            <Typeahead 
+                                selectedZipCodeObj={selectedZipCodeObj === null ? [] : [selectedZipCodeObj]} 
+                                onSelectZipCodeObj={handleLocationChange} 
+                                onKeyDown={handleKeyDown} />
                         </div>
                         <div className="search-header-col">
                             <p>Search distance</p>

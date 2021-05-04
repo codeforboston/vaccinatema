@@ -53,7 +53,6 @@ const Home = () => {
                 includeUnavailable: args.availability === ALL_AVAILABIITY,
             });
         }
-
         return fetch('/search_query_location', {
             method: 'post',
             headers: new Headers({'content-type': 'application/json'}),
