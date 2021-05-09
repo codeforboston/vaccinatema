@@ -30,9 +30,9 @@ const Home = () => {
 
         const sites = require('../static/sites.json');
 
-        // TODO(hannah): Currently, in list view, the sites are
-        // just listed alphabetically. Per discussions with Harlan,
-        // we should be sorting them some more useful way.
+        // TODO(hannah): Currently, in list view, the sites are just listed
+        // alphabetically. Per discussions with Harlan, we should be sorting
+        // them some more useful way.
         if (includeUnavailable) {
             setRawSiteData(sites);
             return;
