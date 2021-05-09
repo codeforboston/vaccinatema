@@ -28,23 +28,17 @@ const Home = () => {
         setMapCoordinates(BOSTON_COORDINATES);
         setMapZoom(DEFAULT_ZOOMED_OUT);
 
-        fetch('/initmap')
-            .then((response) => response.json())
-            .then((rawSiteData) => {
-                // TODO(hannah): Currently, in list view, the sites are
-                // just listed alphabetically. Per discussions with Harlan,
-                // we should be sorting them some more useful way.
-                if (includeUnavailable) {
-                    return rawSiteData;
-                }
-                // TODO(hannah): Create new endpoint to only return available
-                // sites.
-                return rawSiteData.filter(
-                    (site) => site.availability.length > 0
-                );
-            })
-            .then((rawSiteData) => setRawSiteData(rawSiteData))
-            .catch((err) => console.error(err));
+        const sites = require('../static/sites.json');
+
+        // TODO(hannah): Currently, in list view, the sites are
+        // just listed alphabetically. Per discussions with Harlan,
+        // we should be sorting them some more useful way.
+        if (includeUnavailable) {
+            setRawSiteData(sites);
+            return;
+        }
+
+        setRawSiteData(sites.filter((site) => site.availability.length > 0));
     };
 
     const onSearch = (args) => {
