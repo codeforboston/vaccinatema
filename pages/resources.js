@@ -9,51 +9,49 @@ const Resources = () => (
             <h1>Resources</h1>
             <h2>Finding an appointment</h2>
             <p>
-                <p>
-                    In addition to using our map, list, and search
-                    functionalities, you can use the following resources to find
-                    an appointment:
-                </p>
-                <ul>
-                    <li>
-                        Make sure you have signed up with the Massachusetts
-                        vaccine preregistration system:{' '}
-                        <Link href={'https://vaccinesignup.mass.gov'}>
-                            https://vaccinesignup.mass.gov
-                        </Link>
-                        .
-                    </li>
-                    <li>
-                        Check the Twitter bot{' '}
-                        <Link href={'https://twitter.com/vaccinetime'}>
-                            @vaccinetime
-                        </Link>{' '}
-                        and set up notifications if you have a Twitter account.
-                        It posts automatically when appointments are released.
-                    </li>
-                    <li>
-                        Look at another volunteer-run site{' '}
-                        <Link href={'https://macovidvaccines.com'}>
-                            MA COVID Vaccines
-                        </Link>
-                        .
-                    </li>
-                    <li>
-                        You can also contact{' '}
-                        <Link href={'https://macovidvaxhelp.com'}>
-                            MA COVID Vax Help
-                        </Link>
-                        , which is a volunteer project that registers people for
-                        a vaccine.
-                    </li>
-                    <li>
-                        If you have difficulty using the Internet, you can call
-                        211 (TTY (508) 370-4890) for the MA vaccine hotline,
-                        which is available 24/7, and they can register you for
-                        an appointment.
-                    </li>
-                </ul>
+                Since VaccinateMA has gone into maintenance mode as of April
+                28th, 2021, you can use the following resources to find an
+                appointment:
             </p>
+            <ul>
+                <li>
+                    Make sure you have signed up with the Massachusetts vaccine
+                    preregistration system:{' '}
+                    <Link href={'https://vaccinesignup.mass.gov'}>
+                        https://vaccinesignup.mass.gov
+                    </Link>
+                    .
+                </li>
+                <li>
+                    Check the Twitter bot{' '}
+                    <Link href={'https://twitter.com/vaccinetime'}>
+                        @vaccinetime
+                    </Link>{' '}
+                    and set up notifications if you have a Twitter account. It
+                    posts automatically when appointments are released.
+                </li>
+                <li>
+                    Look at another volunteer-run site{' '}
+                    <Link href={'https://macovidvaccines.com'}>
+                        MA COVID Vaccines
+                    </Link>
+                    .
+                </li>
+                <li>
+                    You can also contact{' '}
+                    <Link href={'https://macovidvaxhelp.com'}>
+                        MA COVID Vax Help
+                    </Link>
+                    , which is a volunteer project that registers people for a
+                    vaccine.
+                </li>
+                <li>
+                    If you have difficulty using the Internet, you can call 211
+                    (TTY (508) 370-4890) for the MA vaccine hotline, which is
+                    available 24/7, and they can register you for an
+                    appointment.
+                </li>
+            </ul>
 
             <h2>Getting to the appointment</h2>
             <p>
@@ -183,8 +181,8 @@ const Resources = () => (
                     website
                 </Link>
                 :
-                <br />
-                <br />
+            </p>
+            <div className="blockquote">
                 <p>
                     In-home vaccinations are available for homebound people who
                     are not able to leave their home to get to a vaccination
@@ -204,12 +202,15 @@ const Resources = () => (
                         under normal circumstances
                     </li>
                 </ul>
-                If you or someone you know qualifies for in-home vaccination,
-                please call the Homebound Vaccination Central Intake Line at
-                (833) 983-0485 Monday through Friday from 9:00 AM to 5:00 PM.
-                Representatives are available in both English and Spanish, and
-                also have access to translators for over 100 languages.
-            </p>
+                <p>
+                    If you or someone you know qualifies for in-home
+                    vaccination, please call the Homebound Vaccination Central
+                    Intake Line at (833) 983-0485 Monday through Friday from
+                    9:00 AM to 5:00 PM. Representatives are available in both
+                    English and Spanish, and also have access to translators for
+                    over 100 languages.
+                </p>
+            </div>
             <h3>Veterans</h3>
             <p>
                 There are often clinics specifically for veterans and their
@@ -224,29 +225,29 @@ const Resources = () => (
                 to be contacted or find out more.
             </p>
             <p>
-                <p>
-                    The following sites often host walk-in clinics for veterans
-                    and relevant individuals under the SAVES act:
-                </p>
-                <ul>
-                    <li>Billerica: Billerica Town Hall</li>
-                    <li>Burlington: American Legion Post 273</li>
-                    <li>
-                        Beverly: Massachusetts Task Force 1 Urban Search and
-                        Rescue Team
-                    </li>
-                    <li>Dracut: Dracut Council on Aging</li>
-                    <li>North Andover: VFW</li>
-                    <li>Salem: Community Life Center</li>
-                    <li>
-                        Haverhill: Consentino Middle School (call 781-687-4000
-                        to schedule)
-                    </li>
-                    <li>
-                        Bedford: Edith Nourse Rogers Memorial VA Hospital (call
-                        781-687-4000 to schedule from 8-4:30 on weekdays)
-                    </li>
-                </ul>
+                The following sites often host walk-in clinics for veterans and
+                relevant individuals under the SAVES act
+            </p>
+            <ul>
+                <li>Billerica: Billerica Town Hall</li>
+                <li>Burlington: American Legion Post 273</li>
+                <li>
+                    Beverly: Massachusetts Task Force 1 Urban Search and Rescue
+                    Team
+                </li>
+                <li>Dracut: Dracut Council on Aging</li>
+                <li>North Andover: VFW</li>
+                <li>Salem: Community Life Center</li>
+                <li>
+                    Haverhill: Consentino Middle School (call 781-687-4000 to
+                    schedule)
+                </li>
+                <li>
+                    Bedford: Edith Nourse Rogers Memorial VA Hospital (call
+                    781-687-4000 to schedule from 8-4:30 on weekdays)
+                </li>
+            </ul>
+            <p>
                 Search for them on our site for more information about
                 location/eligibility.
             </p>
