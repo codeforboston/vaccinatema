@@ -274,6 +274,7 @@ a {
   }
 }
 
+#eligibility-page,
 #faq-page,
 #press-page,
 #updater-page,
@@ -286,8 +287,19 @@ a {
     padding-top: 16px;
     font-size: 24px;
   }
-  h3, p, a {
+  h3 {
+    margin-top: 20px;
+  }
+  h3, p, a, li {
     font-size: 21px;
+    line-height: 26px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  .blockquote {
+    border-left: 4px solid $gray-dark;
+    padding-left: 24px;
   }
   // Add lines between the sections.
   h2 {
