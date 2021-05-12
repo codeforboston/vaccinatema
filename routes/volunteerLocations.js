@@ -67,10 +67,11 @@ router.delete(
             return res.status(400).json({errors: errors.array()});
         }
         try {
-            const volunteers = await volunteersDb.deleteVolunteerLocationMapping(
-                req.query.volunteerId,
-                req.query.locationId
-            );
+            const volunteers =
+                await volunteersDb.deleteVolunteerLocationMapping(
+                    req.query.volunteerId,
+                    req.query.locationId
+                );
             res.status(200).json(volunteers);
         } catch (error) {
             let errorString = `ERROR OCCURRED DELETING UP MAPPING! error: ${error}`;
