@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import PreregisterBanner from '../components/PreregisterBanner';
+import InfoBanner from '../components/InfoBanner';
 import Layout from '../components/Layout';
 import MapAndListView from '../components/MapAndListView';
 import SearchBar, {ALL_AVAILABIITY} from '../components/SearchBar';
@@ -83,7 +83,7 @@ const Home = () => {
         <Layout pageTitle="Home" containerClassName="home-page">
             <div>
                 <SearchBar onSearch={onSearch} />
-                <PreregisterBanner />
+                <InfoBanner />
                 <MapAndListView
                     rawSiteData={rawSiteData}
                     mapCoordinates={mapCoordinates}
