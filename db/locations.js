@@ -223,9 +223,7 @@ const insertLocationAvailability = async (locationId, availabilitydetails) => {
         );
 
         // insert the latest availability details for the given location
-        const {
-            rows,
-        } = await pool.query(
+        const {rows} = await pool.query(
             'INSERT INTO location_availability (location_id, doses, availabilitytime) ' +
                 ' VALUES ($1, $2, $3)  RETURNING *',
             [locationId, doses, availabilitytime]

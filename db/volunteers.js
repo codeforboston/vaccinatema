@@ -12,9 +12,7 @@ const pool = new Pool({
  **/
 const createVolunteer = async (volunteer) => {
     try {
-        const {
-            rows,
-        } = await pool.query(
+        const {rows} = await pool.query(
             'INSERT INTO volunteers (email, firstName, lastName, role) VALUES ($1, $2, $3, $4) RETURNING *',
             [
                 volunteer.email,
@@ -104,11 +102,10 @@ const getAllVolunteers = async () => {
  **/
 const getVolunteerByEmail = async (email) => {
     try {
-        const {
-            rows,
-        } = await pool.query('SELECT * FROM volunteers WHERE email = $1', [
-            email,
-        ]);
+        const {rows} = await pool.query(
+            'SELECT * FROM volunteers WHERE email = $1',
+            [email]
+        );
         return rows;
     } catch (error) {
         console.error('an error occurred when getting volunteers by email');
@@ -142,9 +139,7 @@ const deleteVolunteer = async (volunteerId) => {
  **/
 const createVolunteerMapping = async (volunteerId, locationId) => {
     try {
-        const {
-            rows,
-        } = await pool.query(
+        const {rows} = await pool.query(
             'INSERT INTO volunteerLocations (volunteer_id, location_id) VALUES ($1, $2) RETURNING *',
             [volunteerId, locationId]
         );
@@ -191,9 +186,7 @@ const getVolunteerLocations = async (volunteerId) => {
  **/
 const deleteVolunteerLocationMapping = async (volunteerId, locationId) => {
     try {
-        const {
-            rows,
-        } = await pool.query(
+        const {rows} = await pool.query(
             'DELETE FROM volunteerLocations WHERE volunteer_id = $1 AND location_id = $2',
             [volunteerId, locationId]
         );
