@@ -9,7 +9,7 @@ export const ALL_AVAILABIITY = 'All known vaccination sites';
 const AVAILABLE_ONLY = 'Sites with reported doses';
 const MOBILE_WIDTH = 640;
 
-const MISSING_INFO_ERROR = 'Please enter a city, town, or ZIP.';
+const MISSING_INFO_ERROR = 'Please enter a valid ZIP code in MA.';
 const GEOLOCATION_ERROR = 'Cannot figure out your location.';
 
 const SearchBar = (props) => {
@@ -51,7 +51,12 @@ const SearchBar = (props) => {
         }
 
         isMobile && setIsCollapsed(true);
-        props.onSearch({address, availability, maxMiles});
+        try {
+            props.onSearch({address, availability, maxMiles});
+        } catch (err) {
+            setError(MISSING_INFO_ERROR);
+            console.error(err);
+        }
     };
 
     const searchByGeolocation = async () => {
@@ -137,7 +142,7 @@ const SearchBar = (props) => {
                     same line while resizing.*/}
                     <div className="search-header-section">
                         <div className="search-header-col">
-                            <p>City, Town, or ZIP</p>
+                            <p>ZIP Code</p>
                             <input
                                 type="text"
                                 id="address"
