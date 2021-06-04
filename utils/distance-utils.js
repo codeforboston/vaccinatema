@@ -1,7 +1,3 @@
-const zipCodes = require('../static/zip-codes.json');
-const geocoder = require('google-geocoder');
-const axios = require('axios');
-
 function degreesToRadians(degrees) {
     var pi = Math.PI;
     return degrees * (pi / 180);
@@ -52,73 +48,6 @@ function getClosestLocations(locations, latitude, longitude, maxMiles = null) {
     );
 }
 
-/**
- * Returns an object with the requested latitude (lat) and longitude (lng).
- */
-async function getLatLngFromRequest(req) {
-    if (req.body.address) {
-        let address = req.body.address;
-        // Whenever possible, use the static look up table to minimize Geocoder
-        // costs.
-        if (zipCodes[address]) {
-            return zipCodes[address];
-        }
-        // If not a zipcode, the query should be a town so add the state
-        // to make this a relatively simple query to geocode.
-        address = address + ' Massachusetts';
-
-        // First try Pelias
-        try {
-            return await getLatLngPelias(address);
-        } catch (exception) {
-            console.error('Failed geocoding with Pelias: ', exception);
-        }
-        // Fall back to Google geocoder
-        return await getLatLngGoogle(address);
-    }
-    return {lat: req.body.latitude, lng: req.body.longitude};
-}
-
-async function getLatLngPelias(address) {
-    const url = `http://pelias.mapc.org/v1/search?text=${address}MA&boundary.gid=whosonfirst:region:85688645&size=1`;
-    const response = await axios.get(url);
-    return parsePeliasGeoJson(response.data);
-}
-
-/**
- * Best effort to parse GeoJson response from Pelias geocoding, however the
- * the docs do not describe exactly what features of GeoJson are used so the
- * caller should handle catching exceptions (likely index/key errors).
- */
-function parsePeliasGeoJson(geojson) {
-    if (geojson['features'].length == 0) {
-        throw 'Pelias Geocoding: No results';
-    }
-    const feature = geojson['features'][0];
-    if (feature['geometry']['type'] == 'Point') {
-        const coords = feature['geometry']['coordinates'];
-        return {lat: coords[1], lng: coords[0]};
-    } else {
-        throw 'Unexpected returned geojson feature from Pelias';
-    }
-}
-
-async function getLatLngGoogle(address) {
-    const geo = geocoder({key: process.env.GEOCODER_API_KEY});
-    const geoRes = await new Promise((resolve, reject) => {
-        geo.find(address, (err, res) => {
-            // TODO(hannah): Add better error handling.
-            if (err) {
-                reject(err);
-            } else {
-                resolve(res);
-            }
-        });
-    });
-    return geoRes[0].location;
-}
-
 module.exports = {
     getClosestLocations: getClosestLocations,
-    getLatLngFromRequest: getLatLngFromRequest,
 };

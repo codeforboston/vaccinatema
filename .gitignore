@@ -54,7 +54,7 @@ Thumbs.db
 .env
 
 # NextJS build files
-static/_next/
+.next/
 
 # Vscode files
 .vscode/

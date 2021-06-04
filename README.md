@@ -1,3 +1,5 @@
+:warning: Most of this README does not apply to the static version of the site.
+
 # Vaccinate MA
 
 This is the application deployed to AWS Elastic Beanstalk for https://www.vaccinatema.com. It is written with [Express](https://expressjs.com), [React](https://reactjs.org), and [Next.js](https://nextjs.org).

@@ -14,6 +14,4 @@ class VaccinateMAApp extends App {
     }
 }
 
-// TODO(hannah): Restore appWithTranslation once we actually have translations.
-// export default appWithTranslation(VaccinateMAApp);
 export default VaccinateMAApp;

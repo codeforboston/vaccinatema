@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 module.exports = {
-    distDir: 'static/_next',
     async redirects() {
         return [
             // The original website had a separate search page; now search
