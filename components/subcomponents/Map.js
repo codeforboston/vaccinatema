@@ -6,7 +6,6 @@ import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import {dateToString} from '../utilities/date-utils';
 
 const parseLocationData = (data) => {
-    console.log(data);
     return data.map((site) => ({
         id: site.id,
         locationName: site.name,
@@ -55,46 +54,6 @@ Marker.propTypes = {
     sitePinShape: PropTypes.string,
     setPopupData: PropTypes.func,
     getSiteDataByKey: PropTypes.func,
-};
-
-const Popup = ({data, setPopupData}) => (
-    <div style={{
-        position: 'absolute',
-        transform: 'translate(0%, -50%)',
-        border: '1px solid black',
-        color: '#000000',
-        backgroundColor: '#FFFFFF',
-        width: '300px',
-        borderRadius: '5px',
-        boxShadow: '5px 5px',
-        padding: '5px'
-    }}>
-        <div id="content">
-            <h4 id="firstHeading" className="firstHeading">{data.locationName}</h4>
-            <div id="bodyContent">
-                <p><b>Details</b> {data.populationsServed}</p>
-                <p><b>Address</b> {data.address}</p>
-                <p><b>Availability</b> {data.vaccineAvailability || 'None'}</p>
-                <p>(Availability last updated {data.lastUpdated})</p>
-                <p><b>Make an appointment</b> {data.bookAppointmentInformation}</p>
-                <button onClick={() => setPopupData({})}>Close</button>
-            </div>
-        </div>
-    </div>
-);
-
-Popup.propTypes = {
-    data: PropTypes.shape(
-        {
-            locationName: PropTypes.string,
-            populationsServed: PropTypes.string,
-            address: PropTypes.string,
-            vaccineAvailability: PropTypes.string,
-            lastUpdated: PropTypes.string,
-            bookAppointmentInformation: PropTypes.array,
-        }
-    ),
-    setPopupData: PropTypes.func,
 };
 
 // TODO(hannah): These values were calculated by hand and assume the map is

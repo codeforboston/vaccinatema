@@ -3,7 +3,7 @@ import Map from './subcomponents/Map';
 import PropTypes from 'prop-types';
 import parseURLsInStrings from './utilities/parseURLsInStrings';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import {faMapMarkerAlt, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 
 const ResultsModal = ({data, hideModal}) => {
     useEffect(() => {
@@ -30,6 +30,13 @@ const ResultsModal = ({data, hideModal}) => {
                         setPopupData={() => {}}
                         onMapChange={() => {}}
                     />
+                </div>
+                <div>
+                    <center>
+                        <button onClick={hideModal}>
+                            <FontAwesomeIcon icon={faTimesCircle} />{" "} Close Modal
+                        </button>
+                    </center>
                 </div>
                 <div className="modal-site-name-section">
                     <div className="modal-section-content">
