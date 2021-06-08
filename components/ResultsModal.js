@@ -34,7 +34,7 @@ const ResultsModal = ({data, hideModal}) => {
                 <div>
                     <center>
                         <button onClick={hideModal}>
-                            <FontAwesomeIcon icon={faTimesCircle} />{" "} Close Modal
+                            <FontAwesomeIcon icon={faTimesCircle} />{' '} Close Modal
                         </button>
                     </center>
                 </div>
