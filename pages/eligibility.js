@@ -1,5 +1,6 @@
 import React from 'react';
 
+import InfoBanner from '../components/InfoBanner';
 import Layout from '../components/Layout';
 
 // TODO: should the phase and group be set to variables?
@@ -7,6 +8,7 @@ import Layout from '../components/Layout';
 const Eligibility = () => (
     <Layout pageTitle="Eligibility">
         <div id="eligibility-page">
+            <InfoBanner />
             <h1>Eligibility</h1>
             <p>
                 Everyone age 16+ in Massachusetts is now eligible under{' '}

@@ -1,12 +1,21 @@
 import React from 'react';
 
+import InfoBanner from '../components/InfoBanner';
 import Layout from '../components/Layout';
 import Link from '../components/subcomponents/Link';
 
 const Resources = () => (
     <Layout pageTitle="Resources">
         <div id="resources-page">
+            <InfoBanner isResourcesPage={true} />
             <h1>Resources</h1>
+            <p>
+                Thanks so much to all of the amazing engineers, designers, and
+                medical professionals who donated their time and expertise to
+                this project, and super-extra thanks to our incredible team of
+                site-checkers who provided the updated data that made the site
+                go!
+            </p>
             <h2>Finding an appointment</h2>
             <p>
                 Since VaccinateMA has gone into maintenance mode as of April

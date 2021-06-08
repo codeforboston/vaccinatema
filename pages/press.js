@@ -1,5 +1,6 @@
 import React from 'react';
 
+import InfoBanner from '../components/InfoBanner';
 import Layout from '../components/Layout';
 import EmailLink from '../components/subcomponents/EmailLink';
 import PressTile from '../components/subcomponents/PressTile';
@@ -68,6 +69,7 @@ const Press = () => {
     return (
         <Layout pageTitle="Press">
             <div id="press-page">
+                <InfoBanner />
                 <h1>In the Press</h1>
                 <p>
                     Are you a reporter and want to contact us? Shoot us an email

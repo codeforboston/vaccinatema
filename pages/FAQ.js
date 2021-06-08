@@ -1,11 +1,13 @@
 import React from 'react';
 
+import InfoBanner from '../components/InfoBanner';
 import Layout from '../components/Layout';
 import EmailLink from '../components/subcomponents/EmailLink';
 
 const FAQ = () => (
     <Layout pageTitle="FAQ">
         <div id="faq-page">
+            <InfoBanner />
             <h1>Frequently Asked Questions</h1>
             <p className="faq-description">
                 We are a group of volunteers helping Massachusetts residents get
