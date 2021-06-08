@@ -3,7 +3,7 @@ import Map from './subcomponents/Map';
 import PropTypes from 'prop-types';
 import parseURLsInStrings from './utilities/parseURLsInStrings';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
+import {faMapMarkerAlt, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 
 const ResultsModal = ({data, hideModal}) => {
     useEffect(() => {
@@ -27,11 +27,20 @@ const ResultsModal = ({data, hideModal}) => {
                         rawSiteData={[data]}
                         center={{lat: data.latitude, lng: data.longitude}}
                         zoom={12}
+                        setPopupData={() => {}}
+                        onMapChange={() => {}}
                     />
+                </div>
+                <div>
+                    <center>
+                        <button onClick={hideModal}>
+                            <FontAwesomeIcon icon={faTimesCircle} />{' '} Close Modal
+                        </button>
+                    </center>
                 </div>
                 <div className="modal-site-name-section">
                     <div className="modal-section-content">
-                        <h4>{data.name}</h4>
+                        <h4>{data.locationName}</h4>
                         <p className="modal-site-address-text">
                             {data.address}{' '}
                             <FontAwesomeIcon icon={faMapMarkerAlt} />{' '}
@@ -50,16 +59,16 @@ const ResultsModal = ({data, hideModal}) => {
                     <div className="modal-section-content">
                         <h3>To book an appointment</h3>
                         <p className="modal-book-appointment-text">
-                            {parseURLsInStrings(data.bookAppointmentInfo)}
+                            {parseURLsInStrings(data.bookAppointmentInformation)}
                         </p>
                     </div>
                 </div>
                 <div>
                     <div className="modal-section-content">
                         <p className="modal-section-header">Serves</p>
-                        <p className="modal-text">{data.serves}</p>
+                        <p className="modal-text">{data.populationsServed}</p>
                         <p className="modal-section-header">Availability</p>
-                        <p className="modal-text">{data.availability}</p>
+                        <p className="modal-text">{data.vaccineAvailability}</p>
                         <p className="modal-section-header">
                             Instructions at site
                         </p>
@@ -75,15 +84,16 @@ ResultsModal.propTypes = {
     hideModal: PropTypes.func.isRequired,
     data: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
+        locationName: PropTypes.string.isRequired,
         address: PropTypes.string.isRequired,
-        serves: PropTypes.string.isRequired,
-        availability: PropTypes.string.isRequired,
+        populationsServed: PropTypes.string.isRequired,
+        vaccineAvailability: PropTypes.string.isRequired,
         lastUpdated: PropTypes.number.isRequired,
-        bookAppointmentInfo: PropTypes.string.isRequired,
+        bookAppointmentInformation: PropTypes.string.isRequired,
         latitude: PropTypes.number.isRequired,
         longitude: PropTypes.number.isRequired,
         instructionsAtSite: PropTypes.string.isRequired,
+        sitePinShape: PropTypes.string.isRequired,
     }).isRequired,
 };
 

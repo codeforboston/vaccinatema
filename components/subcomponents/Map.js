@@ -5,26 +5,6 @@ import GoogleMapReact from 'google-map-react';
 import parseURLsInStrings from '../utilities/parseURLsInStrings';
 import {dateToString} from '../utilities/date-utils';
 
-// High volume, large venue sites
-const MASS_VACCINATION_SITES = [
-    'Foxborough: Gillette Stadium',
-    'Danvers: Doubletree Hotel',
-    'Springfield: Eastfield Mall',
-    'Dartmouth: Former Circuit City', 
-    'Natick: Natick Mall',
-    'Boston: Reggie Lewis Center (Roxbury Community College)',
-    'Boston: Hynes Convention Center'
-];
-
-const ELIGIBLE_PEOPLE_STATEWIDE_TEXT = [
-    'All eligible people statewide',
-    'Eligible populations statewide'
-];
-
-const doesSiteServeAllEligiblePeopleStatewide = serves => ELIGIBLE_PEOPLE_STATEWIDE_TEXT.includes(serves?.trim());
-
-const isSiteAMassVaccinationSite = locationName => MASS_VACCINATION_SITES.includes(locationName);
-
 const parseLocationData = (data) => {
     return data.map((site) => ({
         id: site.id,
@@ -39,22 +19,8 @@ const parseLocationData = (data) => {
         ),
         latitude: site.latitude,
         longitude: site.longitude,
-        sitePinShape: determineSitePinShape(
-            site.availability, site.serves, site.name,
-        ),
+        sitePinShape: site.sitePinShape,
     }));
-};
-
-const determineSitePinShape = (availability, serves, locationName) => {
-    if (!availability) {
-        return 'dot';
-    } else if (isSiteAMassVaccinationSite(locationName)) {
-        return 'star star-red';
-    } else if (doesSiteServeAllEligiblePeopleStatewide(serves)) {
-        return 'star star-green';
-    } else {
-        return 'star star-blue';
-    }
 };
 
 // google-map-react allows you to pass a "$hover" destructured prop if you want to have an effect on hover
@@ -90,46 +56,6 @@ Marker.propTypes = {
     getSiteDataByKey: PropTypes.func,
 };
 
-const Popup = ({data, setPopupData}) => (
-    <div style={{
-        position: 'absolute',
-        transform: 'translate(0%, -50%)',
-        border: '1px solid black',
-        color: '#000000',
-        backgroundColor: '#FFFFFF',
-        width: '300px',
-        borderRadius: '5px',
-        boxShadow: '5px 5px',
-        padding: '5px'
-    }}>
-        <div id="content">
-            <h4 id="firstHeading" className="firstHeading">{data.locationName}</h4>
-            <div id="bodyContent">
-                <p><b>Details</b> {data.populationsServed}</p>
-                <p><b>Address</b> {data.address}</p>
-                <p><b>Availability</b> {data.vaccineAvailability || 'None'}</p>
-                <p>(Availability last updated {data.lastUpdated})</p>
-                <p><b>Make an appointment</b> {data.bookAppointmentInformation}</p>
-                <button onClick={() => setPopupData({})}>Close</button>
-            </div>
-        </div>
-    </div>
-);
-
-Popup.propTypes = {
-    data: PropTypes.shape(
-        {
-            locationName: PropTypes.string,
-            populationsServed: PropTypes.string,
-            address: PropTypes.string,
-            vaccineAvailability: PropTypes.string,
-            lastUpdated: PropTypes.string,
-            bookAppointmentInformation: PropTypes.array,
-        }
-    ),
-    setPopupData: PropTypes.func,
-};
-
 // TODO(hannah): These values were calculated by hand and assume the map is
 // 400px tall. We can do this more scientifically, but it'll never be exact
 // because the zoom values must be integers.
@@ -142,9 +68,8 @@ export const MAX_MILES_TO_ZOOM = {
     '25': 10,
 };
 
-const Map = ({rawSiteData, center, zoom, onMapChange}) => {
+const Map = ({rawSiteData, center, zoom, onMapChange, setPopupData}) => {
     const [siteData, setSiteData] = useState([]);
-    const [popupData, setPopupData] = useState({});
 
     const getSiteDataByKey = key => siteData.find(site => {
         return key === site.id;
@@ -176,12 +101,6 @@ const Map = ({rawSiteData, center, zoom, onMapChange}) => {
                         getSiteDataByKey={getSiteDataByKey}
                     />
                 ))}
-                {popupData.data && (<Popup
-                    lat={popupData.lat}
-                    lng={popupData.lng}
-                    data={popupData.data}
-                    setPopupData={setPopupData}
-                />)}
             </GoogleMapReact>
         </div>
     );
@@ -200,6 +119,7 @@ Map.propTypes = {
             latitude: PropTypes.number,
             longitude: PropTypes.number,
             instructionsAtSite: PropTypes.string,
+            sitePinShape: PropTypes.string,
         })
     ),
     center: PropTypes.shape({
@@ -209,6 +129,7 @@ Map.propTypes = {
     zoom: PropTypes.number.isRequired,
     // ({center: {lat: number, lng: number}, zoom: number}) => void
     onMapChange: PropTypes.func.isRequired,
+    setPopupData: PropTypes.func.isRequired,
 };
 
 export default Map;

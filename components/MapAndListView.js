@@ -5,9 +5,11 @@ import AvailabilityBanner from './subcomponents/AvailabilityBanner';
 import Button from './subcomponents/Button';
 import Map from './subcomponents/Map';
 import ListView from './subcomponents/ListView';
+import ResultsModal from './ResultsModal';
 
 const MapAndListView = (props) => {
     const [showMap, setShowMap] = useState(true);
+    const [resultsModalData, setResultsModalData] = useState({});
 
     const numAvailable = props.rawSiteData.filter(
         (site) => site.availability.length > 0
@@ -45,11 +47,15 @@ const MapAndListView = (props) => {
                         center={props.mapCoordinates}
                         zoom={props.mapZoom}
                         onMapChange={props.onMapChange}
+                        setPopupData={setResultsModalData}
                     />
                     <MapKey />
                 </div>
                 {!showMap && <ListView rawSiteData={props.rawSiteData} />}
             </div>
+            {resultsModalData.data && <ResultsModal 
+                hideModal={() => setResultsModalData({})}
+                data={resultsModalData.data}/>}
         </div>
     );
 };
