@@ -274,9 +274,11 @@ a {
   }
 }
 
+#eligibility-page,
 #faq-page,
 #press-page,
-#updater-page {
+#updater-page,
+#resources-page {
   padding-bottom: 30px;
   .faq-description {
     padding-top: 30px;
@@ -285,8 +287,26 @@ a {
     padding-top: 16px;
     font-size: 24px;
   }
-  p, a {
+  h3 {
+    margin-top: 20px;
+  }
+  h3, p, a, li {
     font-size: 21px;
+    line-height: 26px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  .blockquote {
+    border-left: 4px solid $gray-dark;
+    padding-left: 24px;
+  }
+  // Add lines between the sections.
+  h2 {
+    border-top: 1px solid #ccc;
+  }
+  h2:first-of-type {
+    border: none;
   }
 }
 
