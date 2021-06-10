@@ -1,0 +1,33 @@
+name: Deploy main
+on:
+  push:
+    branches:
+    - main
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+    
+    - name: Checkout source code
+      uses: actions/checkout@v1
+
+    - name: Generate deployment package
+      run: zip -r deploy.zip . -x '*.git*'
+      
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_SHA::8}" >> $GITHUB_ENV
+      
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v14
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: vaccinatema
+        environment_name: vaccinatema-production-vpc
+        version_label: ${{ env.RELEASE_VERSION }}
+        version_description: ${{github.SHA}}
+        region: us-east-1
+        deployment_package: deploy.zip
+        

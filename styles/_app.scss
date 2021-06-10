@@ -1,0 +1,383 @@
+body {
+  background: #F5F5F5;
+  color: #252525;
+  font-family: Mulish, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-family: Mulish, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 45px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+h2 {
+  font-family: Mulish, sans-serif;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+h3 {
+  font-family: Mulish, sans-serif;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 34px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+h4 {
+  font-family: Mulish, sans-serif;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+h6 {
+  font-family: Mulish, sans-serif;
+  font-size: 27px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+  letter-spacing: 0.01em;
+  text-align: left;
+}
+
+a {
+  color: $dark-blue;
+;
+  &:hover {
+    color: $dark-blue;
+  }
+}
+
+.header {
+  background-color: $background;
+  border-bottom: 1px solid #A0A0A0;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+
+  .logo-container {
+    max-width: 60vw;
+  }
+
+  .navbar {
+    height: $navbar-height;
+    padding: 0px;
+  }
+
+  .navbar-collapse {
+    background-color: $background;
+  }
+}
+
+// On the home page, remove the shadow from the header (since the search bar is
+// right beneath it).
+.home-page {
+  .header {
+    box-shadow: none;
+  }
+}
+
+.full-width {
+  // Source: https://stackoverflow.com/a/20214782/5162535
+  // Make the element as Wide as the browser window (viewport).
+  width: max(100vw, 100%);
+  // Align left edge to the left edge of the viewport.
+  margin-left: min(0px, calc(-1 * ((100vw - 100%) / 2)));
+}
+
+.logo-container {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  img {
+    height: 70px;
+    padding-right: 10px;
+  }
+  .logo-text {
+    font-family: Mulish, sans-serif;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 45px;
+    letter-spacing: 0.01em;
+    text-align: left;
+  }
+}
+
+.main-content {
+  min-height: calc(100vh - 368px);
+  margin-top: $navbar-height + 16px;
+
+}
+.footer {
+  min-height: 268px;
+  height: auto;
+  background: #D0DDE9;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 15px 15px 0 15px;
+  overflow: hidden;
+  h2 {
+    font-size: 21px;
+    line-height: 26px;
+    letter-spacing: 0;
+  }
+  .footer-box {
+    display: block;
+    @media screen and (min-width: 768px) {
+      width: 30%;
+      min-width: 300px;
+    }
+    p {
+      font-size: 16px;
+    }
+    .footer-heading {
+      // This matches the vertical padding built into the Vaccinate MA logo.
+      padding-top: 15px;
+    }
+    .logo-sub-text {
+      position: relative;
+      left: $logo-offset;
+      top: -20px;
+      span {
+        color: darkred;
+      }
+    }
+    .social-header {
+      position: relative;
+      left: $logo-offset;
+    }
+    .social-container {
+      position: relative;
+      display: inline;
+      left: $logo-offset;
+      font-size: 30px;
+      svg {
+        color: black;
+        margin-right: 10px;
+      }
+    }
+  }
+  .disclaimer {
+    // 1000px is the width at which the disclaimer goes on to its own line
+    // (each of the 3 columns has a width of 30% and a min-width of 300px).
+    @media screen and (max-width: 1000px) {
+      flex: 1;
+    }
+  }
+}
+
+.btn.btn-success {
+  background: $green;
+}
+.btn-primary {
+  background: $dark-blue;
+}
+
+.dot {
+  position: relative;
+  z-index: -1;
+  height: 5px;
+  width: 5px;
+  background-color: #808080;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.star {
+  position: relative;
+
+  display: inline-block;
+  width: 0;
+  height: 0;
+
+  margin-left: .9em;
+  margin-right: .9em;
+  margin-bottom: 1.2em;
+
+  border-right:  .3em solid transparent;
+  border-left:   .3em solid transparent;
+
+  /* Controlls the size of the stars. */
+  font-size: 12px;
+
+  &:before, &:after {
+    content: '';
+
+    display: block;
+    width: 0;
+    height: 0;
+
+    position: absolute;
+    top: .6em;
+    left: -1em;
+
+    border-right:  1em solid transparent;
+    border-left:   1em solid transparent;
+
+    transform: rotate(-35deg);
+  }
+
+  &:after {
+    transform: rotate(35deg);
+  }
+}
+
+.star-red {
+  border-bottom: .7em  solid #FF0000;
+  &:before, &:after {
+    border-bottom: .7em  solid #FF0000;
+  }
+}
+
+.star-green {
+  border-bottom: .7em  solid $green;
+  &:before, &:after {
+    border-bottom: .7em  solid $green;
+  }
+}
+
+.star-blue {
+  border-bottom: .7em  solid #0000FF;
+  &:before, &:after {
+    border-bottom: .7em  solid #0000FF;
+  }
+}
+
+#eligibility-page {
+  padding-bottom: 30px;
+  .eligibility-image {
+    width: 100%;
+  }
+}
+
+#eligibility-page,
+#faq-page,
+#press-page,
+#updater-page,
+#resources-page {
+  padding-bottom: 30px;
+  .faq-description {
+    padding-top: 30px;
+  }
+  h2 {
+    padding-top: 16px;
+    font-size: 24px;
+  }
+  h3 {
+    margin-top: 20px;
+  }
+  h3, p, a, li {
+    font-size: 21px;
+    line-height: 26px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  .blockquote {
+    border-left: 4px solid $gray-dark;
+    padding-left: 24px;
+  }
+  // Add lines between the sections.
+  h2 {
+    border-top: 1px solid #ccc;
+  }
+  h2:first-of-type {
+    border: none;
+  }
+}
+
+#updater-page {
+  .updater-image {
+    width: 100%;
+  }
+  .updater-form {
+    div.radio-button {
+      label {
+        cursor: pointer;
+        line-height: 16px;
+        padding-right: 15px;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      input[type="radio"] + label:before {
+        background: white;
+        cursor: pointer;
+        border: 1px solid rgba(darkblue, 0.7);
+        content: "\00a0";
+        display: inline-block;
+        height: 16px;
+        margin: 0 .25em 0 0;
+        padding: 0;
+        vertical-align: top;
+        width: 16px;
+      }
+
+      input[type="radio"]:checked + label:before {
+        background: darkblue;
+      }
+
+      input[type="radio"] + label {
+        color: rgba(darkblue, 0.7);
+      }
+
+      input[type="radio"]:checked + label {
+        color: darkblue;
+      }
+    }
+  }
+}
+
+#geolocate {
+  margin-bottom: 16px;
+}
+
+.availability-banner {
+  display: flex;
+  flex-direction: row;
+  font-size: 27px;
+  margin-bottom: 16px;
+  margin-top: 32px;
+
+  p {
+    margin-bottom: 0px;
+    margin-left: 16px;
+  }
+}
+
+.info-banner {
+  background-color: $white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-bottom: 32px;
+  margin-top: 16px;
+  padding: 16px;
+
+  p {
+    font-size: 26px;
+    line-height: 32px;
+    margin: 0px;
+  }
+}

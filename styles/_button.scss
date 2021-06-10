@@ -1,0 +1,39 @@
+.button-custom {
+    border-radius: 4px;
+    border: none;
+    color: $white;
+    font-size: 21px;
+    font-weight: 800;
+    padding: 16px;
+
+    // Add a shadow that animates out on hover / click.
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-out;
+
+    svg {
+        margin-right: 12px;
+    }
+}
+
+.button-custom:active,
+.button-custom:hover {
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.15);
+    filter: brightness(0.92);
+}
+
+.button-custom-gray {
+    background-color: $gray-dark;
+}
+
+.button-custom-blue {
+    background-color: $dark-blue;
+}
+
+.button-custom-green {
+    background-color: $green;
+}
+
+.button-custom-lightGray {
+    background-color: $gray-light;
+    color: $black;
+}

@@ -1,0 +1,48 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "template-curly-spacing": "off",
+        "eol-last": "warn",
+        "indent": [
+          "warn",
+          4,
+          {
+            "ignoredNodes": ["TemplateLiteral"],
+            "SwitchCase": 1
+          }
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single",
+            {"avoidEscape": true}
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

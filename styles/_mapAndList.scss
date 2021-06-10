@@ -1,0 +1,15 @@
+.map-and-list {
+    .button-container {
+        display: flex;
+        flex: 1;
+    }
+
+    .map-and-list-contents {
+        margin-top: 32px;
+    }
+    
+    // Override button styling.
+    button {
+        width: 50%;
+    }
+}

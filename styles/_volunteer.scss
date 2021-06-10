@@ -1,0 +1,189 @@
+#volunteer-home,
+#updater-page {
+  position: relative;
+  .spinner-border {
+    height: 2em;
+    width: 2em;
+    position: absolute;
+    left: calc(50% - 1em);
+    top: calc(50vh - 120px);
+  }
+  #logout {
+    position: absolute;
+    right: 0;
+  }
+}
+
+#updater-page {
+  .updater-image {
+    width: 100%;
+  }
+  .updater-form {
+    div.radio-button {
+      label {
+        cursor: pointer;
+        line-height: 16px;
+        padding-right: 15px;
+      }
+
+      input[type=radio] {
+        position: absolute;
+        visibility: hidden;
+      }
+
+      input[type="radio"] + label:before {
+        background: white;
+        cursor: pointer;
+        border: 1px solid rgba(darkblue, 0.7);
+        content: "\00a0";
+        display: inline-block;
+        height: 16px;
+        margin: 0 .25em 0 0;
+        padding: 0;
+        vertical-align: top;
+        width: 16px;
+      }
+
+      input[type="radio"]:checked + label:before {
+        background: darkblue;
+      }
+
+      input[type="radio"] + label {
+        color: rgba(darkblue, 0.7);
+      }
+
+      input[type="radio"]:checked + label {
+        color: darkblue;
+      }
+    }
+    .date-tile {
+      display: inline-flex;
+      flex-wrap: wrap;
+      width: 100%;
+      padding-bottom: 15px;
+      label {
+        padding: 0 10px;
+      }
+      svg {
+        padding-left: 10px;
+        width: 40px;
+        color: darkred;
+      }
+    }
+    .updater-form-fields {
+      &.date-input {
+        padding-top: 15px;
+      }
+      input,
+      label {
+        display: block;
+        width: 100%;
+      }
+      label {
+        padding-top: 15px;
+      }
+    }
+    .submit-container {
+      display: block;
+      padding-top: 50px;
+      text-align: center;
+      p {
+        font-style: italic;
+      }
+      button {
+        display: block;
+        margin: 0 auto;
+        width: 250px;
+        background: rgba($green, 0.7);
+        color: white;
+        border: none;
+        &:hover {
+          background: $green;
+        }
+      }
+    }
+  }
+}
+
+.volunteer-auth-modal,
+.site-add-form,
+.volunteer-add-form,
+.confirm-modal {
+  .modal-dialog {
+    max-width: none; // override existing width
+    width: 50vw;
+    .modal-body {
+      input {
+        margin-bottom: 15px;
+      }
+    }
+    .checkbox-label {
+      display: inline-flex;
+      position: relative;
+      .info-icon {
+        position: relative;
+        color: $dark-blue;
+        top: 5px;
+        margin-left: 10px;
+      }
+      &.show-token {
+        width: 100%;
+        p {
+          width: 75%;
+          padding-left: 15px;
+          word-break: break-word;
+        }
+      }
+    }
+    .modal-footer {
+      .error {
+        color: darkred;
+        position: relative;
+        //top: -15px;
+      }
+      .btn {
+        width: 200px;
+        margin-left: 30px;
+      }
+    }
+    .delete-danger {
+      color: darkred;
+      background-color: initial;
+      border: none;
+      &:hover {
+        text-decoration: underline;
+      }
+      &.btn {
+        width: auto;
+        height: auto;
+      }
+    }
+    .delete-confirm {
+      background-color: darkred;
+      &:hover {
+        background-color: firebrick;
+      }
+    }
+  }
+}
+
+#site-table,
+#volunteer-table {
+  padding-top: 15px;
+  .table-add-button {
+    margin-right: 15px;
+  }
+  td {
+    word-break: break-word;
+  }
+  h3 {
+    svg {
+      width: 15px;
+      margin-left: 10px;
+    }
+  }
+  .site-table-container {
+    width: 2000px;
+    overflow-x: scroll;
+  }
+}
